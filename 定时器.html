@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<script src="zepto.js"></script>
+<script>
+    $(function(){
+        $("#SendMsg").click(function(){
+            VerificaCode($(this),$(this).text(),"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=&json=1&p=3&sid=13660_13423_1430_13466_12658_13074_13381_12868_13321_12692_13410_10562_12723_13438_7477_13210_13287_13601_13161_13257_11644_11301_13085_8498&req=2&sc=eb&cb=jQuery110204179688391741365_1429855636143&_=1429855636147")
+        })
+        function VerificaCode(obj,text,url){
+            var t=null,s=10;
+            if(t!=null)return false;
+            obj.text(s-- + text)
+            $.ajax({
+                type:'post',
+                url:url,      
+                data:JSON.stringify({}),
+                timeout:3000,
+                success:function(data){
+
+                },
+                error:function(){
+                    if(t!=null)
+                        clearInterval(t);
+                    obj.text(text)
+                }
+            })
+            t=setInterval(function(){
+                obj.text(s-- + text)
+                if(s<=0){
+                    obj.text(text)
+                    clearInterval(t);
+                }
+                console.log(s);
+            },1000);
+        }
+    })
+</script>
+<body>
+    <a href="javascript:void(0)" id="SendMsg">发送验证码</a>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script>
+
+
+window.onload=function(){
+		var GetMuen=document.getElementById("muen");
+		GetMuen.onclick=function(ev){
+			var oEvent=ev||event;
+			var divMouseX=oEvent.clientX-GetMuen.offsetLeft;//得到鼠标在DIV里面的坐标
+			var divMouseY=oEvent.clientY-GetMuen.offsetTop;
+			
+		
+			//alert(divMouseX);
+			document.onmousemove=function(ev){
+					var oEvent=ev||event;
+					var l=oEvent.clientX-divMouseX;
+					var t=oEvent.clientY-divMouseY;
+					if(l<0){
+						l=0;
+					}else if(l>document.documentElement.clientWidth-GetMuen.offsetWidth){
+						l=document.documentElement.clientWidth-GetMuen.offsetWidth;
+						}
+					if(t<0){
+						t=0;
+						}else if(t>document.documentElement.clientHeight-GetMuen.offsetHeight){
+							t=document.documentElement.clientHeight-GetMuen.offsetHeight;
+							}
+					GetMuen.style.top=t+'px';
+					GetMuen.style.left=l+'px';
+		
+				};
+			
+			document.onmouseup=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+			};
+			
+			};
+		
+		
+	};
+</script>
+
+<style>
+#muen{ background-color:#9F9; width:100px; height:150px; position:absolute;;}
+</style>
+<body>
+
+<div id="muen"></div>
+</body>
+</html>

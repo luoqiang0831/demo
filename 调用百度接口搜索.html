@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+.main{ width:490px; margin:0 auto;}
+#q{width:490px; height:32px; border:1px solid #ccc; line-height:32px;}
+#Search_Result{ width:490px; border:1px solid #ccc; display:none;}
+#Search_Result ul{ list-style:none; margin:0; padding:0;}
+#Search_Result ul li a{ display:block; height:29px; width:490px; text-decoration:none; line-height:29px; color:#09F;}
+#Search_Result ul li a:hover{ background-color:#0CF; color:#666;}
+</style>
+<script>
+	
+function fnResult(data){
+	var html="";
+	var oUl=document.getElementById("Result_list");
+	var oResult=document.getElementById("Search_Result");
+	if(data.s.length!=0){
+		oResult.style.display="block";
+		for(var i=0; i<=data.s.length-1;i++){
+				html+='<li><a href="http://www.baidu.com/#wd='+data.s[i]+'">'+data.s[i]+'</a></li>';
+			}
+		oUl.innerHTML=html;
+		}else{
+				 oResult.style.display="none";
+		}
+	}
+window.onload=function(){
+	 var oT=document.getElementById("q");
+	 var oResult=document.getElementById("Search_Result");
+	 oT.onkeyup=function(){
+			 var oLoad=document.getElementById("loadS");
+		 if(this.value!=''){
+			 if(oLoad){
+				 oLoad.parentNode.removeChild(oLoad);
+				 }
+			 var oScript=document.createElement("script");
+			 oScript.src='http://suggestion.baidu.com/su?wd='+this.value+'&cb=fnResult&json=1';
+			 oScript.id="loadS";
+			 document.body.appendChild(oScript);	
+			 
+			 }else{
+				 oResult.style.display="none";
+				 }
+		 };
+	 
+	
+	};
+</script>
+<body>
+<div class="main">
+<input type="text" id="q" />
+<div id="Search_Result">
+<ul id="Result_list">
+</ul>
+</div>
+</div>
+</body>
+</html>

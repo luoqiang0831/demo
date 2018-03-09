@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#User{ width:300px; margin:0 auto; text-align:center;}
+#User td{ width:100px; height:30px; border:1px solid #9C6;}
+</style>
+<script>
+var oTable=null;
+window.onload=function(){
+	table=new TbaleObject("User");
+	table.ChangColor("#999");
+	oTable=document.getElementById("User");
+	var oAddTxt=document.getElementById("addTxt");
+	var oAddBtn=document.getElementById("addBtn");
+	var oSBtn=document.getElementById("serachBtn");
+	var oIndex=oTable.tBodies[0].rows.length+1;
+	oAddBtn.onclick=function(){
+		table.addRows(oIndex++,oAddTxt.value,"<a href='#' onClick='del(this)'>删除</a>");
+	};
+	oSBtn.onclick=function(){
+		table.Sreach(oAddTxt.value,2);
+		//搜索全部内容
+		//table.Sreach(oAddTxt.value,2);
+		};
+	var oSortBtn=document.getElementById("sortBtn");
+	oSortBtn.onclick=function(){
+		table.Sort(1,false);
+		};
+};
+
+
+function del(obj){
+		
+	 var tr=obj.parentNode.parentNode;
+	 var table=tr.parentNode.parentNode;
+	 table.tBodies[0].removeChild(tr);
+	}
+
+//addRows("id","xm","");
+//自动判断有多少列逐一进行参数添加
+
+	
+//实现了 表格隔行变色等
+function TbaleObject(id){
+	this.oTable=document.getElementById(id);
+	this.moveColor='';
+	this.AfterColor='';
+	this.hoverColor='';
+	this.oSort=true;
+	}
+//#999 //隔行变色
+TbaleObject.prototype.ChangColor=function(AfftColor){
+	var _this=this;
+	this.AfterColor=AfftColor;
+	for(var i=0; i<this.oTable.tBodies[0].rows.length;i++){
+		
+		this.oTable.tBodies[0].rows[i].style.background= i%2==0?'':AfftColor;
+		this.oTable.tBodies[0].rows[i].onmouseover=function(){
+			_this.setRowsColor(this,'#9cc');
+			};
+		this.oTable.tBodies[0].rows[i].onmouseout=function(){
+			_this.MoveOut(this);
+			};
+		}
+	}
+//#9cc//鼠标移入变色
+TbaleObject.prototype.setRowsColor=function(obj,hoverColor){
+	  this.hoverColor=hoverColor;
+	  this.moveColor=obj.style.background;
+	  obj.style.background=hoverColor;
+  };
+TbaleObject.prototype.MoveOut=function(obj){
+	  obj.style.background=this.moveColor;
+  };
+ //表格插入行列 如果你要插入多少数据就写多少个参数 系统依次插入
+TbaleObject.prototype.addRows=function(){
+		var _this=this;
+		var colls=this.oTable.tBodies[0].rows[0].cells.length;
+		var rows=document.createElement("tr");
+		rows.style.background= this.oTable.tBodies[0].rows.length%2==0?'':this.AfterColor;
+		for(var i=0; i<colls; i++){
+			var li=document.createElement("td");
+			var insterData=arguments[i]==null?'':arguments[i];
+			li.innerHTML=insterData;
+			rows.appendChild(li);
+		}
+		//绑定鼠标移入高亮事件
+		rows.onmouseover=function(){
+			_this.setRowsColor(this,'#9cc');
+			};
+		rows.onmouseout=function(){
+			_this.MoveOut(this);
+			};
+		this.oTable.tBodies[0].appendChild(rows);
+};
+//搜索内容 第几列
+TbaleObject.prototype.Sreach=function(Content,Cells){
+	if(Cells!=null){
+		if(Cells>=0&&oTable.tBodies[0].rows[0].cells<Cells){
+			alert("请输入正确列数");
+			return;
+		}else{
+				for(var i=0;i<oTable.tBodies[0].rows.length;i++){
+					var tableTxt=oTable.tBodies[0].rows[i].cells[Cells-1].innerHTML;
+						if(tableTxt.toLowerCase()==Content.toLowerCase()){
+							oTable.tBodies[0].rows[i].style.background='#ccc';
+						}
+				}
+			}
+	}
+	for(var i=0;i<oTable.tBodies[0].rows.length;i++){
+		for(var j=0;j<oTable.tBodies[0].rows[i].cells.length;j++){
+			var tableTxt=oTable.tBodies[0].rows[i].cells[j].innerHTML;
+				if(tableTxt.toLowerCase()==Content.toLowerCase()){
+					oTable.tBodies[0].rows[i].style.background='#ccc';
+				}
+	    }  
+	}
+			
+};
+//true降序 默认降序 false升序
+TbaleObject.prototype.Sort=function(cols,sorts){
+		var arr=[];
+		var col=cols-1;
+		sorts=sorts==null?true:false;
+		for(var i=0;i<this.oTable.tBodies[0].rows.length;i++){
+			arr[i]=this.oTable.tBodies[0].rows[i];
+		}
+		arr.sort(function(str1,str2){
+			if(sorts)
+				return parseInt(str1.cells[col].innerHTML)-parseInt(str2.cells[col].innerHTML);
+			else
+				return parseInt(str2.cells[col].innerHTML)-parseInt(str1.cells[col].innerHTML);
+			});
+		for(var j=0; j<arr.length;j++){
+			this.oTable.appendChild(arr[j]);
+			}
+		
+		};
+
+</script>
+</head>
+
+<body>
+<input type="text" id="addTxt" /><input type="button" value="添加" id="addBtn" /><input type="button" value="搜索" id="serachBtn" />
+<input type="button" id="sortBtn" value="排序" />
+<table id="User" cellspacing="0" cellpadding="0">
+<thead>
+<td>id</td><td>姓名</td><td>操作</td><td>操作</td>
+</thead>
+<tbody>
+<Tr><td>1</td><td>bule</td><td></td><td>操作</td></Tr>
+<Tr><td>2</td><td>asp</td><td></td><td>操作</td></Tr>
+<Tr><td>3</td><td>net</td><td></td><td>操作</td></Tr>
+<Tr><td>4</td><td>java</td><td></td><td>操作</td></Tr>
+<Tr><td>5</td><td>c++</td><td></td><td>操作</td></Tr>
+<Tr><td>6</td><td>ps</td><td></td><td>操作</td></Tr>
+</tbody>
+</table>
+</body>
+</html>

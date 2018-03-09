@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title></title>
+<style>
+*{margin: 0;}
+div{width: 100px; height: 50px;margin: 100px ; }
+
+div:nth-child(odd){background: #b10b07;}
+div:nth-child(even){background: #3c3937;}
+</style>
+<script>
+window.onload=function(){
+		var oDiv=document.getElementsByTagName('div')
+		for(var i=0;i<oDiv.length;i++){
+				oDiv[i].timer=null;
+				oDiv[i].onmouseover=function(){
+					
+					startMove(this,300)
+				}
+				oDiv[i].onmouseout=function(){
+					startMove(this,100)
+				}
+		}
+	
+
+	function startMove(obj,iTarget){
+		
+	
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function(){
+			var iSpeed=(iTarget-obj.offsetWidth)/8;
+			iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+			// if(iTarget-oDiv.offsetWidth<iSpeed){
+			// 		oDiv.offsetWidth=iTarget
+			// 		clearInterval(Timer);
+			// 		Timer=null;
+			// 		return
+			// 	}
+
+
+			if(obj.offsetWidth==iTarget){
+				clearInterval(obj.timer);
+			}
+			else{
+				obj.style.width=obj.offsetWidth+iSpeed+'px';
+			}
+		
+			console.log(iSpeed);
+		},30)
+	}
+}
+</script>
+</head>
+<body>
+<div id="test"></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>

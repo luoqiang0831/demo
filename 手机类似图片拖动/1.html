@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<style>
+	*{margin: 0;padding: 0;}
+	html,body{height: 100%;}
+	.Container{height: 100%; width: 100%; overflow: hidden; position: relative;}
+	.MoveLayer{ position: absolute;top:0;left:0; height: 700px;}
+	.MoveLayer img{height: 100%;}
+</style>
+</head>
+<body>
+<div class="Container">
+	<span id="test" style="color:red; font-size:15px; position: absolute; left:0;top:10px; z-index:1"></span>
+	<div class="MoveLayer"><img src="1.jpg" alt=""></div>
+</div>
+
+<script src="zepto.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("body").on("touchstart touchmove",function(){return false;})
+	var $MoveLayer=$(".MoveLayer");
+	$MoveLayer.on("touchstart mousedown",function(e){
+        var disX= e.pageX||e.touches[0].clientX ,touchX=parseInt($(this).css("left")),disY=e.pageY||e.touches[0].clientY,touchY=parseInt($(this).css("top"));
+        var OldMoveLayerW=$(this).width(),OldMoveLayerH=$(this).height()
+        $MoveLayer.on("touchmove mousemove",function(ev){
+        	show(ev.touches)
+        	if(ev.touches.length==1){
+	        	var moveX=touchX+((ev.pageX||ev.touches[0].clientX)-disX),moveY=touchY+((ev.pageY||ev.touches[0].clientY)-disY),sWidth=$(this).width()-$(this).parent().width(),sHeight=$(this).height()-$(this).parent().height(),divMoveW=moveX>0?0:Math.abs(moveX)>sWidth?-sWidth:moveX,divMoveH=moveY>0?0:Math.abs(moveY)>sHeight?-sHeight:moveY;
+	        	$(this).css({"left":divMoveW,"top":divMoveH})
+        	}
+        		//var dX1=ev.touches[0]["pageX"],dY1=ev.touches[0]["pageY"]
+        		var dX1=ev.touches[0]["pageX"],dY1=ev.touches[0]["pageY"],dX2=ev.touches[1]["pageX"];dY2=ev.touches[1]["pageY"];
+        		var sTheight=parseInt($(this).parent().height())-(dY1-dY2)<480?480:parseInt($(this).parent().height())-(dY1-dY2)
+        		$(this).css("height",sTheight)
+        		$("#test").html(sTheight)
+        	return false;
+        })
+        $MoveLayer.on("touchend mouseup",function(){
+        	$MoveLayer.unbind("touchmove mousemove")
+        })
+
+	})
+	function show(even){
+		var html=''
+		if(html=even.length){
+			for(var i=0;i<even.length;i++){
+				html+="<br>"+i+":pageX "+even[i]["pageX"]+"<br>"+i+":pageY "+even[i]["pageY"]
+			}
+			$("#test").html(html)
+		}
+	}
+})
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

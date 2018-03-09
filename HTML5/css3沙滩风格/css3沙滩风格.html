@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+body{ background-color:#efefef;}
+.login{ border:1px solid #ebebeb; width:283px; height:148px; border-radius:4px; padding:7px; background-color:#f4f4f4;
+box-shadow:0 2px 3px 3px #dedede;}
+.Input{ border-radius:4px; height:35px; background-color:#fefefe; box-shadow:0 3px 4px 0px #ebebeb; position:relative;
+-webkit-align-content:flex-start; align-content:flex-start; display:-webkit-flex; display:flex; overflow:hidden; margin-bottom:5px;}
+.Input input{ margin:0; padding:0; border:0; padding-left:15px; padding-right:2px; color:#bcb9b2; width:100%;}
+.InputICO{ background-color:#e8b7bb; width:44px; height:35px; border-radius:2px 0 0 2px; text-align:center; padding-top:5px }
+.InputICO IMG{}
+.STip{ width:15px; height:11px; background-color:#9C6; border-radius:7px;-webkit-align-self:center; margin-right:7px; display:none; overflow:hidden; text-align:center; padding-top:4px;}
+
+.subBtn{ background-color:#ff6766; width:185px;  height:45px; border:0; border-radius:2px; box-shadow:0 0 1px 1px #ded4d4; font-size:14px; color:#FFF; font-weight:bold; }
+.error{ background-color:#ff5958;}
+.error img{ margin-top:-12px;}
+.ss{ margin-top:100px;width:300px; }
+.ssBtn{ background-color:#87d2ce;border-radius:0px 2px 2px 0;width:60px; }
+
+.gwBtn{ height:36px; width:148px; background-color:#a2d475;}
+.gwBtn span{display:block;  line-height:36px; color:#FFF; font-weight:bold; text-align:center;}
+.gwBtn span:nth-child(2){border-right:1px solid #a5c884;border-left:1px solid #a5c884;}
+.gwBtn img{ padding-top:10px;}
+</style>
+<script>
+window.onload=function(){
+	function getClass(parent,nClass){
+		var oItem=parent.getElementsByTagName("*");
+		var arr=[];
+		for(var i=0;i<oItem.length;i++){
+			if(oItem[i].className==nClass){
+				arr.push(oItem[i]);
+				}
+			}
+		return arr;
+		}
+	var oemail=document.getElementById("email");
+	var opwd=document.getElementById("pwd");
+	var oTip=getClass(document,"STip");
+	oemail.onkeydown=function(){
+		oTip[0].style.display='block';
+	}
+	opwd.onkeydown=function(){
+		oTip[1].style.display='block';
+		oTip[1].className='STip error';
+	}
+}
+</script>
+<body>
+<div class="login">
+    <div class="Input">
+        <div class="InputICO"><img src="img/User.png" /></div>
+        <input id="email" type="email" onkeydown=""  />
+        <div class="STip" id="Correct"><img src="img/smallIco.png" /></div>
+    </div>
+    <div class="Input">
+        <div class="InputICO" ><img src="img/pwd.png" /></div>
+        <input id="pwd" type="email" onkeydown=""  />
+        <div class="STip" id="pwd"><img src="img/smallIco.png" /></div>
+    </div>
+
+    <button type="button" class="subBtn">Sign in</button>
+</div>
+
+    <div class="Input ss">
+       
+        <input id="pwd" type="email" onkeydown=""  />
+         <div class="InputICO ssBtn" ><img src="img/ss.png" /></div>
+    </div>
+    <div class="Input gwBtn">
+    <span><img src="img/gw.png" /></span>
+     <span>18 items</span>
+      <span>$95 ></span>
+    </div>
+</body>
+</html>

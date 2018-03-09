@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title></title>
+<link rel="stylesheet" href="css/lrtk.css" type="text/css">
+<script src="../js/jquery.js"></script>
+
+<script>
+$(function(){
+		var oLi=$("#banner_index").find("li");
+		var oImgWidth=oLi.eq(1).width();
+		var Index=0;
+		var oUl=$("#banner_index");
+		var timer=null;
+		oUl.css("width",oImgWidth*oLi.length+'px');
+		Interval();
+		$("#banner_index_pre").click(function(){
+			Index--;
+			if(Index<0)
+			{
+				Index=oLi.length-1;
+			}
+			$("#banner_index").animate({left:'-'+oImgWidth*Index+'px'},"slow");
+		});
+		$("#banner_index_next").click(function(){
+			move();
+			
+		});
+		
+		$(".banner_index").mouseover(function(){
+				clearInterval(timer);							  
+		});
+		$(".banner_index").mouseout(function(){
+				Interval();					  
+		});
+function Interval(){
+		timer=setInterval(function(){
+			move();	   
+		},3000);
+	}
+function move(){
+		Index++;
+			if(Index<oLi.length)
+			{
+				$("#banner_index").animate({left:'-'+oImgWidth*Index+'px'},"slow");
+			}else
+			{
+				Index=0;
+				$("#banner_index").animate({left:'-'+oImgWidth*Index+'px'},"slow");
+			}
+	};
+		
+});
+</script>
+</head>
+<body>
+<!-- 代码 开始 -->
+<div class="banner_index">
+  <a href="javascript:void(0);" class="btn btnPre" id="banner_index_pre"></a>
+  <a href="javascript:void(0);" class="btn btnNext" id="banner_index_next"></a>
+    <ul class="banner_wrap" id="banner_index">
+      <li><a href="#" target="_blank"><img src="images/banner_index_1.jpg"/></a></li>
+      <li><a href="#" target="_blank"><img src="images/banner_index_2.jpg"/></a></li>
+      <li><a href="#" target="_blank"><img src="images/banner_index_3.jpg"/></a></li>
+      <li><a href="#" target="_blank"><img src="images/banner_index_4.jpg"/></a></li>
+    </ul>
+</div>
+<div class="indexBanner_num" id="index_numIco"></div>
+
+
+</body>
+</html>

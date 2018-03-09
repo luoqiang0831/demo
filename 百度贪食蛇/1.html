@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	div span{ display: block; width: 100px; height: 100px; background-color: red;}
+</style>
+<script src="js/jquery.js"></script>
+<script>
+$(function(){
+	 	
+	clearLayout();
+
+		function clearLayout(){
+			while($(".dis").children().length>0) //当div下还存在子节点时 循环继续
+			  {
+			      $(".dis").find("span").eq(0).remove();
+			  }
+		}
+		
+		
+		
+});
+
+</script>
+<body>
+	<div class="dis">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+</body>
+</html>

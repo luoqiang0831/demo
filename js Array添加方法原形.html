@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>animation-direction_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
+</head>
+<script>
+	window.onload=function(){
+	var s= new Array("a","b","d","a","a","b","d","a","a","b","d","a","a","b","d","a");
+
+	Array.prototype.removeR=function(){
+		var ds=new Array();
+		for(var i=0;i<this.length;i++){
+			var ob=true;
+			for(var j=0;j<ds.length;j++){
+				if(this[i]==ds[j]){
+					ob=false;
+				}
+			}
+			if(ob==true){
+				ds.push(this[i]);
+			}
+			if(ds.length==0){
+				ds.push(this[i]);
+			}
+		}
+		return ds;
+		
+	}
+	var ds=s.removeR();
+	alert(ds.length);
+	for(var i=0;i<ds.length;i++){
+		console.log(ds[i]);
+	}
+	}
+
+</script>
+<body>
+
+</body>
+</html>
+			

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+#canvas{ border: 1px solid #ccc;}
+</style>
+<script>
+	var ball={x:512,y:100,r:20,g:2,vx:5,vy:-10,color:"#005588"};
+	var timer=null;
+	window.onload=function(){
+		var c=document.getElementById("canvas");
+		c.width=1024;
+		c.height=768;
+		var cxt=c.getContext("2d");
+		timer=setInterval(function(){
+			render(cxt);
+			update();
+		},50);
+
+	}
+function update(){
+	ball.x+=ball.vx;//小球的X坐标，加上的速度
+	ball.y+=ball.vy;//小球的Y坐标，加上的速度
+	ball.vy+=ball.g;//小球的重力加速度这里只有对Y轴有影响
+	//底部碰撞检测
+	if(ball.y>=768-ball.r){
+		ball.y=768-ball.r;
+		ball.vy=-ball.vy*0.5;
+		//clearInterval(timer);
+	}
+	// if(ball.y<=0+ball.r){
+	// 	ball.y=ball.r;
+	// 	ball.vy=5;
+	// 	//clearInterval(timer);
+	// }
+	
+}
+function render(cxt){
+	cxt.clearRect(0,0,cxt.canvas.width,cxt.canvas.height);
+
+	cxt.fillStyle=ball.color;
+	cxt.beginPath();
+	cxt.arc(ball.x,ball.y,ball.r,0,2*Math.PI);
+	cxt.closePath();
+	cxt.fill();
+}
+</script>
+<body>
+	<canvas id="canvas">对不起您的浏览器不支持此动画</canvas>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+<script>
+var iSpeed=0;
+var left=0;
+window.onload=function(){
+	var olistUl=document.getElementById("listUl");
+	var olistLi=olistUl.getElementsByTagName("li");
+	var obg=olistLi[olistLi.length-1];;
+	var i;
+	for(i=0;i<olistLi.length-1;i++){
+		olistLi[i].onmouseover=function(){
+				startMove(obg,this.offsetLeft);
+			};
+		
+		}
+	}; 
+function startMove(obj,iTarget){
+	clearInterval(obj.timer);
+	obj.timer=setInterval(function(){
+			iSpeed+=(iTarget-obj.offsetLeft)/5;
+			iSpeed*=0.7;
+			left+=iSpeed;
+			if(Math.abs(iSpeed)<1&&Math.abs(left-iTarget)<1){
+				clearInterval(obj.timer);
+				
+				}else{
+					obj.style.left=left+'px';
+				}
+		},30);
+	}
+</script>
+</head>
+<style>
+*{ margin:0; padding:0;}
+#listDiv{ margin:20px auto; width:600px; border:1px solid #0CF; height:120px; position:relative;overflow:hidden}
+ul{width:600px;list-style:none;left:0;position:relative; } 
+li {float:left;  width:100px; height:30px; background-color:#ccc; z-index:2; border:1px solid #099; text-align:center; line-height:30px;}
+#bg{ background-color:#9C3; height:5px; position:absolute; line-height:0; z-index:1; top:25px; left:0;}
+
+</style>
+<body>
+<div id="listDiv">
+<ul id="listUl">
+<li>菜单</li>
+<li>首页</li>
+<li>开始</li>
+<li>产品</li>
+<li>新闻</li>
+<li id="bg"></li>
+</ul>
+</div>
+</body>
+</html>

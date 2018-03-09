@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+#draw1{ position:relative; margin:100px 0 0 30%; background-color:#FFF}
+</style>
+<script>
+window.onload=function(){
+	var draw1=document.getElementById("draw1");
+	var gb=draw1.getContext("2d");
+	var arrPos=[];//保存小点的位置
+	var timer=null;
+	var MouseX=0;
+	var MouseY=0;
+	//arrPos.push({x:5,y:5,EndX:100,EndY:180});
+	//arrPos.push({x:395,y:395,EndX:100,EndY:180});
+	setInterval(function(){
+		arrPos.push({x:-5,y:-5,EndX:0,EndY:0});	
+		 for(var i=0;i<arrPos.length;i++){
+			arrPos[i].EndX=randomBetween(1,400);
+			arrPos[i].EndY=randomBetween(1,400);
+			
+		 }
+		 //document.title=arrPos.length;
+	},2000);
+	//画布刷新
+	setInterval(function(){
+		 gb.clearRect(0,0,draw1.offsetWidth,draw1.offsetHeight);
+		
+		 gb.fillStyle="rgb(0,255,0)";
+		 for(var i=0;i<arrPos.length;i++){
+			gb.fillRect(arrPos[i].x,arrPos[i].y,5,5);	 
+		 }
+		 //矩形移动
+		 for(var i=0;i<arrPos.length;i++){
+			 if(arrPos[i].EndX>arrPos[i].x)
+			 {
+				  arrPos[i].x+=1;
+			 }else
+			 {
+				 arrPos[i].x-=1;
+			 }
+			 if(arrPos[i].EndY>arrPos[i].y)
+			 {
+				   arrPos[i].y+=1;
+			 }else
+			 {
+				 arrPos[i].y-=1;
+			 }
+			gb.fillRect(arrPos[i].x,arrPos[i].y,5,5);	 
+		 }
+		 //
+		 gb.fillStyle="rgb(0,0,255)";
+		 gb.fillRect(MouseX,MouseY,15,15);	
+		 
+	},1000/60);
+	
+	
+	
+	//随机生成结束点
+	function randomBetween(a,b){
+ 
+		 var r=Math.random()*(b-a);
+		 return (r-Math.floor(r))<0.5?a+Math.floor(r):a+Math.ceil(r);
+		
+	}
+	draw1.onmouseover=function(ev){
+		var oEvent=ev||event;
+		var disX=oEvent.clientX-this.offsetLeft;
+		var disY=oEvent.clientY-this.offsetTop;
+		draw1.onmousemove=function(ev){
+			var oEvent=ev||event;
+			var l=oEvent.clientX-this.offsetLeft-7.5;
+			var t=oEvent.clientY-this.offsetTop-7.5;
+			MouseX=l;
+			MouseY=t;
+			var t1=MouseY-7.5;
+			var b1=MouseY+7.5;
+			var l1=MouseX-7.5;
+			var r1=MouseX+7.5;
+			for(var i=0;i<arrPos.length;i++){
+				var t2=arrPos[i].y-2.5;
+				var b2=arrPos[i].y+2.5;
+				var l2=arrPos[i].x+2.5;
+				var r2=arrPos[i].x-2.5;
+				if(b1>t2||l1>r2||b2<t1||r1<l2)
+				{
+					
+				}else
+				{
+					alert("失败");
+				}
+			 }
+			/*var l=oEvent.clientX-disX;
+			var t=oEvent.clientY-disY;*/
+			//document.title="t:"+t+"l:"+l;
+		};
+		
+	}
+	gb.fill();
+}
+</script>
+<body bgcolor="#CCCCCC">
+<canvas id="draw1" width="400px" height="400px"></canvas>
+</body>
+</html>

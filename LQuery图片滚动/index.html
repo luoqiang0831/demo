@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title></title>
+</head>
+<style>
+ul,li{ margin:0; padding:0; list-style:none;}
+img { border:none;}
+#slide{ width:960px; height:230px; position:relative; margin:0 auto;}
+#slideImg{ overflow:hidden; position:relative; height:230px;}
+.slideshow{ width:960px; height:230px; position:absolute; top:0;}
+.slideshow span{ display:block; width:960px; height:30px;  font:14px/30px "黑体"; bottom:0; background-color:#000;
+filter:alpha(opacity=30); opacity:0.3; color:#FFF; margin: -30px 0 0 0;}
+.slidebar{ position:absolute; bottom:5px; right:5px;}
+.slidebar li{ float:left; width:15px; height:15px; border:1px solid #9C0; color:#FFF; margin-right:5px; text-align:center; font:12px/17px "黑体"; cursor:pointer;}
+.on{ background-color:#9CC;}
+</style>
+<script src="../js/LQuery.js"></script>
+<script>
+$(function(){
+	var oImg=$("#slideImg").find("ul");
+	var oBar=$("#slideBar").find("li");
+	var oTitle=$("#slidesImgs").find("span");
+	var iNow=0;
+	var timer=null;
+	oBar.click(function(){
+			iNow=$(this).index();		
+			move();
+	});
+	function move(){
+		oBar.attr("className",'');
+		oBar.eq(iNow).attr("className","on");
+		$("#slidesImgs").animate({top:-230*iNow});//一定要记住浮动层要滚动要写TOP:0 不然获取的是auto 会报异常
+		}
+	function start(){
+			iNow++;
+			if(iNow>oBar.size()-1){
+				iNow=0;
+				}
+			move();	
+		}
+	timer=setInterval(function(){
+			start();		   
+	},2000);
+	$("#slideImg").hover(function(){
+		clearInterval(timer);
+		},function(){
+				timer=setInterval(function(){
+				start();		   
+			},2000);
+		});
+});
+</script>
+<body>
+<div id="slide">
+<div id="slideImg">
+<ul class="slideshow" id="slidesImgs">
+                        <li><a href="#" target="_blank">
+                            <img src="images/1.jpg" width="960" height="230" alt="" /></a><span class="atiove">第1张图的描述信息</span></li>
+                        <li>
+                            <img src="images/2.jpg" width="960" height="230" alt="" /><span>第2张图的描述信息</span></li>
+                        <li><a href="#" target="_blank">
+                            <img src="images/3.jpg" width="960" height="230" alt="" /></a><span>第3张图的描述信息</span></li>
+                        <li><a href="#" target="_blank">
+                            <img src="images/4.jpg" width="960" height="230" alt="" /></a><span>第4张图的描述信息</span></li>
+                        <li><a href="#" target="_blank">
+                            <img src="images/5.jpg" width="960" height="230" alt="" /></a><span>第5张图的描述信息</span></li>
+                        <li><a href="#" target="_blank">
+                            <img src="images/6.jpg" width="960" height="230" alt="" /></a><span>第6张图的描述信息</span></li>
+                        <li><a href="#" target="_blank">
+                            <img src="images/7.jpg" width="960" height="230" alt="" /></a><span>第7张图的描述信息</span></li>
+                        <li><a href="#" target="_blank">
+                            <img src="images/8.jpg" width="960" height="230" alt="" /></a><span>第8张图的描述信息</span></li>
+                        <li><a href="#" target="_blank">
+                            <img src="images/9.jpg" width="960" height="230" alt="" /></a><span>第9张图的描述信息</span></li>
+                        <li><a href="#" target="_blank">
+                            <img src="images/10.jpg" width="960" height="230" alt="" /></a><span >第10张图的描述信息</span></li>
+                    </ul>
+</div>
+ <div class="slidebar" id="slideBar">
+                    <ul>
+                        <li class="on">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                        <li>6</li>
+                        <li>7</li>
+                        <li>8</li>
+                        <li>9</li>
+                        <li>10</li>
+                    </ul>
+                </div>
+</div>
+
+
+ 
+</body>
+</html>

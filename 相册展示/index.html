@@ -1,0 +1,146 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>相册展示</title>
+<link href="style/common.css" type="text/css" rel="stylesheet" />
+<link href="style/headerbar.css" type="text/css" rel="stylesheet" />
+<!--[if IE 6]>
+	<script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+	<script type="text/javascript" src="js/ie6Fixpng.js"></script>
+<![endif]-->
+<script src="js/move.js"></script>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById("div1");
+	var oBtn=oDiv.children[1];
+	var oLi=oDiv.children[0].getElementsByTagName("li");
+	var iNow=0;
+	var timer=null;
+	for(var i=0; i<oLi.length;i++){
+		if(i<8){
+			oLi[i].style.top=parseInt(i/4)*200+"px";
+		}else{
+			oLi[i].style.top=400+"px";
+			oLi[i].style.filter="alpha(opacity=0)";
+			oLi[i].style.opacity=0;
+		}
+		oLi[i].style.left=oLi[i].offsetLeft+"px";
+	}
+	for(var i=0;i<oLi.length;i++){
+		oLi[i].style.position="absolute";
+	}
+	oBtn.children[0].onclick=function(){
+		
+		if(iNow<=0){return;}
+		
+		var i=0;
+		timer=setInterval(function(){
+				
+				startMove(oLi[iNow+i+4],{top:400,opacity:0});
+				i++;
+				if(i==4){
+					i=0;
+					clearInterval(timer);
+					timer=setInterval(function(){
+						startMove(oLi[iNow+i],{top:200});
+						i++;
+						if(i==4){
+							i=0;
+							clearInterval(timer);
+							timer=setInterval(function(){
+								i++;				   
+								startMove(oLi[iNow-i],{top:0,opacity:100});
+								
+								if(i==4){
+									iNow-=4;
+									clearInterval(timer);
+								}
+							},40);
+						}
+					},40);
+				}
+				
+		},40);
+		
+		
+		
+	}
+	oBtn.children[1].onclick=function(){
+		oDiv.children[0].className='list';
+		if(iNow>=oLi.length-8){return;}
+		var i=0;
+		timer=setInterval(function(){
+				
+				startMove(oLi[iNow+i],{top:-200,opacity:0});
+				i++;
+				if(i==4){
+						i=0;
+						iNow+=4;
+						clearInterval(timer);
+						
+						timer=setInterval(function(){
+								
+							startMove(oLi[iNow+i],{top:0});
+							i++;
+							if(i==4){
+								i=0;
+								//iNow+=4;
+								clearInterval(timer);
+								timer=setInterval(function(){
+									
+									startMove(oLi[iNow+i+4],{top:200,opacity:100});
+									i++;	
+										if(i==4){
+											i=0;
+											//iNow+=4;
+											clearInterval(timer);
+										}
+								  },30);
+							}
+						  },30);
+					}
+		},40);
+		
+	}
+};
+</script>
+</head>
+
+<body>
+<div class="comHeadBar_black">
+	<a href="http://www.zhinengshe.com/" target="_blank" class="fl">查看官网</a>
+	<a href="http://www.zhinengshe.com/" target="_blank" class="fr">by 智能社</a>
+</div>
+<div class="imgListBox" id="div1">
+	<ul class="list hidden">
+    	<li><a href="javascript:;"><img src="images/photo/01.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/02.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/03.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/04.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/05.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/06.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/07.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/08.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/09.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/10.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/11.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/12.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/13.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/14.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/15.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/16.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/17.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/18.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/19.jpg" alt="www.zhinengshe.com" /></a></li>
+    	<li><a href="javascript:;"><img src="images/photo/20.jpg" alt="www.zhinengshe.com" /></a></li>
+    </ul>
+    <div class="page">
+    	<a href="javascript:;" class="prev"></a>
+    	<a href="javascript:;" class="next"></a>
+    	<span class="prev_ie6"></span>
+        <span class="next_ie6"></span>
+    </div>
+</div>
+</body>
+</html>

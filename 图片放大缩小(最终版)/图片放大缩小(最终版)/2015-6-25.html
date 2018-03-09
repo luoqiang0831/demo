@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title>Document</title>
+
+</head>
+<style>
+	*{margin:0;padding:0;}
+	html,body{height: 100%; width: 100%;}
+	#viewImg{width: 100%;position: relative;z-index: 100; background: #000;height: 100%;}
+	#ImgContainer{  position: relative;overflow: hidden;  width: 100%; height: 100%; min-height: 320px;}
+	.imgItem{  display: -webkit-box;text-align: center; -webkit-box-pack: center;-webkit-box-align: center;position: absolute;left: 0;top: 0;width: 100%;  height: 100%;
+  overflow: hidden;-webkit-transition: -webkit-transform .3s ease-out;background-position: center center;background-repeat: no-repeat;}
+    .imgItem>img {position: relative;max-width: 100%;}
+    .view-img-zoom-animate {
+	  -webkit-transition: all 200ms;
+	}
+</style>
+<body>
+<div id="viewImg">
+	<!-- <div id="tools"></div> -->
+	<div id="ImgContainer">
+		<div class="imgItem" id="prev" style="-webkit-transform: translate3d(-414px, 0px, 0px);" pos="-414"><img src="img/1.jpg" alt=""></div>
+		<div class="imgItem" id="center" style="-webkit-transform: translate3d(0px, 0px, 0px);" pos="0"><img src="img/2.jpg" alt=""></div>
+		<div class="imgItem" id="next" style="-webkit-transform: translate3d(414px, 0px, 0px);" pos="414"><img src="img/3.jpg" alt=""></div>
+	</div>
+</div>
+<script src="js/zepto.js"></script>
+<script src="js/touch.js"></script>
+<script>
+	var img=['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg'],displayWidth = document.documentElement.clientWidth,//页面窗口宽度
+				displayHeight = document.documentElement.clientHeight//页面窗口高度
+				currentIndex=0,//当前图片的索引
+				imgNum=0,//图片当前的指数
+				imgTotal=img.length//图片的总数
+	$(function(){
+		bindEv()
+		function bindEv(){
+			var $viewImg=$("#viewImg"),
+				$centerImg=$("#center>img"),
+				doubleTaps=0,//是否已经双击放大,
+				isMove=0,//是否在移动
+				isSlip=0,//是否在滑动
+				scale=1,//放大比例
+				maxSize=3,//最大的缩放比例
+				marTop=0,//顶部距离
+				marLeft=0//左边距离
+				;
+			function restore() {
+			        scale = 1;
+			        marTop = 0;
+			        marLeft = 0;
+			        $("#center img,#prev img,#next img").attr("style", "")
+			    }
+			$centerImg.on("webkitTransitionEnd", function(p) {
+	            $centerImg.removeClass("view-img-zoom-animate")
+	        });
+			$centerImg.off('doubleTap').doubleTap(function(){
+				if(doubleTaps==1||isSlip==1)return
+				var _this=$(this);
+				doubleTaps=1
+				_this.addClass("view-img-zoom-animate")
+				if(scale>1)
+				{
+					_this.css({
+						top:"0",
+						left:"0",
+						"-webkit-transform": "scale(1,1)"
+					})
+					scale=doubleTaps=1;
+				}else{
+					$(this).css({
+	                    top: "0",
+	                    left: "0",
+	                    "-webkit-transform": "scale(" + maxSize + "," + maxSize + ")"
+	                });
+	                scale=3
+				}
+				marTop=0
+				marLeft=0
+				setTimeout(function(){
+					doubleTaps=0
+				}, 200);
+			})
+
+			var q=0,p=0,o=0,n=0;
+			var l = parseInt($("#center img").width()),
+	            s = parseInt($("#center img").height()),
+	            j = $(window).width(),
+	            k = $(window).height();
+	        var touchInitPos = 0,
+	        deltaX1 = 0,
+	        startPos = 0,
+	        startPosPrev = 0,
+	        startPosNext = 0,
+	        deltaX2=0,
+	        totalDist=0,
+	        totalDist2=0,
+	        hasPrev = !!$("#prev"),
+	        hasNext = !!$("#next");
+			$centerImg.off('touchstart').on('touchstart',function(t){
+	             if (t.touches.length == 1 && scale==1) {
+	                touchInitPos = t.touches[0].pageX;
+			        deltaX1 = touchInitPos;
+			        startPos = 0;
+			        startPosPrev = -displayWidth;
+			        startPosNext = displayWidth;
+			        isSlip=1;
+			        if (hasNext) {
+			            $("#next").addClass("touchmove")
+			        }
+			        $("#center").addClass("touchmove");
+			        if (hasPrev) {
+			            $("#prev").addClass("touchmove")
+			        }
+			        return 
+			     }
+
+	     			if (isSlip == 1) {
+	                     return
+	                 }
+	                 q = t.touches[0].pageX;
+	                 p = t.touches[0].pageY
+			})
+
+
+			$centerImg.off("touchmove").on("touchmove", function(x) {
+				   if (x.touches.length == 1 && scale==1) {
+						  var j = x.touches[0].pageX;
+					        deltaX2 = j - deltaX1;
+					        totalDist = startPos + j - touchInitPos;
+					        var m = totalDist + "px,0";
+					        $("#center").css("-webkit-transform", "translate3d(" + m + ", 0)");
+					        startPos = totalDist;
+					        if (totalDist < 0) {
+					            if (hasNext) {
+					                scale = 1;
+					                totalDist2 = startPosNext + j - touchInitPos;
+					                var k = totalDist2 + "px,0";
+					                $("#next").attr("pos", totalDist2);
+					                $("#next").css("-webkit-transform", "translate3d(" + k + ", 0)");
+					                startPosNext = totalDist2
+					            }
+					        } else {
+					            if (hasPrev) {
+					                scale = 1;
+					                totalDist2 = startPosPrev + j - touchInitPos;
+					                var k = totalDist2 + "px,0";
+					                $("#prev").attr("pos", totalDist2);
+					                $("#prev").css("-webkit-transform", "translate3d(" + k + ", 0)");
+					                startPosPrev = totalDist2
+					            }
+					        }
+					        touchInitPos = j
+					        return false
+			        }
+
+
+		            var t = parseInt($("#ImgContainer #next").attr("pos")),
+		                v = parseInt($("#ImgContainer #prev").attr("pos"));
+		            if (isSlip == 1 || (scale == 1) || (t > 0 && t < displayWidth) || (v < 0 && v > -displayWidth) || (doubleTaps == 1)) {
+		                return
+		            }
+		            isMove = 1;
+		            var w = x.touches[0].pageX,
+		                u = x.touches[0].pageY;
+		            o = parseInt(marTop + u - p);
+		            n = parseInt(marLeft + w - q);
+		            $(this).css({
+		                top: o + "px",
+		                left: n + "px"
+		            })
+
+	           		return false
+	        });
+	        $centerImg.off("touchend").on("touchend", function(u) {
+
+	        	if(isSlip == 1 && scale==1){
+
+	        		if (deltaX2 < -15) {
+			            nextImg()
+			        } else {
+			            if (deltaX2 > 15) {
+			                prevImg()
+			            } else {
+			                  $("#center").css("-webkit-transform", "translate3d(0,0, 0)");
+					          $("#prev").css("-webkit-transform", "translate3d(-" + displayWidth + "px,0, 0)");
+					          $("#next").css("-webkit-transform", "translate3d(" + displayWidth + "px,0, 0)")
+			            }
+			        }
+			        totalDist = 0;
+			        deltaX2 = 0;
+			        if (hasPrev) {
+			            $("#prev").removeClass("touchmove")
+			        }
+			        $("#center").removeClass("touchmove");
+			        if (hasNext) {
+			            $("#next").removeClass("touchmove")
+			        }
+			        return
+	        	}
+	        	//缩放比例后操作
+	            if (isSlip == 1 || (scale == 1) || (doubleTaps == 1)) {
+	                return
+	            }
+	            console.log(l);
+	            marTop = o;
+	            marLeft = n;
+	            //图片在放大之后 图片移动右边移动之后如果大于了 设定的比例值就会进入下一页  
+	            if (marLeft > ((scale * l - j) / 2 + j * 0.3)) {
+	                scale = 1;
+	                isMove = 0;
+	                prevImg()
+	                //console.log("上一个图片");
+	                return
+	            } else {
+	            	//图片在放大之后 图片移动右边拉出之后 进行还原 类似left=0  
+	                if (marLeft > (scale * l - j) / 2) {
+	                    marLeft = (scale * l - j) / 2
+	                }
+	            }
+	            //和上面一样  只不过判断的左边移动
+	            if (marLeft < (-(scale * l - j) / 2 - j * 0.3)) {
+	                scale = 1;
+	                isMove = 0;
+	                nextImg()
+	                //console.log("下一个图片");
+	                return
+	            } else {
+	                if (marLeft < -(scale * l - j) / 2) {
+	                    marLeft = -(scale * l - j) / 2
+	                }
+	            }
+
+	            var t = false;
+	            //判断图片顶部底部是否拉出
+	            //首先判断图片的大小是否已经超出了屏幕的尺寸
+	            if (scale * s > k) {
+	            	//顶部拉出处理
+	                if (marTop > ((scale * s - k) / 2)) {
+	                    marTop = (scale * s - k) / 2;
+	                    t = true
+	                }
+	                //底部拉出处理
+	                if (marTop < (-(scale * s - k) / 2)) {
+	                    marTop = -(scale * s - k) / 2;
+	                    t = true
+	                }
+	            } else {
+	                marTop = 0;
+	                t = true
+	            }
+	            t && $(this).addClass("view-img-zoom-animate");
+	            $(this).css({
+	                top: marTop + "px",
+	                left: marLeft + "px"
+	            });
+	            setTimeout(function() {
+	                isMove = 0
+	            }, 100)
+	        })
+		}
+		function nextImg() {
+		        var l = img,
+		            k = currentIndex,
+		            j;
+		        if (k >= l.length - 1) {
+		            j = 0
+		        } else {
+		            j = k + 1
+		        }
+		        imgNum++;
+		        if (imgNum == parseInt(imgTotal + 1)) {
+		            imgNum = 1
+		        }
+		        $("#center").css("-webkit-transform", "translate3d(-" + displayWidth + "px,0,0)");
+		        $("#center").attr("pos", "-" + displayWidth);
+		        $("#prev").remove();
+		        $("#center").attr("id", "prev");
+		        $("#next").css("-webkit-transform", "translate3d(0,0,0)");
+		        $("#next").attr("pos", "0");
+		        $("#next").attr("id", "center");
+		        currentIndex = j;
+		        var m = document.createElement("div");
+		        m.className = "imgItem loading";
+		        m.id = "next";
+		        m.setAttribute("pos", displayWidth);
+		        m.style.WebkitTransform = "translate3d(" + displayWidth + "px,0,0)";
+		        if (j + 1 > l.length - 1) {
+		            m.innerHTML = '<img  src="img/' + l[0] + '" onload="javascript:this.parentNode.className=\'imgItem\';"  />'
+
+		        } else {
+		            m.innerHTML = '<img  src="img/' + l[j + 1] + '" onload="javascript:this.parentNode.className=\'imgItem\';"  />'
+		        }
+		        $("#ImgContainer").append(m);
+		        bindEv()
+		        // if (this.isCardPos == 0) {
+		        //     $("#box-num").html(l[j].pos + 1 + " / " + l[j].sum)
+		        // } else {
+		        //     $("#box-num").html(this.imgNum + " / " + this.imgTotal)
+		        // }
+		        // imgSlip.init();
+		        // i.title = (typeof MBK.lemmdImgTitle != "undefined" ? MBK.lemmdImgTitle : $("#main h1").text()) + (l[j].imgDesc != "" ? "-" + l[j].imgDesc : "") + "(来自@百度百科)";
+		        // i.pic = "http://imgsrc.baidu.com/baike/pic/item/" + l[j].imgId + ".jpg";
+		        // g.q("viewImgPage");
+		        // g.q("imgTurnPagePV");
+		        // g.q("imgPVTotal")
+    }
+    function prevImg() {
+        var l = img,
+            j = currentIndex,
+            k;
+        if (j == 0) {
+            k = img.length - 1
+        } else {
+            k = j - 1
+        }
+        imgNum--;
+        if (imgNum == 0) {
+            imgNum = imgTotal
+        }
+        $("#center").css("-webkit-transform", "translate3d(" + displayWidth + "px,0,0)");
+        $("#center").attr("pos", displayWidth);
+        $("#next").remove();
+        $("#center").attr("id", "next");
+        $("#prev").css("-webkit-transform", "translate3d(0,0,0)");
+        $("#prev").attr("pos", "0");
+        $("#prev").attr("id", "center");
+        currentIndex = k;
+        var m = document.createElement("div");
+        m.className = "imgItem loading";
+        m.id = "prev";
+        m.setAttribute("pos", "-" + displayWidth);
+        m.style.WebkitTransform = "translate3d(-" + displayWidth + "px,0,0)";
+        if (k - 1 < 0) {
+            m.innerHTML = '<img  src="img/' + l[l.length - 1] + '" onload="javascript:this.parentNode.className=\'imgItem\';" />'
+        } else {
+            m.innerHTML = '<img  src="img/' + l[k - 1] + '" onload="javascript:this.parentNode.className=\'imgItem\';"  />'
+        }
+        $("#ImgContainer").prepend(m);
+        // if (this.isCardPos == 0) {
+        //     $("#box-num").html(parseInt(l[k].pos + 1) + " / " + l[k].sum)
+        // } else {
+        //     $("#box-num").html(this.imgNum + " / " + this.imgTotal)
+        // }
+        bindEv()
+    }
+
+
+
+
+	})
+</script>
+</body>
+</html>	

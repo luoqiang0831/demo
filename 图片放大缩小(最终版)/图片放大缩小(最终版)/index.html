@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title></title>
+</head>
+<style>
+	*{margin:0;padding:0;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+	a{text-decoration: none; outline: 0;}
+	html,body{height: 100%; width: 100%;}
+	#viewImg{display: block;}
+</style>
+<link rel="stylesheet" type="text/css" href="css/ImgView.css">
+<body>
+<button type="button" id="Test">demo</button>
+<div id="viewImg">
+</div>
+<script src="js/zepto.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/zoom.dev.js"></script>
+<script>
+	 var img=['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg','img/6.jpg']//,displayWidth = document.documentElement.clientWidth,//页面窗口宽度
+   //    'imgData': null, //基础数据
+   //    'doubleZoom': false, //是否支持双击放大
+   //    'zoom': true, //是否缩放
+   //    'pageShow': true, //页码显示
+   //    'switchBtn':false,//上一页下一页按钮
+   //	 'minScale':1,//最小缩放比例
+   //    'maxScale':1,//最大缩放比例
+   //	 'startIndex':1//开始从那一张图片滑动
+   //    'before': new Function,
+   //    'after': new Function
+	$(function(){
+		$("#viewImg").ImgView({imgData:img,doubleZoom:true,switchBtn:true,minScale:0.5,maxScale:5,startIndex:6})
+		$("#Test").on('touchend',function(){
+			$("#viewImg").ImgView({imgData:img,doubleZoom:true,switchBtn:true})
+		})
+		
+
+	})
+</script>
+</body>
+</html>	

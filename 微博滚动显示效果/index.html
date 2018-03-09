@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+#abs{ height:400px; width:300px; border:1px solid #999; position:absolute;top:0;left:0;right:0;bottom:0;margin:auto; overflow:hidden;}
+#abs dd{border-bottom:1px dashed #CCC;margin:0; padding:4px; opacity:0; width:100%;}
+</style>
+<script src="move2.js"></script>
+<script>
+window.onload=function(){
+	var oBtn=document.getElementById("fabu");
+	var oInput=document.getElementById("inputContent");
+	var oDl=document.getElementById("abs")
+	oBtn.onclick=function(){
+		var dd=document.createElement("dd");
+		oDl.insertBefore(dd,oDl.getElementsByTagName("dd")[0]);
+		dd.innerHTML=oInput.value;
+		var iHeight=dd.offsetHeight;
+		dd.style.height=0;
+		startMove(dd,{height:iHeight},function(){
+			startMove(dd,{opacity:100})
+			})
+	}
+}
+</script>
+<body>
+<input type="text" id="inputContent" /><input type="button" value="发布" id="fabu" />
+
+<dl id="abs">
+<dd>123333</dd>
+</dl>
+</body>
+</html>

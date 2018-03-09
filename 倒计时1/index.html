@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script src="digit.js"></script>
+<style>
+html{ height: 100%;}
+</style>
+<script>
+var RADIUS=8;
+var MARGIN_LEFT=60;
+var MARGIN_TOP=30;
+var endTime=new Date(2014,7,11,18,0,0);
+var ShowTimerSeconds=0;
+var WINDOW_WIDTH=1024;
+var WINDOW_HEIGHT=768;
+
+var balls=[];
+var color=["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"]
+window.onload=function(){
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+	//自适应设置
+	WINDOW_WIDTH=document.body.clientWidth;
+	WINDOW_HEIGHT=document.body.clientHeight;
+	MARGIN_LEFT=Math.round(WINDOW_WIDTH/10);
+	RADIUS=Math.round(WINDOW_WIDTH*4/5/108)-1;
+	MARGIN_TOP=Math.round(WINDOW_HEIGHT/5);
+
+
+	canvas.width=WINDOW_WIDTH;
+	canvas.height=WINDOW_HEIGHT;
+	//获取相隔多少
+	ShowTimerSeconds=getShowTimerSeconds();
+	setInterval(function(){
+		render(context);
+		update();
+
+	},50);
+	
+
+}
+function update(){
+	var NextShowTime=getShowTimerSeconds();
+	var nextHours=parseInt(NextShowTime/3600);
+	var nextMinutes=parseInt((NextShowTime-nextHours*3600)/60);
+	var nextSeconde=NextShowTime%60;
+
+	var hours=parseInt(ShowTimerSeconds/3600);
+	var minutes=parseInt((ShowTimerSeconds-hours*3600)/60);
+	var seconde=ShowTimerSeconds%60;
+	if(nextSeconde!=seconde){
+		//时
+		if(parseInt(hours/10)!=parseInt(nextHours/10)){
+			addBalls(MARGIN_LEFT+0,MARGIN_TOP,parseInt(hours/10));
+		}
+		if(parseInt(hours%10)!=parseInt(nextHours%10)){
+			addBalls(MARGIN_LEFT+15*(RADIUS+1),MARGIN_TOP,parseInt(hours%10));
+		}
+		//分
+		if(parseInt(minutes/10)!=parseInt(nextMinutes/10)){
+			addBalls(MARGIN_LEFT+39*(RADIUS+1),MARGIN_TOP,parseInt(minutes/10));
+		}
+		if(parseInt(minutes%10)!=parseInt(nextMinutes%10)){
+			addBalls(MARGIN_LEFT+54*(RADIUS+1),MARGIN_TOP,parseInt(minutes%10));
+		}
+		//秒
+		if(parseInt(seconde/10)!=parseInt(nextSeconde/10)){
+			addBalls(MARGIN_LEFT+78*(RADIUS+1),MARGIN_TOP,parseInt(seconde/10));
+		}
+		if(parseInt(seconde%10)!=parseInt(nextSeconde%10)){
+			addBalls(MARGIN_LEFT+93*(RADIUS+1),MARGIN_TOP,parseInt(seconde%10));
+		}
+
+
+		ShowTimerSeconds=NextShowTime;
+	}
+	updateBalls();
+}
+function updateBalls(){
+	for(var i=0;i<balls.length;i++){
+		balls[i].x+=balls[i].vx;
+		balls[i].y+=balls[i].vy;
+		balls[i].vy+=balls[i].g;
+		if(balls[i].y>=WINDOW_HEIGHT-RADIUS){
+			balls[i].y=WINDOW_HEIGHT-RADIUS;
+			balls[i].vy=-balls[i].vy*0.75;
+		}
+	}
+
+}
+function addBalls(x,y,num){
+	for(var i=0;i<digit[num].length;i++){
+		for(var j=0;j<digit[num][i].length;j++){
+			if(digit[num][i][j]==1){
+				var aBall={
+					x:x+j*2*(RADIUS+1)+(RADIUS+1),
+					y:y+i*2*(RADIUS+1)+(RADIUS+1),
+					g:1.5+Math.random(),
+					vx:Math.pow(-1,Math.ceil(Math.random()*1000))*4,
+					vy:-5,
+					color:color[Math.floor(Math.random()*color.length)]
+				}
+				balls.push(aBall);
+			}
+		}
+	}
+	var count=0;
+	for(var i=0;i<balls.length;i++){
+		if(balls[i].x+RADIUS>0&&balls[i].x-RADIUS<WINDOW_WIDTH)
+			balls[count++]=balls[i];
+	}
+	while(balls.length>count)
+		balls.pop();
+
+	console.log(balls.length);
+}
+function getShowTimerSeconds(){
+	var curTime=new Date();
+	var ret=endTime.getTime()-curTime.getTime();
+	ret=Math.round(ret/1000);
+	return ret>=0?ret:0;
+}
+function render(cxt){
+	cxt.clearRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
+	var hours=parseInt(ShowTimerSeconds/3600);
+	var minutes=parseInt((ShowTimerSeconds-hours*3600)/60);
+	var seconde=ShowTimerSeconds%60;
+	document.title=hours+':'+minutes+':'+seconde;
+	//时
+	renderDigit(MARGIN_LEFT,MARGIN_TOP,parseInt(hours/10),cxt);
+	renderDigit(MARGIN_LEFT+15*(RADIUS+1),MARGIN_TOP,parseInt(hours%10),cxt);
+	//分隔符
+	renderDigit(MARGIN_LEFT+30*(RADIUS+1),MARGIN_TOP,10,cxt);
+	//分
+	renderDigit(MARGIN_LEFT+39*(RADIUS+1),MARGIN_TOP,parseInt(minutes/10),cxt);
+	renderDigit(MARGIN_LEFT+54*(RADIUS+1),MARGIN_TOP,parseInt(minutes%10),cxt);
+	//分隔符
+	renderDigit(MARGIN_LEFT+69*(RADIUS+1),MARGIN_TOP,10,cxt);
+	//秒
+	renderDigit(MARGIN_LEFT+78*(RADIUS+1),MARGIN_TOP,parseInt(seconde/10),cxt);
+	renderDigit(MARGIN_LEFT+93*(RADIUS+1),MARGIN_TOP,parseInt(seconde%10),cxt);
+
+	for(var i=0;i<balls.length;i++){
+		cxt.fillStyle=balls[i].color;
+
+		cxt.beginPath();
+		cxt.arc(balls[i].x,balls[i].y,RADIUS,0,2*Math.PI,true);
+		cxt.closePath();
+		cxt.fill();
+	}
+}
+function renderDigit(x,y,num,cxt){
+
+	cxt.fillStyle='rgb(0,102,153)';
+	for(var i=0;i<digit[num].length;i++){
+		for(var j=0;j<digit[num][i].length;j++){
+			if(digit[num][i][j]==1){
+				cxt.beginPath();
+				cxt.arc(x+j*2*(RADIUS+1)+(RADIUS+1),y+i*2*(RADIUS+1)+(RADIUS+1),RADIUS,0,2*Math.PI);
+				cxt.closePath();
+				cxt.fill();
+			}
+		}
+	}
+}
+</script>
+<body style="min-height:100%;">
+	<canvas id="canvas" style="height:100%"></canvas>
+</body>
+</html>	

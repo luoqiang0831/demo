@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+	#alerts{font-size: 0;}
+	#alerts,#alerts>dfn{position: fixed; top:0;left:0;width: 100%;height: 100%;z-index: 98;}
+	#alerts>dfn{opacity: 0.5; background: #000;z-index: 8;}
+	#alerts::before,.alertsContext{ display: inline-block; vertical-align: middle;}
+	#alerts::before{content: ''; width: 0px; height: 100%;}
+	.alertsContext{ width: 100%; z-index: 9; padding:20px; background: #fff;-webkit-box-sizing:border-box;position: relative;font-size: 14px;}
+</style>
+<script src="zepto.js"></script>
+<script>
+function alerts(html,obj){
+			var alertHtml=$('<div id="alerts"><dfn></dfn><div class="alertsContext">'+html+'</div></div>'),
+				$alerts=$("#alerts"),
+				close=function(){$(this).parents((obj==undefined?'#alerts':obj)).css('display','none');};
+
+			if(obj!=undefined)
+				$alerts=$(''+obj)
+			if(obj==undefined && $alerts.length==0)
+			{
+				$alerts=alertHtml;
+				$('body').append(alertHtml)
+			}
+			$alerts.on('click','.close',close)
+			$alerts.children('dfn').click(close)
+			if($alerts.length>0 && html!=undefined)
+			{
+				$alerts.children('.alertsContext').html(html)
+				$alerts.css('display','block')
+				return 
+			}
+		}
+$(function(){
+	$("#Test").click(function(){
+		alerts("<label>测试橙色</label>")
+	})
+})
+</script>
+</head>
+<body>
+<input type="button" id="Test" value="弹框" />
+</body>
+</html>

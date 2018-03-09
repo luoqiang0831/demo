@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+ul{ margin:0; padding:0;}
+#select_main{ width:400px; height:430px; border:1px solid #ccc; position: relative; margin:0 auto;}
+#select_head{ width:400px; height:30px;}
+#select_head ul{ list-style:none;width:400px; overflow:hidden;}
+#select_head ul li{ float:left;width:80px; height:30px;text-align:center; background-color:#9CF;}
+#select_head ul li a{ display:block;font:16px/30px "黑体"; text-decoration:none; color:#999;}
+#select_head ul li a:hover{background-color:#9C3; color:#FFF}
+#select_head .hovers a{color:#FFF}
+#select_head .hovers{background-color:#9C3; }
+
+#select_content{  height:470px; overflow:hidden;}
+#select_content ul{list-style:none; height:400px;  position:relative;}
+#select_content ul li{width:400px; height:400px; position:absolute; display:none;}
+</style>
+<script>
+window.onload=function(){
+	var oHead=document.getElementById("select_head").getElementsByTagName("li");
+	var oContent=document.getElementById("select_content").getElementsByTagName("li");
+	oContent[0].style.display="block";
+	oHead[0].className="hovers";
+	
+	for(var i=0;i<oHead.length;i++){
+		oHead[i].index=i;
+		oHead[i].onclick=function(){
+			for(var i=0; i<oHead.length;i++){
+				oHead[i].className='';
+				oContent[i].style.display="none";
+				}
+			this.className='hovers';
+			oContent[this.index].style.display='block';
+			};
+		
+		}
+}
+</script>
+
+
+</head>
+
+<body>
+<div id="select_main">
+<div id="select_head">
+<ul>
+<li><a href="#">时事新闻</a></li>
+<li><a href="#">热点新闻</a></li>
+<li><a href="#">搞笑新闻</a></li>
+<li><a href="#">当天新闻</a></li>
+<li><a href="#">测试新闻</a></li></ul></div>
+<div id="select_content">
+<ul>
+<li><a href="#">时事新闻</a></li>
+<li><a href="#">热点新闻</a></li>
+<li><a href="#">搞笑新闻</a></li>
+<li><a href="#">当天新闻</a></li>
+<li><a href="#">测试新闻</a></li></ul>
+</div>
+</div>
+</body>
+</html>

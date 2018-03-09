@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>无标题页</title>
+</head>
+<style>
+    body
+    {
+        background-color: #edece9;
+    }
+    .main
+    {
+        width: 1080px;
+        margin: 0 auto;
+    }
+    #show_img
+    {
+        list-style: none;
+        width: 1080px;
+    }
+    #show_img li
+    {
+        float: left;
+        width: 240px;
+        margin: 10px;
+    }
+    #show_img li div
+    {
+        width: 248px;
+        position: relative;
+        background-color: White;
+    }
+    #show_img li img
+    {
+        border: 1px solid #ccc;
+        width: 248px;
+    }
+    #show_img .title
+    {
+        display: block;
+        font: 14/24px "黑体";
+        padding: 5px;
+        text-align: center;
+        padding: 10px 0 10px 0;
+    }
+#load{ width:200px; height:100px; position:relative; margin:0 auto;  text-align:center; display:none; }
+#load span{ display:block;font: 14/24px "黑体";}
+</style>
+
+<script src="js\ajax.js"></script>
+
+<script src="js\json2.js"></script>
+
+<script>
+function Sethtml(data){
+    var oUl=document.getElementById("show_img");
+    var oLi=oUl.getElementsByTagName("li");
+    var oLoad=document.getElementById("load");
+    var array=JSON.parse(data);
+    for(var i=0;i<array.length;i++){
+        var oDiv=document.createElement("div");
+        var oImg=document.createElement("img");
+        var oSpan=document.createElement("span");
+        oImg.src=array[i].image;
+        oImg.style.heigth=array[i].height+(248/array[i].height);
+        oSpan.innerHTML=array[i].title;
+        oDiv.appendChild(oImg);
+        oDiv.appendChild(oSpan);
+        GetHeight(oLi).appendChild(oDiv);    
+    }
+      sBool=true;
+      oLoad.style.display="none";
+}
+function GetHeight(oLi){
+      var oHeight=null;
+      for(var i=0;i<oLi.length;i++){
+        if(oHeight==null||oHeight.offsetHeight>oLi[i].offsetHeight)
+            oHeight=oLi[i];
+      }
+      return oHeight;
+    
+}
+var page=1;
+var sBool=true;
+
+function GetData(){
+        var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+        var oLoad=document.getElementById("load");
+        oLoad.style.top=scrollTop;
+        oLoad.style.display="block";
+        ajax('GetData.aspx?page='+page+'',function(str){
+            Sethtml(str);
+          
+            page++;
+          
+        },function(){
+            alert("数据未获取到");
+        });
+}
+
+function GetTop(obj){
+    var iTop=0;
+    while(obj){
+    iTop+=obj.offsetTop;
+    obj=obj.offsetParent;
+    }
+    return iTop;
+}
+window.onload=function(){
+    var oUl=document.getElementById("show_img");
+    var oBtn=document.getElementById("loadTxt");
+    GetData();
+    window.onscroll=function(){
+        var _index=GetHeight(oUl.getElementsByTagName("li"));
+        var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+        
+        if(GetTop(_index)+_index.offsetHeight<document.documentElement.clientHeight+scrollTop){
+            if(sBool){
+                sBool=false;
+                GetData();
+            }
+        }
+        
+       
+    };
+};
+</script>
+
+<body>
+    <div class="main">
+        <ul id="show_img">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+   <div id="load">
+   <img src="img\load.gif" /><br />
+   <span>正在加载...</span></div>
+</body>
+</html>

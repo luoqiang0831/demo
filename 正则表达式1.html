@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script>
+
+//比如我们经常要使用的.验证邮箱时用的  但是我们.的话在正则里面是代表任意字符,所以我们要使用\.转义字符\ 这样才能代表.本身
+//如果我们在//i加上i表示是不区分大小写的
+/*var s="fd23 324da 32sdf 86f 234 ds3";
+var re=/\d+/g;// 首先写// 然后\d代表数字 +是代表一个量词(许多匹配连起来关键字) g全局的意思 表示进行字符串整个搜索匹配 不写g的话就代表返回第一个匹配项
+alert(s.match(re));*/
+//关键字替换
+var str='关于什么的作文由百分网为您提供,包含关于什么的作文等内容,如果您认为关于什么的作文不错的话,请把关于什么的作文添加到您的收藏夹里面以便下次访问。';
+var re=/关于|作文/g;//吧包含关键字的给替换很其他数值 |和或是一个意思
+//alert(str.replace(re,'**'));
+//re=/<.+>/g;//.代表<>里面的所有东西 
+//re=/<[^<>]+>/g //代表<>里面不能出现<> []是可以灵活设置条件 比如1[abc]2 这个代表 1a2 1b2 1c2 都匹配条件  替换HTML很实用
+
+var str1=" dska flaksd falks akdf as dfj    ";
+var re1=/\s+/g;//\s替换所有的空格
+//alert(str1.replace(re1,''));
+
+
+/*var str2="A dska flaSsd falk123s akdf as dfj 我看看  我晕   ";
+var re2=/\w+/g;//\w替换[0-9a-z_]相当于这样写 只允许存在汉字、特殊符号 \w是表示[0-9a-z_]的内容
+alert(str2.replace(re2,''));*/
+
+/*var str2="A dska fl123aSsd falks akdf as dfj 我看看  我晕   ";
+var re2=/\D+/g;//\D相当于[^0-9] 只要是数字都可以保留 和\d取反
+alert(str2.replace(re2,''));*/
+
+/*var str2="A dska fl123aSsd falks akdf as dfj 我看看  我晕  #2% ";
+var re2=/\W+/g;//\W相当于[^0-9a-z_] 只要是数字字母等都可以保留 和\w取反 汉字特殊符号就删除
+alert(str2.replace(re2,''));
+*/
+/*var str2="A dska fl123aSsd falks akdf as dfj 我看看  我晕  #2% ";
+var re2=/\S+/g;//\S相当于吧所有的字符都删除 只取空格
+alert(str2.replace(re2,''));*/
+
+/*var str2="我的QQ号 583358631,他的qq是:94385093;腾讯QQ的是:10000，测试:1000000000000000000";
+var re2=/[1-9]\d{4,10}/g;//表示第一位必须是1-9的数字 然后是\d{4,10}代表4是最小,10是最大 如果低于4位抛弃 大于10会被截取
+//像上面我们使用过的+号就代表\d{1,}从1到任意位置 *号代表从\d{0,}任意位置？代表0到1次
+alert(str2.match(re2));*/
+
+/*var str2=" 我的QQ号 583358631,他的qq是:94385093;腾讯QQ的是:10000，测试:1000000000000000000 ";
+var re2=/^\s+|\s+$/g;//^放在最前面是行首 $放在最后面是行尾  这里的意思吧行首或行尾的空格替换了
+alert("("+str2.replace(re2,"")+")");*/
+/*window.onload=function(){
+	var oEmaill=document.getElementById("Emaill");
+	var oBtn=document.getElementById("idTest");
+	oBtn.onclick=function(){
+		var re=/^\w+@[0-9a-z]+\.[a-z]{2,4}$/;
+		if(re.test(oEmaill.value)){
+			alert("正确");
+		}else{
+			alert("错误");	
+		}
+		}
+}
+var str1='aldfjakd akjdflak 我';
+var re=/[\u4e00-\u9fa5]/;//UTF-8编码的开始位置和结束位置
+alert(str1.match(re));//判断是否有汉字出现 re.test(str1)*/
+
+var str1='aldfjakd k akjdflak 我';
+var re=/\bk\b/i;//\b单词边界 查询一个字符串里面是否有匹配的项
+//为了灵活运用可以这样写
+var finds="k"; 
+var s=new RegExp("\\b"+finds+"\\b","i");//i表示不区分大小写
+alert(re.test(str1));//判断是否出现 
+</script>
+
+<body>
+<input type="text" id="Emaill" /><input type="button" value="验证" id="idTest" />
+</body>
+</html>

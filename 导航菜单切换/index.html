@@ -1,0 +1,88 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>智能社 - YY公开课 - www.zhinengshe.com</title>
+<link href="style/common.css" type="text/css" rel="stylesheet" />
+<link href="style/headerbar.css" type="text/css" rel="stylesheet" />
+<!--[if IE 6]>
+	<script type="text/javascript" src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+	<script type="text/javascript" src="js/ie6Fixpng.js"></script>
+<![endif]-->
+<script src="js/move.js"></script>
+<script>
+window.onload=function ()
+{
+	var Select=document.getElementById("div1");
+	var SelectItem=div1.children[0];
+	var SelectSpan=SelectItem.getElementsByTagName("span")[0];
+	var navList=div1.children[1];
+	var navLi=navList.getElementsByTagName("li");
+	var timer=null;
+	var iNow=0;
+	var SH=true;
+	for(var i=0;i<navLi.length;i++){
+		if(i%2){
+			navLi[i].style.left=navLi[i].offsetWidth+'px';
+		}else
+		{
+			navLi[i].style.left='-'+navLi[i].offsetWidth+'px';
+		}
+	}
+	for(var i=0;i<navLi.length;i++){
+		navLi[i].onclick=function(){
+			SelectSpan.innerHTML=this.getElementsByTagName("a")[0].innerHTML;
+		}
+	}
+	SelectItem.onclick=function(){
+			moveItem();
+			
+		}
+	function moveItem(){
+			
+		timer=setInterval(function(){
+			if(SH)
+			{
+				startMove(navLi[iNow++],{left:0,opacity:100});	
+			}else
+			{
+				
+				var oLeft=iNow%2==0?navLi[iNow].offsetWidth:'-'+navLi[iNow].offsetWidth;
+				
+				startMove(navLi[iNow++],{left:oLeft,opacity:0});
+				
+			}
+				if(iNow==navLi.length){
+					//alert(iNow+':'+navLi.length);
+					iNow=0;
+					SH=!SH;
+					clearInterval(timer);
+					}
+		},30);
+		}
+	
+};
+</script>
+</head>
+
+<body>
+<div class="comHeadBar">
+	<a href="http://www.zhinengshe.com/" target="_blank" class="fl">查看官网</a>
+	<a href="http://www.zhinengshe.com/" target="_blank" class="fr">by 智能社</a>
+</div>
+<div class="warp" id="div1">
+	<div class="navBox">
+    	<span><img src="images/ico_01.png" alt="" style="display:none;" />请选择</span>
+        <em class="triangle"><i></i></em>
+    </div>
+    <ul class="navList">
+    	<li><a href="javascript:;"><img src="images/ico_01.png" alt="" />关于我们</a></li>
+        <li><a href="javascript:;"><img src="images/ico_02.png" alt="" />联系我们</a></li>
+        <li><a href="javascript:;"><img src="images/ico_03.png" alt="" />官网首页</a></li>
+        <li><a href="javascript:;"><img src="images/ico_04.png" alt="" />课程案例</a></li>
+        <li><a href="javascript:;"><img src="images/ico_05.png" alt="" />智能社公益</a></li>
+        <li><a href="javascript:;"><img src="images/ico_06.png" alt="" />智能社论坛</a></li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+#ul1{ width:200px; list-style:none; margin:0; padding:0; position:relative;}
+#ul1 li{  width:200px;height:20px; overflow:hidden; position:relative; background-color:#9C3; margin-top:5px;}
+.div1{ position:absolute; height:40px;top:0; left:0;}
+.div1 p{ display:block; height:20px; color:#FFF; margin:0; padding:0;}
+</style>
+<script src="js/more.js"></script>
+<script>
+window.onload=function(){
+	var oUl=document.getElementById("ul1");
+	var oLi=oUl.getElementsByTagName("li");
+	var timer=null;
+	var ofls=true;
+	var iNow=0;
+	setInterval(function(){
+		changs();	
+		
+	},5000);
+	function changs(){
+			timer=setInterval(function(){
+					if(iNow<oLi.length&&ofls==true){
+						miaovStartMove(getClass(oLi[iNow],"div1")[0],{top:"-20"},MIAOV_MOVE_TYPE.BUFFER,function(){
+									iNow++;
+									if(iNow>=oLi.length)
+									{
+										ofls=false;iNow=0;
+										clearInterval(timer);
+									}
+							});
+					}else if(iNow<oLi.length&&ofls==false){
+						
+						miaovStartMove(getClass(oLi[iNow],"div1")[0],{top:"0"},MIAOV_MOVE_TYPE.BUFFER,function(){
+									iNow++;		
+									if(iNow>=oLi.length)
+									{
+										iNow=0;
+										ofls=true;
+										clearInterval(timer);
+									}
+							});
+						
+						}
+			},300);
+
+	}
+	
+	
+	function getClass(parent,attr){
+		var allItme=parent.getElementsByTagName('*');
+		var arr=[];
+		for(var i=0;i<allItme.length;i++){
+				if(allItme[i].className==attr){
+					arr.push(allItme[i]);
+				}
+			}
+		return arr;
+		}
+		
+		
+
+	};
+</script>
+<body>
+<ul id="ul1">
+<li>
+<div class="div1">
+<p>aaaaaaaaaaaa</p>
+<p>bbbbbbbbbbbb</p>
+</div>
+</li>
+<li>
+<div class="div1">
+<p>aaaaaaaaaaaa</p>
+<p>bbbbbbbbbbbb</p>
+</div>
+</li>
+<li>
+<div class="div1">
+<p>aaaaaaaaaaaa</p>
+<p>bbbbbbbbbbbb</p>
+</div>
+</li>
+<li>
+<div class="div1">
+<p>aaaaaaaaaaaa</p>
+<p>bbbbbbbbbbbb</p>
+</div>
+</li>
+</body>
+</html>

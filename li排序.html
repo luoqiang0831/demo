@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#Test{ list-style:none;}
+#Test li{ background-color:#9C6;}
+</style>
+<script>
+window.onload=function(){
+
+	var oBtn=document.getElementById("sortBtn");
+	oBtn.onclick=function(){
+		var oTest=document.getElementById("Test");
+		var oCount=oTest.getElementsByTagName("li");
+		var arr=[];
+		for(var i=0;i<oCount.length;i++){
+			arr[i]=oCount[i];
+		}
+		arr.sort(function(str1,str2){
+					  
+			return 	parseInt(str1.innerHTML)-	parseInt(str2.innerHTML);
+		});
+		
+		for(var j=0; j<arr.length;j++){
+			oTest.appendChild(arr[j]);
+		}
+	
+	};
+}
+</script>
+</head>
+
+<body>
+<input type="button" id="sortBtn" value="排序" />
+<ul id="Test">
+<li>3</li>
+<li>21</li>
+<li>4</li>
+<li>6</li>
+<li>7</li>
+<li>3</li>
+</ul>
+</body>
+</html>

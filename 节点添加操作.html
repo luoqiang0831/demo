@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script>
+window.onload=function(){ 
+	var txt1=document.getElementById("InsterText");
+	var btn=document.getElementById("InsterBtn");
+	var GetUi=document.getElementById("TestUl");
+	var oA=document.getElementsByTagName('a');
+	
+	btn.onclick=function(){
+			var oLi=document.createElement("li");
+			var oa=document.createElement("a");
+			oa.innerHTML=txt1.value;
+			oLi.appendChild(oa);
+			//GetUi.appendChild(oLi);自动插入到最后
+			if(GetUi.getElementsByTagName("li").length==0){
+				GetUi.appendChild(oLi);//插入到那个位置可以修改后面的参数
+			}else{
+				
+				GetUi.insertBefore(oLi,GetUi.getElementsByTagName("li")[0]);
+				}
+		};
+		
+		for(var i=0;i<oA.length;i++){
+			oA[i].onclick=function(){
+				GetUi.removeChild(this.parentNode);
+			};
+		}
+	}
+</script>
+
+<style>
+#test1{ width:100px; height:200px; background-color:#099}
+</style>
+<body>
+<input type="text" id="InsterText" />
+<input type="button" value="插入" id="InsterBtn" /><input type="button" value="删除" id="DelLI" />
+<ul id="TestUl">
+<li><a href="javascript:;">aaaaaa</a></li>
+<li><a href="javascript:;">bbbbbb</a></li>
+</ul>
+</body>
+</html>

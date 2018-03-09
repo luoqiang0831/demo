@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+*{margin: 0; padding: 0;}
+html{overflow:scroll;overflow-x:hidden;}
+body,html{width: 100%; height: 100%; font-family:'微软雅黑', Verdana, Arial, Helvetica, sans-serif; font-size: 12px;}
+ul,ol{list-style: none;}
+div{height: auto;}
+img{display: block; border:none;}
+
+.container{width: 800px; height: 330px; margin: 0 auto; margin-top: 20px; border:5px solid #d0d0d0;-webkit-animation:BorderColor 22.5s infinite; }
+.img{width: 800px; height: 330px; overflow: hidden; position: relative;}
+.bg{width: auto; height: 20px; z-index: 99; position: absolute; left: 15px; bottom: 15px;}
+.bg_in{width: 200px; height: 20px; position: relative;}
+.bg_in li{width: 20px; height: 20px; line-height: 20px; border-radius: 20px; background: #ffffff; opacity: 0.5; text-align: center; color: #333333; float: left; margin-right: 10px; position: relative; z-index: 999;}
+.bg_in #lp{position: absolute; left: 0px; top: 0; background: #ff3c00; opacity: 1; z-index: 998;}
+
+.nav{width: 4000px; height: 330px; position: absolute; left: 0px; top: 0; z-index: 9; animation:RollImg 22.5s infinite;-webkit-animation:RollImg 22.5s infinite; -o-animation:RollImg 22.5s infinite;-moz-animation:RollImg 22.5s infinite;}
+.nav li{float: left;}
+.nav li img{width: 100%; height: 100%;}
+/*用的是Chrome**/
+@-webkit-keyframes BorderColor
+{
+	0%    { border-color:rgb(0,78,126);}
+	18%   {border-color:rgb(0,78,126);}
+	20%   {border-color:rgb(208,41,48); }
+	38%   {border-color:rgb(208,41,48);}
+	40%   {border-color:rgb(33,88,224);}
+	58%   {border-color:rgb(33,88,224);}
+	60%   {border-color:rgb(143,214,246);}
+	78%   {border-color:rgb(143,214,246);}
+	80%   {border-color:rgb(250,150,190);}
+	98%   {border-color:rgb(250,150,190);}
+	100%   {border-color:rgb(0,78,126);}
+	
+}
+@-webkit-keyframes RollImg
+{
+	0%   {-webkit-transform:translateX(0px);}
+	18%   {-webkit-transform:translateX(0px);}
+	20%   {-webkit-transform:translateX(-800px); }
+	38%   {-webkit-transform:translateX(-800px);}
+	40%   {-webkit-transform:translateX(-1600px);}
+	58%   {-webkit-transform:translateX(-1600px);}
+	60%   {-webkit-transform:translateX(-2400px);}
+	78%   {-webkit-transform:translateX(-2400px);}
+	80%   {-webkit-transform:translateX(-3200px);}
+	98%   {-webkit-transform:translateX(-3200px);}
+	100%   {-webkit-transform:translateX(-0px);}
+}
+@-o-keyframes RollImg 
+{
+	0%   {-o-transform:translateX(0px);}
+	18%   {-o-transform:translateX(0px);}
+	20%   {-o-transform:translateX(-800px);}
+	38%   {-o-transform:translateX(-800px);}
+	40%   {-o-transform:translateX(-1600px);}
+	58%   {-o-transform:translateX(-1600px);}
+	60%   {-o-transform:translateX(-2400px);}
+	78%   {-o-transform:translateX(-2400px);}
+	80%   {-o-transform:translateX(-3200px);}
+	98%   {-o-transform:translateX(-3200px);}
+	100%   {-o-transform:translateX(-0px);}
+}
+@keyframes RollImg 
+{
+	0%    {transform:translateX(0px);}
+	18%   {transform:translateX(0px);}
+	20%   {transform:translateX(-800px);}
+	38%   {transform:translateX(-800px);}
+	40%   {transform:translateX(-1600px);}
+	58%   {transform:translateX(-1600px);}
+	60%   {transform:translateX(-2400px);}
+	78%   {transform:translateX(-2400px);}
+	80%   {transform:translateX(-3200px);}
+	98%   {transform:translateX(-3200px);}
+	100%  {transform:translateX(-0px);}
+}
+@-moz-keyframes RollImg 
+{
+	0%   {-moz-transform:translateX(0px);}
+	18%   {-moz-transform:translateX(0px);}
+	20%   {-moz-transform:translateX(-800px);}
+	38%   {-moz-transform:translateX(-800px);}
+	40%   {-moz-transform:translateX(-1600px);}
+	58%   {-moz-transform:translateX(-1600px);}
+	60%   {-moz-transform:translateX(-2400px);}
+	78%   {-moz-transform:translateX(-2400px);}
+	80%   {-moz-transform:translateX(-3200px);}
+	98%   {-moz-transform:translateX(-3200px);}
+	100%   {-moz-transform:translateX(-0px);}
+}
+
+</style>
+<body>
+<div class="container">
+	<div class="img">
+		<ul class="nav">
+			<li><a href="#" target="_blank"><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1052/images/0.jpg"></a></li>
+			<li><a href="#" target="_blank"><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1052/images/1.jpg"></a></li>
+			<li><a href="#" target="_blank"><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1052/images/2.jpg"></a></li>
+			<li><a href="#" target="_blank"><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1052/images/3.jpg"></a></li>
+			<li><a href="#" target="_blank"><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1052/images/4.jpg"></a></li>
+		</ul>
+
+		<div class="bg">
+			<ul class="bg_in">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li id="lp"></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

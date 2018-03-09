@@ -1,0 +1,15 @@
+offsetWidth offsetTop offsetHeight 等 使用border 1px;但是我们用offsetWidth +1做动画效果的时候会越加越多
+IE 获取CSS样式设置后的值用 currentstyle,火狐下用getComputedStyle(obj,false);
+
+鼠标滚动兼容
+
+IE setCapture  releaseCapture 
+
+IE attachEvent 事件多次绑定
+火狐 addEventListener()
+
+cancelBubble=true阻止事件冒泡
+IE阻止默认事件 return false
+火狐 ev.preventDefault
+
+filter: Alpha(Opacity=0.3);

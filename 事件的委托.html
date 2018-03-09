@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script>
+window.onload=function(){
+	var ul1=document.getElementById("test");
+	var oBtn1=document.getElementById("testbtn1");
+	var oLi1=ul1.getElementsByTagName("li");
+	
+	
+	for(var i=0;i<oLi1.length;i++){
+		oLi1[i].onclick=function(){
+				alert(this.innerHTML);
+			}
+		}
+	oBtn1.onclick=function(){
+			var Nli=document.createElement("li");
+			Nli.innerHTML='11111111111';
+			ul1.appendChild(Nli);
+			
+		}
+/*******************上面动态添加li是没有事件的**以下是吧事件返回给父级处理****/ 
+		var ul2=document.getElementById("test1");
+		var oBtn2=document.getElementById("testBtn2");
+		var oLi2=ul2.getElementsByTagName("li");
+		ul2.onclick=function(ev){
+			var ev=ev||event;//做IE 等浏览器兼容
+			var target=ev.target||ev.srcElement;
+			//target.nodeName获取点击的元素名称
+			if(target.nodeName.toLowerCase()=='li'){
+				alert(target.innerHTML);
+			}
+		};
+		oBtn2.onclick=function(){
+			var Nli=document.createElement("li");
+			Nli.innerHTML='11111111111';
+			ul2.appendChild(Nli);
+		};
+	
+	}
+</script>
+<body>
+<input type="button" value="添加" id="testbtn1"/>
+<ul id="test">
+<li>
+aaaaaaaa
+</li>
+<li>
+aaaaaaaa
+</li>
+<li>
+aaaaaaaa
+</li>
+<li>
+aaaaaaaa
+</li>
+<li>
+aaaaaaaa
+</li>
+</ul>
+<input type="button" value="添加2" id="testBtn2" />
+<ul id="test1">
+<li>
+aaaaaaaa
+</li>
+<li>
+aaaaaaaa
+</li>
+<li>
+aaaaaaaa
+</li>
+<li>
+aaaaaaaa
+</li>
+<li>
+aaaaaaaa
+</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,2 @@
+$("a[href$=pdf]").after("<img src=''/>")//找到A连接后面有PDF后缀名的然后添加IMG
+$('p:frist').text()//获取第一个元素文本

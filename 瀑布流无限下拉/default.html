@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+body{ margin:0; font:14px/24px "黑体"}
+.main{ position:relative; margin:0 auto; width:1048px;}
+#container{width:1048px; text-align:left; margin-left:20px;}
+#container .cell{padding:7px; background:#ebe8e0; margin-top:9px; text-align:center;}
+#container .cell .img{border:#ffffff solid 1px;}
+#container .h1{font-size:24px; font-family:\9ED1\4f53; color:#3e3e3e; line-height:26px; margin-top:5px; text-align:left; padding-left:6px;}
+#container .cont{line-height:20px; color:#3e3e3e; text-align:left; padding-left:6px; padding-top:5px;}
+#container .even{width:212px !important;}
+#container .even .img{width:198px !important;}
+
+</style>
+
+<body>
+<div class="main">
+<div id="container">
+                <div class="cell">
+                    <img class="img" src="img/img10.jpg" alt="" />
+                    <h1 class="h1">雷允上药城</h1>
+                    <div class="cont">
+                        上海医保定点药店<br />
+                        上海静安寺华山路2号<br />
+                        咨询电话：29968565<br />
+                        轨道交通：地铁二号线、七号线静安寺站<br />
+                        营业时间：9:00-21:00
+                    </div>
+                </div>
+                <div class="cell">
+                    <img class="img" src="img/img10.jpg" alt="" />
+                    <h1 class="h1">雷允上药城</h1>
+                    <div class="cont">
+                        上海医保定点药店<br />
+                        上海静安寺华山路2号<br />
+                        咨询电话：29968565<br />
+                        轨道交通：地铁二号线、七号线静安寺站<br />
+                        营业时间：9:00-21:00
+                    </div>
+                </div>
+                <div class="cell">
+                    <img class="img" src="img/img10.jpg" alt="" />
+                    <h1 class="h1">雷允上药城<span style="font-size:14px;">（中药配方）</span></h1>
+                    <div class="cont">
+                        上海医保定点药店<br />
+                        上海静安寺华山路2号<br />
+                        咨询电话：29968565<br />
+                        轨道交通：地铁二号线、七号线静安寺站<br />
+                        营业时间：9:00-21:00
+                    </div>
+                </div>
+                <div class="cell">
+                    <img class="img" src="img/img10.jpg" alt="" />
+                    <h1 class="h1">雷允上药城</h1>
+                    <div class="cont">
+                        上海医保定点药店<br />
+                        上海静安寺华山路2号<br />
+                        咨询电话：29968565<br />
+                        轨道交通：地铁二号线、七号线静安寺站<br />
+                        营业时间：9:00-21:00
+                    </div>
+                </div>
+                <div class="cell">
+                    <img class="img" src="img/img10.jpg" alt="" />
+                    <h1 class="h1">雷允上药城</h1>
+                    <div class="cont">
+                        上海医保定点药店<br />
+                        上海静安寺华山路2号<br />
+                        咨询电话：29968565<br />
+                        轨道交通：地铁二号线、七号线静安寺站<br />
+                        营业时间：9:00-21:00
+                    </div>
+                </div>
+                <div class="cell">
+                    <img class="img" src="img/img10.jpg" alt="" />
+                    <h1 class="h1">雷允上药城</h1>
+                    <div class="cont">
+                        上海医保定点药店<br />
+                        上海静安寺华山路2号<br />
+                        咨询电话：29968565<br />
+                        轨道交通：地铁二号线、七号线静安寺站<br />
+                        营业时间：9:00-21:00
+                    </div>
+                </div>
+            </div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/waterfall.js"></script>
+<script>
+var opt={
+  getResource:function(index,render){//index为已加载次数,render为渲染接口函数,接受一个dom集合或jquery对象作为参数。通过ajax等异步方法得到的数据可以传入该接口进行渲染，如 render(elem)
+      if(index>=7) index=index%7+1;
+      var html='';
+      for(var i=20*(index-1);i<20*(index-1)+20;i++){
+         var k='';
+         for(var ii=0;ii<3-i.toString().length;ii++){
+            k+='0';
+         }
+         k+=i;
+         var src="http://cued.xunlei.com/demos/publ/img/P_"+k+".jpg";
+         html+='<div class="cell"><img src="'+src+'" /><h1 class="h1">本草堂<span style="font-size:14px;">（中药配方）</span></h1><div class="cont">上海医保定点药店<br />上海静安寺华山路2号<br />咨询电话：29968565<br />轨道交通：地铁二号线、七号线静安寺站<br />营业时间：9:00-21:00</div></div>';
+      }
+      return $(html);
+  },
+  auto_imgHeight:true,
+  insert_type:1
+}
+$('#container').waterfall(opt);
+$(function(){
+    $("#container .waterfall_column:odd").addClass("even");
+})
+</script>
+</body>
+</html>

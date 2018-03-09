@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title></title>
+	<style>
+		*{margin:0; padding:0;}
+		html,body{height: 100%; width: 100%;overflow:hidden;}
+		#wrapper{ width: 100%;height: 100%;overflow:hidden;}
+		
+		#ShearContainer,#wrapper img,#ShearEffect>div,#ImgBottom{width:100%;height:100%;}
+		#ShearContainer{ position: relative;background-color: black;}
+		#ShearEffect{position: absolute; z-index: 600; width: 50%; height: 45%;cursor: move; overflow: hidden; background: #fff;border:1px solid #ccc;-webkit-box-sizing:border-box;	}
+		#ShearEffect>img{border: none; visibility: visible; margin: 0px; padding: 0px;}
+		#ImgBottom{display: block; visibility: visible; border: none; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; opacity: 0.4;}
+		.Test{}
+	</style>
+</head>
+<body>
+	<div id="wrapper" class="Test">
+		<img src="img/test.jpg" alt="" style="display:none">
+
+		<div id="ShearContainer" class="Test">
+			<div id="ShearEffect" style="top: 113px; left: 76px;" >
+				<img src="img/test.jpg" style=" position: absolute; top: -113px; left: -76px; width: 641px; height: 365px;">
+				
+			</div>
+
+			<img src="img/test.jpg" id="ImgBottom" alt="" >
+		</div>
+	</div>
+<script src="js/zepto.js"></script>
+<script>
+	$(function(){
+		var $ShearContainer=$("#ShearContainer"),$ShearEffect=$("#ShearEffect"),$inlineImg=$ShearEffect.children('img');
+		$inlineImg.css({'width':$ShearContainer.width(),'height':$ShearContainer.height()})
+
+		$ShearEffect.on('touchstart',function(ev){
+			var disX=ev.touches[0].pageX-$ShearEffect.position().left;
+			var disY=ev.touches[0].pageY-$ShearEffect.position().top;
+			$ShearEffect.on('touchmove',function(ev){
+				var moveX=ev.touches[0].pageX-disX;
+				var moveY=ev.touches[0].pageY-disY;
+				//if(moveX>0 || 
+				// if(moveX>0 && $ShearContainer.width()>(moveX+$ShearEffect.width())){
+				// 	$ShearEffect.css("left",moveX);
+				// }else{
+				// 	return 
+				// }
+				$ShearEffect.css("left",moveX);
+				$ShearEffect.css("top",moveY);
+				$inlineImg.css({"left":-moveX,"top":-moveY});
+
+				return false;
+			})
+			$ShearEffect.on('touchend',function(){
+				$(document).off();					   
+			});
+
+		})
+	})
+</script>
+</body>
+</html>

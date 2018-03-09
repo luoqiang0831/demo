@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head
+<meta charset="gbk">  
+<title>Creating OS notifications in HTML5</title>
+</head>
+<body>
+<input type="button" value="验证授权" onclick="init();" />
+<input type="button" value="弹出消息" onclick="notify();" />
+
+ 
+    <script type="text/javascript">
+        const miao = 5;
+ 
+        function init() {
+            if (window.webkitNotifications) {
+                window.webkitNotifications.requestPermission();
+            }
+        }
+ 
+        function notify() {
+            var icon = "logo.png";
+            var title = "窗口将在 " + miao + " 5后关闭";
+            var body =  "PHP100 提供的 HTML5视频教程 桌面提醒API";
+ 
+            if (window.webkitNotifications) {
+                if (window.webkitNotifications.checkPermission() == 0) {
+                    var popup = window.webkitNotifications.createNotification(icon, title, body);
+                    popup.ondisplay = function(event) {
+                        setTimeout(function() {
+                            event.currentTarget.cancel();
+                        }, miao * 1000);
+                    }
+                    popup.show();
+                } else {
+                    window.webkitNotifications.requestPermission();
+                    return;
+                }
+            }
+        }
+    </script>
+ 
+</body>
+</html>

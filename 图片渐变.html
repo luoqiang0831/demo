@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#oImg{filter:alpha(opacity:30);opacity:0.3;}
+</style>
+</head>
+<script>
+window.onload=function(){
+	var oImg=document.getElementById("oImg");
+	var timer=null;
+	var alpa=30;
+	oImg.onmousemove=function(){
+		clearInterval(timer);
+		timer=setInterval(function(){
+				if(alpa<100){
+					oImg.style.filter="alpha(opacity:"+ alpa +")";
+					oImg.style.opacity=alpa/100;
+					alpa++;
+					}else{
+						clearInterval(timer);
+						}
+								   },30);
+		};
+	oImg.onmouseout=function(){
+		clearInterval(timer);
+		timer=setInterval(function(){
+				if(alpa>10){
+					oImg.style.filter="alpha(opacity:"+ alpa +")";
+					oImg.style.opacity=alpa/100;
+					alpa--;
+					}else{
+						clearInterval(timer);
+						}
+								   },30);
+		};
+	};
+</script>
+<body>
+<div><img id="oImg" src="http://img0.bdstatic.com/img/image/shouye/hjpdtg.jpg" width="271"  height="271"/></div>
+</body>
+</html>

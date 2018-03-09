@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title></title>
+</head>
+    <link type="text/css" href="css/base.css" rel="stylesheet" />
+    <link type="text/css" href="css/config.css" rel="stylesheet" />
+    <link type="text/css" href="css/page.css" rel="stylesheet" />
+    <link type="text/css" href="css/wxt.css" rel="stylesheet" />
+<body>
+<section id="wxt" class="wxt_Album">
+<dfn></dfn>
+<div class="wxt_Content">
+	<span>好时相册</span>
+	<div class="wxt_AlbumPhoto">
+		<div class="ov_scroll">
+		<ul class="clearfix">
+			<li><img src="images/hyl_A.jpg" alt="" />
+				<span class="checkbox"><input type="checkbox" id="one" checked="true"><label for="one" class="selected"></label></span>
+			</li>
+			<li><img src="images/hyl_A.jpg" alt="" />
+				<span class="checkbox"><input type="checkbox" id="one"><label for="one"></label></span>
+			</li>
+			<li><img src="images/hyl_A.jpg" alt="" />
+				<span class="checkbox"><input type="checkbox" id="one" ><label for="one"></label></span>
+			</li>
+			<li><img src="images/hyl_A.jpg" alt="" />
+				<span class="checkbox"><input type="checkbox" id="one"><label for="one"></label></span>
+			</li>
+					<li><img src="images/hyl_A.jpg" alt="" />
+				<span class="checkbox"><input type="checkbox" id="one"><label for="one"></label></span>
+			</li>
+			<li><img src="images/hyl_A.jpg" alt="" />
+				<span class="checkbox"><input type="checkbox" id="one"><label for="one"></label></span>
+			</li>
+			<li><img src="images/hyl_A.jpg" alt="" />
+				<span class="checkbox"><input type="checkbox" id="one"><label for="one"></label></span>
+			</li>
+					<li><img src="images/hyl_A.jpg" alt="" />
+				<span class="checkbox"><input type="checkbox" id="one"><label for="one"></label></span>
+			</li>
+			<li><img src="images/hyl_A.jpg" alt="" />
+				<span class="checkbox"><input type="checkbox" id="one"><label for="one"></label></span>
+			</li>
+		</ul>
+		</div>
+	</div>
+<button type="button" class="Buttons">确定</button>
+</div>
+
+</section>
+<script src="zepto.js"></script>
+<script>
+	$(function(){
+		var timer=null;
+		$(".ov_scroll").scrollTop(1)
+		$(".ov_scroll").scroll(function(){
+			if($(this).scrollTop()==0){
+				$(this).scrollTop(1);
+				return
+			}
+			// var thisHeight=$(this).find(".clearfix").height()-$(this).height()-2;
+			// console.log(thisHeight==$(this).scrollTop());
+			// console.log("scroll:"+thisHeight+"scrollTop:"+$(this).scrollTop());
+			// if(thisHeight==$(this).scrollTop()){
+			// 	$(this).scrollTop(thisHeight-5);
+			// }
+			scrollTimer($(this))
+		})
+	function scrollTimer(obj){
+			if(timer!=null)return
+			timer=setInterval(function(){
+				var thisHeight=$(".clearfix").height()-$(".ov_scroll").height()-2;
+				console.log("scroll:"+thisHeight+"scrollTop:"+obj.scrollTop());
+				if(thisHeight<=obj.scrollTop()){
+					obj.scrollTop(thisHeight-1);
+
+				}
+			},300);
+	}
+
+	});
+</script>
+</body>
+</html>

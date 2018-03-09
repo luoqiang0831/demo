@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>无标题页</title>
+</head>
+<style>
+    body
+    {
+        background-color: #edece9;
+    }
+    .main
+    {
+        width: 1080px;
+        margin: 0 auto;
+    }
+    #show_img
+    {
+        list-style: none;
+        width: 1080px;
+		position: relative;
+    }
+    #show_img li
+    {
+        float: left;
+        width: 240px;
+        margin: 10px;
+		position: absolute;
+    }
+    #show_img li div
+    {
+        width: 248px;
+        position: relative;
+        background-color: White;
+    }
+    #show_img li img
+    {
+        border: 1px solid #ccc;
+        width: 248px;
+    }
+    #show_img .title
+    {
+        display: block;
+        font: 14/24px "黑体";
+        padding: 5px;
+        text-align: center;
+        padding: 10px 0 10px 0;
+    }
+#load{ width:200px; height:100px; position:relative; margin:0 auto;  text-align:center; display:none; }
+#load span{ display:block;font: 14/24px "黑体";}
+</style>
+
+<script>
+window.onload=function(){
+	var oUl=document.getElementById("show_img");
+	var oLi=oUl.getElementsByTagName("li");
+	var oJson={L:0,C:0,R:0,R1:0};
+	var margin=260;
+	for(var i=0;i<oLi.length;i++){
+		var iNow=i%4;
+		switch(iNow){
+			case 0:
+			oLi[i].style.left=margin*iNow+'px';
+			oLi[i].style.top=oJson.L+'px';
+			oJson.L+=oLi[i].offsetHeight;
+			break;
+			case 1:
+			oLi[i].style.left=margin*iNow+'px';
+			oLi[i].style.top=oJson.C+'px';
+			oJson.C+=oLi[i].offsetHeight;
+			break;
+			case 2:
+			oLi[i].style.left=margin*iNow+'px';
+			oLi[i].style.top=oJson.R+'px';
+			oJson.R+=oLi[i].offsetHeight;
+			break;
+			case 3:
+			oLi[i].style.left=margin*iNow+'px';
+			oLi[i].style.top=oJson.R1+'px';
+			oJson.R1+=oLi[i].offsetHeight;
+			break;
+		}
+	}
+};
+</script>
+
+<body>
+    <div class="main">
+        <ul id="show_img">
+            <li><img src="img/1.jpg" /></li>
+            <li><img src="img/2.jpg" /></li>
+            <li><img src="img/3.jpg" /></li>
+            <li><img src="img/4.jpg" /></li>
+            <li><img src="img/5.jpg" /></li>
+            <li><img src="img/6.jpg" /></li>
+            <li><img src="img/7.jpg" /></li>
+            <li><img src="img/8.jpg" /></li>
+            <li><img src="img/9.jpg" /></li>
+            <li><img src="img/1.jpg" /></li>
+            <li><img src="img/2.jpg" /></li>
+            <li><img src="img/3.jpg" /></li>
+            <li><img src="img/4.jpg" /></li>
+            <li><img src="img/5.jpg" /></li>
+            <li><img src="img/6.jpg" /></li>
+            <li><img src="img/7.jpg" /></li>
+            <li><img src="img/8.jpg" /></li>
+            <li><img src="img/9.jpg" /></li>
+            <li><img src="img/1.jpg" /></li>
+            <li><img src="img/2.jpg" /></li>
+            <li><img src="img/3.jpg" /></li>
+            <li><img src="img/4.jpg" /></li>
+            <li><img src="img/5.jpg" /></li>
+            <li><img src="img/6.jpg" /></li>
+            <li><img src="img/7.jpg" /></li>
+            <li><img src="img/8.jpg" /></li>
+            <li><img src="img/9.jpg" /></li>
+        </ul>
+    </div>
+
+</body>
+</html>

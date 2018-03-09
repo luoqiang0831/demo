@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>网友Null分享3D旋转图片立体展示jquery幻灯片插件</title>
+<meta name="Keywords" content="网友Null分享3D旋转图片立体展示jquery幻灯片插件,Jquery插件,Jquery原创,Jquery资源,Jquery特效,js特效,div+css,JquerySchool" />
+<meta name="description" content="JquerySchool是一个专门分享jquery资源、jquery插件、jquery特效的一个网站,完全开放源代码,把实际开发中应用最多、最实用的Jquery资源抽取出来再加以精心编排,让广大网友能以最短的时间、花最少的精力去真正掌握jQuery开发的知识。" />
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+a, img {
+	border:0;
+}
+body {
+	font:12px/180% Tahoma, Geneva, sans-serif;
+}
+/* Carousel */
+#carousel1 {
+	width:960px;
+	height:400px;
+	overflow:hidden;
+	position:relative;
+	border-bottom:solid 1px #d8d9da;
+	margin:0 auto;
+}
+#carousel1 img {
+	border:none;
+	width:240px;
+	height:180px;
+	border:solid 1px #000;
+}
+#carousel1 #title-text {
+	font-size:22px;
+	margin:10px 20px 0 0;
+	padding:0;
+	text-align:right;
+}
+#carousel1 #alt-text {
+	font-size:14px;
+	margin:5px 20px 0 0;
+	padding:0;
+	text-align:right;
+}
+#carousel1 #user-c {
+	padding:0;
+	position:absolute;
+	right:15px;
+	bottom:10px;
+}
+#carousel1 .carouselLeft, #carousel1 .carouselRight {
+	position:absolute;
+	bottom:20px;
+	width:29px;
+	height:30px;
+	overflow:hidden;
+	cursor:pointer;
+}
+#carousel1 .carouselLeft {
+	right:60px;
+	background:url(images/templatemo_slider_right.png) no-repeat;
+}
+#carousel1 .carouselRight {
+	right:808px;
+	background:url(images/templatemo_slider_left.png) no-repeat;
+}
+</style>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/JavaScript" src="js/CloudCarousel.1.0.5.js"></script>
+<script type="text/JavaScript" src="js/jquery.mousewheel.js"></script><!--鼠标滚动插件-->
+<script type="text/javascript">
+$(document).ready(function(){						   
+	// 这初始化容器中指定的元素，在这种情况下，旋转木马.
+	$("#carousel1").CloudCarousel({			
+		xPos:450,
+		yPos:110,
+		buttonLeft: $('#but1'),
+		buttonRight: $('#but2'),
+		altBox: $("#alt-text"),
+		titleBox: $("#title-text"),				
+		FPS:30,
+		reflHeight:86,
+		reflGap:2,
+		yRadius:40,
+		autoRotateDelay: 1200,
+		speed:0.2,
+		mouseWheel:true,
+		bringToFront:true
+	});	
+});
+</script>
+</head>
+<body>
+<div id="carousel1">
+  <p id="title-text"></p>
+  <p id="alt-text"></p>
+  <a target="_parent" ><img class="cloudcarousel"  src="images/01.jpg"/></a> 
+  <a target="_parent" ><img class="cloudcarousel"  src="images/02.jpg"/></a>
+  <a target="_parent" ><img class="cloudcarousel"  src="images/03.jpg"/></a> 
+  <a target="_parent" ><img class="cloudcarousel"  src="images/04.jpg"/></a> 
+  <a target="_parent" ><img class="cloudcarousel"  src="images/05.jpg"/></a> 
+  <a target="_parent" ><img class="cloudcarousel"  src="images/06.jpg"/></a> 
+  <a target="_parent" ><img class="cloudcarousel"  src="images/07.jpg"/></a> 
+  <a target="_parent" ><img class="cloudcarousel"  src="images/08.jpg"/></a>
+  <div id="but1" class="carouselLeft"></div>
+  <div id="but2" class="carouselRight"></div>
+</div>
+<!--carousel1 end-->
+<center>
+  <div style="font-size:15px; font-weight:bold; text-align:center; line-height:25px; clear:both;">网友Null分享3D旋转图片立体展示jquery幻灯片插件<br />
+    JquerySchool网站出品（<a href="http://www.jq-school.com" target="_blank">http://www.jq-school.com</a>）<br />
+    官方网站学习交流QQ群<a target="_blank" href="http://wp.qq.com/wpa/qunwpa?idkey=4bf27be4ad1c0d647109933b80345be05d9c0efbb2c52ae1feb7247a40950720"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Jquery学堂②群" title="Jquery学堂②群"></a> </div>
+</center>
+</body>
+</html>

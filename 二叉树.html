@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<script>
+	
+	var root=null;
+
+	function Node(key){
+		this.key=key;
+		this.right=null;
+		this.left=null;
+	}
+	/**
+	 * [insertNode 插入节点]
+	 * @param  {[type]} node    [旧节点]
+	 * @param  {[type]} newNode [新节点]
+	 * @return {[type]}         [description]
+	 */
+	function insertNode(node,newNode){
+
+		if(newNode.key<node.key){
+
+			if(node.left===null)
+				node.left=newNode;
+			else
+				insertNode(node.left,newNode);
+		}else{
+
+			if(node.right===null)
+				node.right=newNode;
+			else
+				insertNode(node.right,newNode);
+		}
+
+	}
+	/**
+	 * [insert 插入元素]
+	 * @param  {[type]} key [key]
+	 * @return {[type]}     [description]
+	 */
+	function insert(key){
+
+		var _node_=new Node(key);
+
+		if(root===null){
+			root=_node_
+		}else{
+			insertNode(root,_node_);
+		}
+	}
+
+	/**
+	 * [readNode 读取节点]
+	 * @param  {[type]}   node     [节点]
+	 * @param  {Function} callback [回调]
+	 * @return {[type]}            [description]
+	 */
+	function readNode(node,callback){
+
+		if(node!=null){
+			callback(node)
+
+			readNode(node.left,callback)
+
+			readNode(node.right,callback)
+
+		}
+
+	}
+
+	/**
+	 * [traversalNode 遍历]
+	 * @param  {[type]} root [头节点]
+	 * @return {[type]}      [description]
+	 */
+	function traversalNode(root,callback){
+
+		readNode(root,callback);
+
+	}
+
+	/**
+	 * [calculate 查找最小节点 和最大节点]
+	 * @param  {[type]} node [头节点]
+	 * @param  {[type]} dir  [left标识最小节点 right 标识最大节点]
+	 * @return {[type]}      [description]
+	 */
+	function calculate(node,dir){
+
+			if(!node)return null;
+
+			var _n=node;
+
+			while(_n!=null && _n[dir]!=null){
+
+				_n=_n[dir];
+
+			}
+
+			return _n;
+	}
+
+	/**
+	 * [minNode 查找最小节点]
+	 * @param  {[type]} node [node]
+	 * @return {[type]}      [description]
+	 */
+	function minNode(node){
+
+		return calculate(node,"left");
+
+	}
+
+	/**
+	 * [minNode 查找最大节点]
+	 * @param  {[type]} node [node]
+	 * @return {[type]}      [description]
+	 */
+	function maxNode(node){
+
+		return calculate(node,"right");
+
+	}
+
+	/**
+	 * [searchKey 查找到节点]
+	 * @param  {[type]} node [头节点]
+	 * @param  {[type]} key  [KEY]
+	 * @return {[type]}      [description]
+	 */
+	function searchKey(node,key){
+
+		if(node==null)
+			return false;
+
+		if(key<node.key)
+			return searchKey(node.left,key)
+		else if(key>node.key)
+			return searchKey(node.right,key)
+		else
+			return node;
+	}
+
+	/**
+	 * [removeNode 删除节点]
+	 * @param  {[type]} node [节点]
+	 * @param  {[type]} key  [KEY]
+	 * @return {[type]}      [description]
+	 */
+	function removeNode(node,key){
+
+		if(node===null)return null;
+
+		if(key<node.key){
+
+			node.left=removeNode(node.left,key);
+
+			return node;
+
+		}else if(key>node.key){
+
+			node.right=removeNode(node.right,key);
+
+			return node;
+
+		}else{
+
+			if(node.right===null && node.left===null){
+
+				node=null;
+
+				return node;
+			}
+
+			if(node.left===null){
+
+				node=node.right;
+
+				return node;
+
+			}else if(node.right===null){
+
+				node=node.left;
+				
+				return node;
+			}
+
+
+
+			var minnode=minNode(node.right);
+
+			node.key=minnode.key;
+
+			node.right=removeNode(node.right,minnode.key);
+
+			return node;
+
+
+		}
+	}
+
+	var _temp=[6,3,21,5,7,9,54,12,543,1231,4,546,467,5686,78,789,789,567,546];
+
+	_temp.forEach(function(v){,   m
+
+		insert(v);
+
+	})
+
+	console.log("--------------插入开始--------------");
+	console.log(root)
+	console.log("--------------遍历开始--------------");
+	traversalNode(root,function(node){
+		console.log(node.key)
+	})
+	console.log("------最小节点："+ minNode(root).key +"------");
+
+	console.log("------最大节点："+ maxNode(root).key +"------");
+
+	console.log("------匹配节点：------");
+
+	console.log(searchKey(root,546));
+
+	console.log("----------------删除节点----------------");
+
+	console.log(removeNode(root,21));
+
+</script>
+<body>
+	
+</body>
+</html>

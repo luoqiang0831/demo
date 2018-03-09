@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script>
+  function myReady(fn){
+
+    //现代浏览器调用方式
+
+    if(document.addEventListener){
+
+      document.addEventListener("DOMContentLoaded",fn,false)
+
+    }else{
+
+      IEContentLoaded(fn)
+
+    }
+
+    //IE调用方式
+    function IEContentLoaded(fn){
+      var done=false,
+          d=window.document;
+
+      var init=function(){
+         if(!done){
+
+            done=true;
+
+            fn()
+
+         }
+
+         (function(){
+
+          try{
+
+            //DOM树未加载完成会抛出异常
+            d.documentElement.doScroll("left");
+
+          }catch(e){
+
+            //出异常之后再一次调用此匿名方式(自身)
+            setTimeout(arguments.callee,50)
+
+          }
+
+         })()
+         d.onreadystatechange=function(){
+
+            if(d.readyState==="complete"){
+
+              d.onreadystatechange=null;
+
+              init()
+
+            }
+         }
+
+
+      }
+
+    }
+  }
+
+  myReady(function(){
+
+    document.getElementsByTagName("h1")[0].style.color='red'
+  })
+
+
+  </script>
+</head>
+<body>
+  <h1>我看看看</h1>
+</body>
+</html>

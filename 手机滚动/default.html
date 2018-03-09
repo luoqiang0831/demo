@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title>Document</title>
+</head>
+<style>
+html,body,.warp{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+.warp{overflow: hidden; position: relative; color: #fff;background: #000;}
+
+.page{width: 100%; height: 100%;font-size: 5em; position: absolute; top:0;left: 0;/*visibility: hidden;*/ opacity: 0;}
+.page_1{ background: #ccc; }
+.page_2{ background: #e08686; }
+.page_3{ background: #6ddbb5; }
+.page_4{ background: #62b46e; }
+.page_5{ background: #c280d8; }
+</style>
+
+<body>
+<div class="warp">
+	<div class="page page_1">page1</div>
+	<div class="page page_2">page2</div>
+	<div class="page page_3">page3</div>
+	<div class="page page_4">page4</div>
+	<div class="page page_5">page5</div>
+	<div class="page page_2">page2</div>
+	<div class="page page_3">page3</div>
+	<div class="page page_4">page4</div>
+	<div class="page page_5">page5</div>
+</div>
+<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="js/zepto.touchSlider1.js"></script>
+<script>
+$(function(){
+	$('.warp').slider({ direction: 'top',scale:0.1});
+})
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<style type="text/css">
+	h4 {font-family: sans-serif;}
+	p {font-family: sans-serif;}
+	a {font-family: sans-serif; color:#d15423; text-decoration:none;}
+</style>
+<title>HML5 Canvas - 简单的画布拖拽效果</title>
+<script>
+	window.onload=function(){
+		var canvas=document.getElementById("canvasOne");
+		canvas.width=800;
+		canvas.height=800;
+		var context=canvas.getContext("2d")
+		//drawRect2(context,100,100,400,400,10,'#058','red')
+		//drawRect(context,150,100,400,400,10,'#058','red')
+		context.lineWidth=10;
+		drawStar(context,150,300,400,400)
+
+	}
+	function drawRect(cxt,x,y,width,height,borderWidth,borderColor,fillColor){
+		cxt.beginPath();
+		cxt.moveTo(x,y);
+		cxt.lineTo(x+width,y);
+		cxt.lineTo(x+width,y+height);
+		cxt.lineTo(x,y+height);
+		cxt.closePath();
+
+		cxt.lineWidth=borderWidth;
+		cxt.fillStyle=fillColor;
+		cxt.strokeStyle=borderColor;
+
+		cxt.fill();
+		cxt.stroke();
+
+	}
+	function drawRect2(cxt,x,y,width,height,borderWidth,borderColor,fillColor){
+		cxt.lineWidth=borderWidth;
+		cxt.fillStyle=fillColor;
+		cxt.strokeStyle=borderColor;
+
+		cxt.fillRect(x,y,width,height);
+		cxt.strokeRect(x,y,width,height);
+
+	}
+	function drawStar(cxt,r,R,x,y){
+		cxt.beginPath();
+		for(var i=0;i<5;i++){
+			cxt.lineTo(Math.cos((18+i*72)/180*Math.PI)*R+x,-Math.sin((18+i*72)/180*Math.PI)*R+y)
+			cxt.lineTo(Math.cos((54+i*72)/180*Math.PI)*r+x,-Math.sin((54+i*72)/180*Math.PI)*r+y)
+			
+		}
+		cxt.closePath();
+		cxt.stroke();
+	}
+</script>
+</head>
+<body>
+<canvas id="canvasOne" width="500" height="300">
+Your browser does not support HTML5 canvas.
+</canvas>
+</body>
+</html>

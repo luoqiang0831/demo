@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    .Test{ width: 382px; position: relative;background: #33b4f1; overflow: hidden;}
+    .Test::after{content: "";position: absolute;width: 0;height: 0; top:0;right:0;border-style: solid;border-width: 0;border-color: rgba(0,0,0,0.2) #fff;border-radius: 0 0 0 4px;-webkit-transition:all 0.4s ease-out;box-shadow: 0 1px 1px rgba(0,0,0,0.3),-1px 1px 1px rgba(0,0,0,0.2);}
+    .Test:hover::after{border-right-width: 80px;border-bottom-width: 80px;}
+    .Rv::after{border-right-width: 1000px !important;border-bottom-width: 600px !important;}
+</style>
+<script src="js/jquery.js"></script>
+<script>
+    $(function(){
+        $(".Test").click(function(){
+            $(this).toggleClass("Rv")
+        })
+    })
+</script>
+<body>
+    <div class="Test">
+        <img src="http://images.csdn.net/20150401/201503300735542066.jpg" alt="">
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	a{text-decoration: none; color:#fff;margin: 0;padding: 0;outline: 0;}
+	input{margin: 0;}
+	.Search{height: 32px;width:216px;}
+	#SResults{display: block;margin:0;margin-top:32px;padding: 0; list-style: none; position: absolute;border:1px solid #ccc;border-top:0px;width: 172px;}
+	.Search input{height: 28px;border:1px solid #5eb569;width: 170px;outline: 0;padding: 1px;line-height: 28px;}
+	.Search a{float: right; height: 32px;background: #5eb569;line-height: 32px; padding: 0 5px;}
+	.Search li{padding:5px;text-align:center;}
+	.left,.right{background:#50b65e; height: 30px; width: 30px; position: absolute; }
+	.right{margin-left:-30px;}
+</style>
+<body>
+	<div class="cont">
+		<span class="left"></span>
+		<img src="http://img.mukewang.com/53d74f960001ae9d06000338.jpg"><!--
+		!--><span class="right"></span>
+	</div>
+	<div class="Search">
+		<ul id="SResults">
+			<li>测试1</li>
+			<li>测试2</li>
+			<li>测试3</li>
+			<li>测试4</li>
+			<li>测试5</li>
+		</ul>
+		<input type="text" id="inpus" /><!--
+		!--><a href="#">搜索</a>
+	</div>
+	<script>
+	window.onload=function(){
+		var Sinput=document.getElementById("inpus"),SResults=document.getElementById("SResults");
+		Sinput.onmousedown=function(){
+			SResults.style.display="block";
+		}
+		Sinput.onblur=function(){
+			SResults.style.display="none";
+		}
+	}
+	</script>
+</body>
+</html>

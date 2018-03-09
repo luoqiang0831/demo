@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	.cons{position: relative; width: 640px; height: 320px;}
+	.cons::after,.cons:after,.cons::before,.cons:before{content: ''; position: absolute; top: 30px;bottom: 30px;left: 30px;right: 30px; -webkit-transition: -webkit-transform 0.35s; transition: transform 0.35s;}
+	.cons:after{border-right: 1px solid #409a39; border-left:1px solid #409a39;-webkit-transform: scale(1,0);transform: scale(1,0);}
+	.cons:before{border-top: 1px solid #409a39; border-bottom:1px solid #409a39;-webkit-transform: scale(0,1);transform: scale(0,1);}
+	.cons:hover:after,.cons:hover:before{opacity: 1;-webkit-transform: scale(1); transform: scale(1); }
+</style>
+<body>
+	<div class="cons"><img src="1.gif" alt=""></div>
+</body>
+</html>

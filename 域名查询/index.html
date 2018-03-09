@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>域名查询</title>
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="col-md-12" style="margin-top: 20px;">
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary" id="tapStartCom">开始匹配(.shop)</button>
+			<div class="progress" style="margin:20px 0;">
+			  <div class="progress-bar progress-bar-striped progress-bar-warning active" id="comScale" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+			    <span class="sr-only">45% Complete</span>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary " id="tapStartCn">开始匹配(.cn)</button>
+			<div class="progress" style="margin:20px 0;">
+			  <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar"  id="cnScale" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+			    <span class="sr-only">0% Complete</span>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<button type="button" class="btn btn-primary " id="tapStartTop">开始匹配(.top)</button>
+			<div class="progress" style="margin:20px 0;">
+			  <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar"  id="topScale" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+			    <span class="sr-only">0% Complete</span>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="col-md-4">
+			<table class="table table-striped" id="viewCom">
+			      <thead>
+			        <tr>
+			          <th>可注册域名(.com)</th>
+			          <th>价格</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			       
+			      </tbody>
+			    </table>
+		</div>
+		<div class="col-md-4">
+			<table class="table table-striped" id="viewCn">
+			      <thead>
+			        <tr>
+			          <th>可注册域名(.cn)</th>
+			          <th>价格</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			      </tbody>
+			    </table>
+		</div>
+		<div class="col-md-4">
+			<table class="table table-striped" id="viewTop">
+			      <thead>
+			        <tr>
+			          <th>可注册域名(.top)</th>
+			          <th>价格</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			      </tbody>
+			    </table>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+		var lowerCaseC = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+		var upperCaseC = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+		var numN = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+		var sourceSeq = null;
+		var useC = [];
+		useC.push.apply(useC, lowerCaseC);
+		// useC.push.apply(useC, upperCaseC);
+		// useC.push.apply(useC, numN); 
+
+		var indexArr = [];
+		var testStr = null;
+		var j = 0;
+		var calculateCount = 0;
+		var _re=[];
+		console.log("start time: " + new Date());
+		for(var pwdLength = 1; pwdLength <= 4; pwdLength++) {
+		    indexArr = [];
+		    for(var i=0; i < pwdLength; i++) { //初始化索引
+		        indexArr[i] = 0;
+		    }
+
+		   
+		    while(indexArr[0] < useC.length - 1) {
+
+		        testStr = "";
+		        for(var i=0; i<pwdLength; i++) { //构建字符串
+		            testStr += useC[indexArr[i]];
+		        }
+		        _re.push(testStr);
+		    
+		        calculateCount++;
+
+		        j = pwdLength -1;
+		        if(indexArr[j] >= useC.length - 1) {
+		            indexArr[j] = 0;
+		                indexArr[j-1]++;
+		            while(--j >= 0) {
+		                if(indexArr[j] > useC.length - 1) {
+		                    if(j > 0) {
+		                        indexArr[j] = 0;
+		                        indexArr[j-1]++;
+		                    }
+		                } else {
+		                    break;
+		                }
+		            }
+		        } else {
+		            indexArr[j]++;
+		        }
+
+		    }
+
+		}
+
+		console.log(_re)
+		console.log("end time: " + new Date());
+
+		$(function(){
+
+			var $el=null;
+
+			/**
+			 * [TXQuery 腾讯查询接口]
+			 * @param {[type]} elSca [显示比例元素]
+			 * @param {[type]} start [开始位置]
+			 * @param {[type]} ftype [查询类型.com]
+			 */
+			function TXQuery(elSca,start,ftype,appendEl){
+
+							if(appendEl){
+
+								$el=$(appendEl)
+							}
+							//setInterval
+							//开始比例
+							// var scale=setInterval(function(){
+
+							// 	elSca.css("width",start/calculateCount*100+'%');
+
+							// },5000)
+
+							// var $el=$(appendEl);
+
+							// var s=setInterval(function(){
+
+							// 		if(start==calculateCount){
+
+							// 			clearInterval(s);
+
+							// 			return ;
+							// 		}
+
+									
+
+									
+
+							// 	},100)
+							$.ajax({
+							     url: "https://apidomains.qcloud.com/model/check_domains",              //请求地址
+	    					     type: "GET",                       //请求方式
+	    					     data: {
+	    				  				"g_tk":"",
+	    				  				"_format":"json",
+	    				  				"domain":_re[start++],
+	    				  				"tlds":ftype
+	    				  			},        //请求参数
+							     dataType: "json",
+							     success: function (data) {
+							         // 此处放成功后执行的代码
+							        try{
+
+							        	var s=data.result[0];
+
+							        	console.log(_re[start],s.reged,ftype)
+
+							        	if(!s.reged){
+
+							        		$el.children("tbody").append('<tr><td>'+s.domain+'</td><th>'+s.price+'</th></tr>');
+
+							        	}
+
+							        	TXQuery(elSca,start,ftype,appendEl)
+
+
+							        }catch(e){
+
+							        	console.log(e)
+
+							        	TXQuery(elSca,start,ftype,appendEl)
+
+							        }
+			          				
+
+							     },
+							     fail: function (status) {
+							         // 此处放失败后执行的代码
+							         TXQuery(elSca,start,ftype,appendEl)
+							     },
+							     error:function(){
+							     	 // 此处放失败后执行的代码
+							         TXQuery(elSca,start,ftype,appendEl)
+							     }
+							 });
+
+			}
+
+			/**
+			 * [TXQuery 新网查询接口]
+			 * @param {[type]} elSca [显示比例元素]
+			 * @param {[type]} start [开始位置]
+			 * @param {[type]} ftype [查询类型.top]
+			 */
+			function XWQuery(elSca,start,ftype,appendEl){
+
+							//setInterval
+							//开始比例
+							var scale=setInterval(function(){
+
+								elSca.css("width",start/calculateCount*100+'%');
+
+							},5000)
+
+							var $el=$(appendEl);
+
+							var s=setInterval(function(){
+
+									if(start==calculateCount){
+
+										clearInterval(s);
+
+										return ;
+									}
+
+									$.ajax({
+									     url: "http://checkdomain.xinnet.com/domainCheck",              //请求地址
+			    					     type: "GET",                       //请求方式
+			    					     data: {
+			    				  				"searchRandom":"5",
+			    				  				"prefix":_re[start++],
+			    				  				"suffix":ftype
+			    				  			},        //请求参数
+									     dataType: "jsonp",
+									     jsonp: "callbackparam",
+									     success: function (data) {
+									         // 此处放成功后执行的代码
+									        
+					          				var result=data[0].result[0],
+
+					          					s=result.yes,
+
+					          					n=result.no;
+
+					          				if(n.length!=0&&n[0].feeFlag){
+
+					          					if(n[0].price<100){
+
+					          						$el.children("tbody").append('<tr><td>'+n[0].domainName+'</td><th>'+n[0].price+'</th></tr>');
+					          						
+					          					}
+					          					
+					          					return 
+
+					          				}
+					          				if(s.length!=0){
+
+					          					$el.children("tbody").append('<tr><td>'+s[0].domainName+'</td><th>'+s[0].price+'</th></tr>');
+
+					          				}else{
+
+					          					console.log(data[0].result[0].no[0].domainName,ftype)
+					          				}
+
+									     },
+									     fail: function (status) {
+									         // 此处放失败后执行的代码
+									     }
+									 });
+
+								},100)
+
+			}
+
+			//.com 查询
+			$("#tapStartCom").click(function(){
+
+				$(this).attr("disabled","disabled");
+
+				TXQuery($("#comScale"),7000,".cc","#viewCom");
+
+			})
+
+			//.cn 查询
+			$("#tapStartCn").click(function(){
+
+				$(this).attr("disabled","disabled");
+
+				TXQuery($("#cnScale"),429220,".cn","#viewCn")
+
+			})
+
+			//.top 查询
+			$("#tapStartTop").click(function(){
+
+				$(this).attr("disabled","disabled");
+
+				XWQuery($("#topScale"),1000,".top","#viewTop")
+
+			})
+
+			
+			//
+		})
+
+
+	</script>
+</body>
+</html>

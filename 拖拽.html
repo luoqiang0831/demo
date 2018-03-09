@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="js/jquery.js"></script>
+<script>
+$(function(){
+		var disX=0;
+		var disY=0;
+	$("#cs").mousedown(function(ev){
+		disX=ev.pageX-$(this).offset().left;
+		disY=ev.pageY-$(this).offset().top;
+		
+		$(document).mousemove(function(ev){
+			$("#cs").css("left",ev.pageX-disX);
+			$("#cs").css("top",ev.pageY-disY);
+			
+		});
+		$("#cs").mouseup(function(){
+				$(document).off();					   
+			});
+	});
+});
+</script>
+<style>
+#cs{ width:100px; height:100px; background-color:#9C3; position:absolute}
+</style>
+</head>
+
+<body>
+<div id="cs" ></div>
+
+</body>
+</html>

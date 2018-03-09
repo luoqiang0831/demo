@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+ul,li{ list-style:none; margin:0; padding:0;}
+.slider{ width:100%; height:auto;}
+.slider ul{ width:100%; position:relative; }
+.slider li{ float:left;width:100%; position:absolute;}
+.slider li img{ width:100%;}
+.slider li span{ display:block; width:100%; height:30px; background-color:#333; color:#FFF; position:absolute; bottom:0; left:0;  line-height:30px; opacity:0.8; font:14px/30px "微软雅黑";}
+.lrBtn{ width:40px; height:40px;-webkit-transform:rotate(45deg); transform:rotate(45deg);-moz-transform:rotate(45deg); border:4px solid #CCC; /*box-shadow:4px 2px 2px 2px #ccc;*/}
+.next{ display:block; position:absolute; right:10px; top:50%; margin-top:-40px; width:25px; overflow:hidden; background-color:#333; opacity:0.8;height: 60px;}
+.pavr{ display:block; position:absolute; left:10px; top:50%; margin-top:-40px; width:25px; overflow:hidden; background-color:#333; opacity:0.8;height: 60px;}
+.pavr div{ margin: 7px 0 0 12px;}
+.next div{ margin: 7px 0 0 -35px;}
+.next:hover div{ border:4px solid #fff;}
+.pavr:hover div{ border:4px solid #fff;}
+</style>
+<script src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/js/jquery.min.js"></script>
+<script>
+$(function(){
+	var oDiv=$('.slider');  
+	var timer=null;
+	var i=1;
+	for(var i=1;i<oDiv.find("li").length;i++){
+		oDiv.find("li").eq(i).hide();
+	}
+	Interval();
+function Interval(){	
+	timer=setInterval(function(){
+		oDiv.find("li").eq(i).fadeOut(1000);
+		i++>oDiv.find("li").length-1?i=1:i;
+		oDiv.find("li").eq(i).fadeIn(1000);
+	},5000);
+}
+	$(".slider").on("mouseover",function(){
+			clearInterval(timer);					 
+	});
+	$(".slider").on("mouseout",function(){
+			Interval();					 
+	});
+	
+	$(".next").on("click",function(){
+			oDiv.find("li").eq(i).fadeOut(1000);
+			i++>oDiv.find("li").length-1?i=1:i;
+			oDiv.find("li").eq(i).fadeIn(1000);	
+	});
+	$(".pavr").on("click",function(){
+			oDiv.find("li").eq(i).fadeOut(1000);
+			i--;
+			i==0?i=3:i;
+			oDiv.find("li").eq(i).fadeIn(1000);					 
+	});
+});
+</script>
+<body>
+<div class="slider">
+    <ul>
+    <li><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/images/1.jpg"/> <span>图片1</span></li>
+    <li><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/images/2.jpg"/> <span>图片2</span></li>
+    <li><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/images/3.jpg"/> <span>图片3</span></li>
+        <li><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/images/1.jpg"/> <span>图片1</span></li>
+    <li><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/images/2.jpg"/> <span>图片2</span></li>
+    <li><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/images/3.jpg"/> <span>图片3</span></li>
+        <li><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/images/1.jpg"/> <span>图片1</span></li>
+    <li><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/images/2.jpg"/> <span>图片2</span></li>
+    <li><img src="http://d.lanrentuku.com/down/js/jiaodiantu-1055/images/3.jpg"/> <span>图片3</span></li>
+    </ul>
+    <div><a href="#" class="pavr"><div class="lrBtn"></div></a><a href="#" class="next"><div class="lrBtn"></div></a></div>
+</div>
+</body>
+</html>

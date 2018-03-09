@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+#ProgressBar{ width:400px; height:30px; border:1px solid #CCC; position:relative; margin:15px auto; overflow:hidden;}
+#ProgressColor{ height:100%; width:100%; text-align:center; color:#FFF; font:24px/36px Arial, Helvetica, sans-serif;clip:rect(0px 0px 40px 0); background-color:#9C6;; position:absolute; left:0; top:0; z-index:2;}
+#ProgressText{ width:100%; position:absolute; height:100%; color:#000; top:0; text-align:center; left:0; font:24px/36px Arial, Helvetica, sans-serif;z-index:1;}
+</style>
+<script>
+window.onload=function(){
+		
+	var Progress=document.getElementById("ProgressBar");
+	var ProgressColor=document.getElementById("ProgressColor");
+	var ProgressText=document.getElementById("ProgressText");
+	var oDivImg=document.getElementById("img");
+	var num=parseInt(GetStyle(Progress,"width"));
+	var iNow=0;
+	var json=[{scr:'http://g.hiphotos.baidu.com/image/h%3D800%3Bcrop%3D0%2C0%2C1280%2C800/sign=32aebeb21bd8bc3ed9080bcab2b0c56c/5d6034a85edf8db1953c77ec0b23dd54564e7423.jpg'},
+			  {scr:'http://f.hiphotos.baidu.com/image/h%3D800%3Bcrop%3D0%2C0%2C1280%2C800/sign=6f5708ae6f224f4a48997e1339ccf320/562c11dfa9ec8a13be8b2968f503918fa1ecc0a1.jpg'},
+			  {scr:'http://e.hiphotos.baidu.com/image/h%3D800%3Bcrop%3D0%2C0%2C1280%2C800/sign=cdd09754881363270aedcf33a1b4c39e/29381f30e924b899750e72b06c061d950a7bf60c.jpg'},
+			  {scr:'http://a.hiphotos.baidu.com/image/w%3D1280%3Bcrop%3D0%2C0%2C1280%2C800/sign=89745070b33533faf5b6972c90e3c67c/00e93901213fb80eeb40b8a934d12f2eb938943f.jpg'},
+			  {scr:'http://f.hiphotos.baidu.com/image/h%3D800%3Bcrop%3D0%2C0%2C1280%2C800/sign=d806daa992ef76c6cfd2f62bad2d9e88/7dd98d1001e939011ce485b679ec54e737d19657.jpg'}];
+	for(var i=0;i<json.length;i++){
+		var oImg=new Image();
+		oImg.src=json[i].scr;
+		oImg.onload=function(){
+			iNow+=20;
+			ProgressObj(iNow);
+			}
+		oDivImg.appendChild(oImg);
+		}
+	function ProgressObj(iNow){
+			ProgressColor.style.clip="rect(0px "+iNow/100*num+"px 40px 0)";
+			ProgressColor.innerHTML=iNow+"%";
+			ProgressText.innerHTML=iNow+"%";
+		}
+	function GetStyle(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}else
+		{
+			return getComputedStyle(obj,false)[attr];
+		}
+	}
+};
+</script>
+<body>
+<div id="ProgressBar">
+<div id="ProgressColor">0%</div>
+<div id="ProgressText">0%</div>
+</div>
+<div id="img"></div>
+
+</body>
+</html>

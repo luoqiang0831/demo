@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="js/more.js"></script>
+<style>
+body ul{ margin:0; padding:0;}
+img{ border:0px;}
+a:hover{ border:0px;}
+.pic{ width:320px; height:300px; background-color:#CCC; margin:0 auto; position:absolute;}
+.LargeImg{ list-style:none; height:240px; width:320px; overflow:hidden;}
+.upper{ float:left; width:160px; height:240px; position:absolute;}
+.next{ float:right; right:0; width:160px; height:240px; position:absolute;}
+.next a{ display:block;width:160px; height:240px;}
+.upper a{ display:block;width:160px; height:240px;  }
+
+.next a img{ float:right;padding:60% 10px 0 0; opacity:0.0;filter:alpha(opacity:30);}
+.upper a img{ float:left;padding:60% 0 0 10px; opacity:0.0;filter:alpha(opacity:30);}
+.SmallImg{ height:60px; width:300px;overflow:hidden; list-style:none;}
+.SmallImg li img{ width:50px; height:50px; float:left; padding:5px;opacity:0.6;filter:alpha(opacity:60);}
+</style>
+<script>
+function getById(rParent,className){
+		var getAllnode=document.getElementsByTagName('*');
+		var oResult=[];
+		for(var i=0;i<getAllnode.length;i++){
+			if(getAllnode[i].className==className){
+				oResult.push(getAllnode[i]);
+				}
+			}
+		return oResult;
+	}
+window.onload=function(){
+	var oDiv=document.getElementsByName("pic");
+	var oBtnUpper=getById(oDiv,"upperImg")[0];
+	var oBtnNext=getById(oDiv,"nextImg")[0];
+	var oDivupper=getById(oDiv,"upper")[0];
+	var oDivnext=getById(oDiv,"next")[0];
+	
+
+	
+	oDivupper.onmousemove=function(){
+		
+			StartMove(oBtnUpper,'opacity',100);
+		}
+	oDivupper.onmouseout=function(){
+		StartMove(oBtnUpper,'opacity',0);
+		}
+	oDivnext.onmousemove=function(){
+		
+			StartMove(oBtnNext,'opacity',100);
+		}
+	oDivnext.onmouseout=function(){
+		StartMove(oBtnNext,'opacity',0);
+		}
+
+	/*for(var i=0; i<oSmalllist.length;i++){
+		
+		oSmalllist[i].onmousemove=function(){
+				
+				StartMove(oSmalllist[i].getElementsByTagName('img')[0],'opacity',100);
+			};
+		}
+	*/
+	};
+</script>
+</head>
+
+<body>
+<div class="pic">
+<ul class="LargeImg">
+<div class="upper"><a href="javascript:;"><img class="upperImg" src="img/prve.png" /></a></div>
+<div class="next"><a href="javascript:;"><img class="nextImg" src="img/next.png" /></a></div>
+<li><img src="img/01.jpg" /></li>
+<li><img src="img/02.jpg" /></li>
+<li><img src="img/03.jpg" /></li>
+<li><img src="img/04.jpg" /></li>
+<li><img src="img/05.jpg" /></li>
+<li><img src="img/01.jpg" /></li>
+<li><img src="img/02.jpg" /></li>
+<li><img src="img/03.jpg" /></li>
+<li><img src="img/04.jpg" /></li>
+<li><img src="img/05.jpg" /></li>
+</ul>
+<div>
+<ul class="SmallImg">
+<li><a href="#"><img src="img/01.jpg" /></a></li>
+<li><img src="img/02.jpg" /></li>
+<li><img src="img/03.jpg" /></li>
+<li><img src="img/04.jpg" /></li>
+<li><img src="img/05.jpg" /></li>
+<li><a href="#"><img src="img/01.jpg" /></a></li>
+<li><img src="img/02.jpg" /></li>
+<li><img src="img/03.jpg" /></li>
+<li><img src="img/04.jpg" /></li>
+<li><img src="img/05.jpg" /></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

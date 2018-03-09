@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<head>
+<meta charset=utf-8>
+<title></title>
+</head>
+<script>
+
+window.onload=function(){
+		var hb=document.getElementById("hb");
+		var draw=hb.getContext("2d");//播放
+		draw.fillStyle='red';
+		draw.fillRect(0,0,100,100);
+		var Paint={X:0,Y:0};
+		var PaintTo={X:0,Y:0};
+		hb.onmousedown=function(ev){
+			
+			var oEvent=ev||event;
+			
+			Paint.X=oEvent.clientX-hb.offsetLeft;
+			Paint.Y=oEvent.clientY-hb.offsetTop;
+			draw.lineWidth=5;
+			draw.fillStyle="rgb(0,0,255)";
+			Draw(Paint);
+			return false;
+		}
+function Draw(Paint){	
+		draw.moveTo(Paint.X,Paint.Y);
+		hb.onmousemove=function(ev){
+			var oEvent=ev||event;
+			PaintTo.X=oEvent.clientX-hb.offsetLeft;
+			PaintTo.Y=oEvent.clientY-hb.offsetTop;
+			draw.lineTo(PaintTo.X,PaintTo.Y);
+			draw.stroke();//结束画线连接
+			return false;
+			};
+		
+		
+	}
+	hb.onmouseup=function(){
+		hb.onmousemove=null;
+		
+		};
+	
+	
+	
+	
+	
+	draw.fillStyle="rgba(0,255,255,0.3)";
+		draw.fillRect(80,80,500,50);
+		//画线
+		draw.fillStyle="rgb(0,0,255)";
+		draw.moveTo(10,10);
+		draw.lineTo(150,50);
+		draw.lineTo(10,50);
+		draw.lineTo(10,10);
+		draw.stroke();//结束画线连接
+		
+
+		//画圆形 画扇形
+		draw.fillStyle="rgba(0,255,255,0.3)";
+		draw.beginPath();
+		draw.arc(255,255,80,0,Math.PI*2,true);//中心的X,中心Y，半径,开始,结束，顺时针方向画,逆时针方向画
+		draw.closePath();
+		draw.fill();
+
+		//颜色渐变
+		var grd=draw.createLinearGradient(300,100,175,50);
+		grd.addColorStop(0,"yellow");
+		grd.addColorStop(0.5,"red");
+		grd.addColorStop(1,"blue");
+		
+		draw.fillStyle=grd;
+		draw.fillRect(300,100,175,50);
+		var img =new Image();
+		img.src="../img/share.gif";
+		draw.drawImage(img,260,260);
+		
+var start=document.getElementById("start");
+var end=document.getElementById("end");
+var drawHB=document.getElementById("hb1");
+var draw2=drawHB.getContext("2d");
+var iNow=0;
+var down=true;
+var timer=null;
+start.onclick=function(){
+		move();
+	}
+function move(){
+	timer=setInterval(function(){
+		draw2.clearRect(0,0,500,500);
+		draw2.fillStyle="rgba(0,255,255,0.3)";
+		draw2.beginPath();
+		draw2.arc(255,iNow,30,0,Math.PI*2,true);//中心的X,中心Y，半径,开始,结束，顺时针方向画,逆时针方向画
+		draw2.closePath();
+		draw2.fill();				   
+		
+		if(down){
+		
+			iNow+=5;
+			if(iNow>=500){
+				down=false;
+			}document.title=iNow;
+		}else
+		{
+			iNow-=5;
+			if(iNow<=0){
+				down=true;
+			}document.title=iNow;
+		}
+		
+		},30);
+
+};
+end.onclick=function(){
+	clearInterval(timer);
+	}
+
+		
+};
+
+
+
+</script>
+<body>
+<canvas id="hb" width="500px" height="500px"></canvas>
+<canvas id="hb1" width="500px" height="500px"></canvas>
+<button id="start">开始</button>
+<button id="end">结束</button>
+</body>
+</html>
+
+
+
+
+
+

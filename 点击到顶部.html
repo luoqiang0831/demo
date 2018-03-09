@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script>
+
+window.onload=function(){ 
+	var oDiv=document.getElementById("fixDiv");
+	
+	var t=(document.documentElement.clientHeight-oDiv.offsetHeight)/2;
+	var timer=null;
+	var nSyt;
+	window.onscroll=function(){
+			if(!nSyt){//判断是否是用户点击滚动条
+				clearInterval(timer);
+				}	
+			nSyt=false;
+		}
+	oDiv.onclick=function(){
+			timer=setInterval(function(){
+									   var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+									if(scrollTop<=0){
+										clearInterval(timer);
+										}
+									//速度调整
+									var iSpeed=Math.floor(-scrollTop/8);
+									//表示定时器回滚滚动条
+									nSyt=true;
+									document.documentElement.scrollTop=document.body.scrollTop=scrollTop+iSpeed;
+									   	
+									   },30);
+		}
+}
+</script>
+
+<style>
+#fixDiv{ width:50px; height:50px; background-color:#099; position:fixed; bottom:0; right:0;font:15px large;color:#FFF; padding:20px;}
+</style>
+<body>
+<div id="fixDiv">回到顶部</div>
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br /><br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />1
+<br />
+</body>
+</html>

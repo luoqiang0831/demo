@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script src="../js/LQuery.js"></script>
+<style>
+body,ul,li{ margin:0; padding:0;}
+img { border:none; margin:0;}
+#Side{ min-width:1000px; height:396px; position:relative; overflow:hidden;}
+#Side ul{ list-style:none; height:396px;position:relative; }
+#Side li{ float:left;}
+#Side img{ }
+
+
+#aBtn{ position:absolute; width:100%; bottom:0;text-align:center;}
+#aBtn a{ display:inline-block; width:10px; height:10px; border:1px solid #9C3; }
+#aBtn a:hover{background-color:#CCC; }
+#aBtn a.active{background-color:#CCC; }
+</style>
+<script>
+$(function(){
+		 var oUl=$("#Side").find("ul");
+		 var oLI=$("#Side").find("li");
+		 var oImg=$("#Side").find("img");
+	     var aBtn=$("#aBtn").find("a");
+		 var viewWidth=document.documentElement.clientWidth;
+	oUl.css("width",oLI.size()*oLI.css("width").substring(0,4)+'px');
+	$(oUl.elements[0]).css("left","-"+(oImg.css("width").substring(0,4)-viewWidth)/2+'px');
+	$(window).bind("resize",function(){
+			
+			$(oUl.elements[0]).css("left","-"+(oImg.css("width").substring(0,4)-viewWidth)/2+'px');
+			
+			//("li"oImg.css();					 
+	});
+	aBtn.click(function(){
+			var oldLeft=$(oUl.elements[0]).css("left");
+			$(oUl.elements[0]).css("left",parseInt(oldLeft)-parseInt(oImg.css("width")*$(this).index())+'px');
+			
+			//$(oUl.elements[0]).css("left",""
+	});
+		
+});
+</script>
+<body>
+<div id="Side">
+<ul><li><img src="img/1.jpg" /></li>
+<li><img src="img/2.jpg" /></li>
+<li><img src="img/3.jpg" /></li>
+</ul>
+<div id="aBtn">
+<a href="#" class="active"></a>
+<a href="javascript:void(0)"></a>
+<a href="javascript:void(0)"></a>
+</div>
+</div>
+</body>
+</html>

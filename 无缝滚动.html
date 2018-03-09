@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="js/more2.js"></script>
+
+<script>
+window.onload=function(){
+		var getUl=document.getElementById("listUl");
+		var getLi=getUl.getElementsByTagName("li");
+		var timer=null;
+		var iSpeed=10;
+		getUl.innerHTML+=getUl.innerHTML;
+		getUl.style.width=(getLi.length*getLi[0].offsetWidth);
+	
+	
+	
+		timer=setInterval(function(){
+				var runs=(getLi.length*getLi[0].offsetWidth)/2;
+				
+				
+				if(getUl.offsetLeft<-runs){
+						getUl.style.left=0;
+					}
+				
+				getUl.style.left=getUl.offsetLeft-iSpeed+"px";
+		},30);
+	}; 
+</script>
+</head>
+<style>
+*{ margin:0; padding:0;}
+#listDiv{ margin:20px auto; width:600px; border:1px solid #0CF; height:120px; position:relative;overflow:hidden}
+#listUl{width:1200px;list-style:none;left:0;position:relative; display:block;  } 
+#listUl li {float:left; }
+#listUl li img{ width:100px; height:100px; background-color:#ccc; margin:10px;}
+</style>
+<body>
+<div id="listDiv">
+<ul id="listUl">
+<li><img src="图片滚动\img\01.jpg" /></li>
+<li><img src="图片滚动\img\02.jpg" /></li>
+<li><img src="图片滚动\img\03.jpg" /></li>
+<li><img src="图片滚动\img\04.jpg" /></li>
+<li><img src="图片滚动\img\05.jpg" /></li>
+</ul>
+</div>
+</body>
+</html>

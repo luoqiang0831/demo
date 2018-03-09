@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.ani.min.js"></script>
+
+<body>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">1</a>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">1</a>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">1</a>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">1</a>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">1</a>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">2</a>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">1</a>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">1</a>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">1</a>
+	<a href="" attribute1="attribute1" Attribute2="Attribute2">1</a>
+
+	<script>
+$(function(){
+	$("a").each(function(i){
+		$(this).attr("Attribute2",$(this).attr("attribute1"));
+		$(this).on("click",function(){
+			alert(i);
+		})
+	})
+})
+</script>
+</body>
+</html>

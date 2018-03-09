@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#div1{ width:100px; height:100px; background-color:#9C6; position:absolute;}
+#div2{ width:100px; height:100px; background-color:#0C6; position:absolute; top:200px; left:300px; z-index:-99;}
+</style>
+<script>
+window.onload=function(){
+	var div1=document.getElementById("div1");
+	var div2=document.getElementById("div2");
+	
+	div1.onmousedown=function(ev){
+		var oEvent=ev||event;
+		var disX=oEvent.clientX-div1.offsetLeft;
+		var disY=oEvent.clientY-div1.offsetTop;
+		//alert(oEvent.clientX+":"+disX);
+		document.onmousemove=function(ev){
+			var oEvent=ev||event;
+			var l=oEvent.clientX-disX;
+			var t=oEvent.clientY-disY;
+			
+			var odivtop1=div1.offsetTop;
+			var odivleft1=div1.offsetLeft;
+			var odivright1=div1.offsetLeft+div1.offsetWidth;
+			var odivbottom1=div1.offsetTop+div1.offsetHeight;
+
+			var odivtop2=div2.offsetTop;
+			var odivleft2=div2.offsetLeft;
+			var odivright2=div2.offsetLeft+div2.offsetWidth;
+			var odivbottom2=div2.offsetTop+div2.offsetHeight;
+			document.title="odivbottom1"+odivbottom1+"odivtop2"+odivtop2;
+			if(odivright1<odivleft2||odivleft1>odivright2||odivbottom1<odivtop2||odivtop1>odivbottom2){
+				
+				
+				}else{
+					div2.style.backgroundColor="red";
+					}
+			
+		
+			div1.style.top=t+"px";
+			div1.style.left=l+"px";
+			};
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouserup=null;
+			};
+
+		return false;
+		};
+		
+
+	};
+</script>
+</head>
+
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+</body>
+</html>

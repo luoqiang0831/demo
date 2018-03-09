@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script>
+document.oncontextmenu=function(ev){
+	var GetMuen=document.getElementById("muen");
+	
+	GetMuen.style.display="block";
+
+			var oEvent=ev||event;
+			GetMuen.style.top=oEvent.clientY+"px";
+			GetMuen.style.left=oEvent.clientX+"px";
+	return false;//屏蔽浏览器里面默认右键
+	};
+window.onload=function(){
+document.onclick=function(){
+	var GetMuen=document.getElementById("muen");
+	GetMuen.style.display="none";
+	
+	};
+};
+</script>
+
+<style>
+#muen{ background-color:#9F9; width:100px; height:150px; position:absolute; display:none; list-style:none;}
+</style>
+<body>
+<ul id="muen"><li>首页</li>
+<li>职业</li>
+<li>产品</li>
+<li>联系我们</li></ul>
+</body>
+</html>

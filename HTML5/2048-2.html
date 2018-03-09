@@ -1,0 +1,730 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>2048</title>
+<style>
+.Main{ width: 500px;margin:0 auto;font-family:Tahoma, Geneva, sans-serif;color: #776e65;}
+.heading:after {content: "";display: block;clear: both;}
+h1.title {font-size: 80px;font-weight: bold;margin: 0;display: block;float: left;}
+.game-intro {margin-bottom: 0;}
+strong, b {font-weight: bold;}
+.game-container{margin-top: 40px;position: relative;padding: 15px;
+cursor: default;-webkit-touch-callout: none;-webkit-user-select: none;-moz-user-select: none;background: #bbada0;border-radius: 6px;width: 500px;height: 500px;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box; margin:0 auto;}
+.grid-container{position: absolute;z-index: 1;}
+.grid-row{margin-bottom: 15px;}
+.grid-cell{width: 106.25px;height: 106.25px;margin-right: 15px;float: left;border-radius: 3px;background: rgba(238, 228, 218, 0.35);}
+.grid-row:after {content: "";display: block;clear: both;}
+.tile-container {position: absolute;z-index: 2;}
+/**********************************/
+.tile .tile-inner {
+border-radius: 3px;
+background: #eee4da;
+text-align: center;
+font-weight: bold;
+z-index: 10;
+font-size: 55px;
+font-family:Franklin Gothic Medium;
+}
+.tile, .tile .tile-inner {
+  width: 107px;
+  height: 107px;
+  line-height: 116.25px; }
+.tile.tile-position-1-1 {
+  -webkit-transform: translate(0px, 0px);
+  -moz-transform: translate(0px, 0px);
+  transform: translate(0px, 0px); }
+.tile.tile-position-1-2 {
+  -webkit-transform: translate(0px, 121px);
+  -moz-transform: translate(0px, 121px);
+  transform: translate(0px, 121px); }
+.tile.tile-position-1-3 {
+  -webkit-transform: translate(0px, 242px);
+  -moz-transform: translate(0px, 242px);
+  transform: translate(0px, 242px); }
+.tile.tile-position-1-4 {
+  -webkit-transform: translate(0px, 363px);
+  -moz-transform: translate(0px, 363px);
+  transform: translate(0px, 363px); }
+.tile.tile-position-2-1 {
+  -webkit-transform: translate(121px, 0px);
+  -moz-transform: translate(121px, 0px);
+  transform: translate(121px, 0px); }
+.tile.tile-position-2-2 {
+  -webkit-transform: translate(121px, 121px);
+  -moz-transform: translate(121px, 121px);
+  transform: translate(121px, 121px); }
+.tile.tile-position-2-3 {
+  -webkit-transform: translate(121px, 242px);
+  -moz-transform: translate(121px, 242px);
+  transform: translate(121px, 242px); }
+.tile.tile-position-2-4 {
+  -webkit-transform: translate(121px, 363px);
+  -moz-transform: translate(121px, 363px);
+  transform: translate(121px, 363px); }
+.tile.tile-position-3-1 {
+  -webkit-transform: translate(242px, 0px);
+  -moz-transform: translate(242px, 0px);
+  transform: translate(242px, 0px); }
+.tile.tile-position-3-2 {
+  -webkit-transform: translate(242px, 121px);
+  -moz-transform: translate(242px, 121px);
+  transform: translate(242px, 121px); }
+.tile.tile-position-3-3 {
+  -webkit-transform: translate(242px, 242px);
+  -moz-transform: translate(242px, 242px);
+  transform: translate(242px, 242px); }
+.tile.tile-position-3-4 {
+  -webkit-transform: translate(242px, 363px);
+  -moz-transform: translate(242px, 363px);
+  transform: translate(242px, 363px); }
+.tile.tile-position-4-1 {
+  -webkit-transform: translate(363px, 0px);
+  -moz-transform: translate(363px, 0px);
+  transform: translate(363px, 0px); }
+.tile.tile-position-4-2 {
+  -webkit-transform: translate(363px, 121px);
+  -moz-transform: translate(363px, 121px);
+  transform: translate(363px, 121px); }
+.tile.tile-position-4-3 {
+  -webkit-transform: translate(363px, 242px);
+  -moz-transform: translate(363px, 242px);
+  transform: translate(363px, 242px); }
+.tile.tile-position-4-4 {
+  -webkit-transform: translate(363px, 363px);
+  -moz-transform: translate(363px, 363px);
+  transform: translate(363px, 363px); }
+  
+/*************数字*********************/
+.tile.tile-2 .tile-inner {
+    background: #eee4da;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0); color: #776e65;}
+  .tile.tile-4 .tile-inner {
+    background: #ede0c8;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0); color: #776e65;}
+  .tile.tile-8 .tile-inner {
+    color: #f9f6f2;
+    background: #f2b179; }
+  .tile.tile-16 .tile-inner {
+    color: #f9f6f2;
+    background: #f59563; }
+  .tile.tile-32 .tile-inner {
+    color: #f9f6f2;
+    background: #f67c5f; }
+  .tile.tile-64 .tile-inner {
+    color: #f9f6f2;
+    background: #f65e3b; }
+  .tile.tile-128 .tile-inner {
+    color: #f9f6f2;
+    background: #edcf72;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2381), inset 0 0 0 1px rgba(255, 255, 255, 0.14286);
+    font-size: 45px; }
+    @media screen and (max-width: 480px) {
+      .tile.tile-128 .tile-inner {
+        font-size: 25px; } }
+  .tile.tile-256 .tile-inner {
+    color: #f9f6f2;
+    background: #edcc61;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.31746), inset 0 0 0 1px rgba(255, 255, 255, 0.19048);
+    font-size: 45px; }
+    @media screen and (max-width: 480px) {
+      .tile.tile-256 .tile-inner {
+        font-size: 25px; } }
+  .tile.tile-512 .tile-inner {
+    color: #f9f6f2;
+    background: #edc850;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.39683), inset 0 0 0 1px rgba(255, 255, 255, 0.2381);
+    font-size: 45px; }
+    @media screen and (max-width: 480px) {
+      .tile.tile-512 .tile-inner {
+        font-size: 25px; } }
+  .tile.tile-1024 .tile-inner {
+    color: #f9f6f2;
+    background: #edc53f;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.47619), inset 0 0 0 1px rgba(255, 255, 255, 0.28571);
+    font-size: 35px; }
+    @media screen and (max-width: 480px) {
+      .tile.tile-1024 .tile-inner {
+        font-size: 15px; } }
+  .tile.tile-2048 .tile-inner {
+    color: #f9f6f2;
+    background: #edc22e;
+    box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.55556), inset 0 0 0 1px rgba(255, 255, 255, 0.33333);
+    font-size: 35px; }
+    @media screen and (max-width: 480px) {
+      .tile.tile-2048 .tile-inner {
+        font-size: 15px; } }
+
+
+
+.tile {
+position: absolute;
+-webkit-transition: 100ms ease-in-out;
+-moz-transition: 100ms ease-in-out;
+transition: 100ms ease-in-out;
+-webkit-transition-property: -webkit-transform;
+-moz-transition-property: -moz-transform;
+transition-property: transform;
+}
+.tile.tile-32 .tile-inner {
+color: #f9f6f2;
+background: #f67c5f;
+}
+
+/**************动画效果******************/
+@-moz-keyframes appear {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    transform: scale(0); }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1); } }
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    transform: scale(0); }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1); } }
+@-webkit-keyframes appear {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    transform: scale(0); }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1); } }
+	
+	
+.tile-new .tile-inner {
+  -webkit-animation: appear 200ms ease 100ms;
+  -moz-animation: appear 200ms ease 100ms;
+  animation: appear 200ms ease 100ms;
+  -webkit-animation-fill-mode: backwards;
+  -moz-animation-fill-mode: backwards;
+  animation: backwards; }
+
+@-webkit-keyframes pop {
+  0% {
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    transform: scale(0); }
+
+  50% {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    transform: scale(1.2); }
+
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1); } }
+
+@-moz-keyframes pop {
+  0% {
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    transform: scale(0); }
+
+  50% {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    transform: scale(1.2); }
+
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1); } }
+
+@keyframes pop {
+  0% {
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    transform: scale(0); }
+
+  50% {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    transform: scale(1.2); }
+
+  100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1); } }
+
+.tile-merged .tile-inner {
+  z-index: 20;
+  -webkit-animation: pop 200ms ease 100ms;
+  -moz-animation: pop 200ms ease 100ms;
+  animation: pop 200ms ease 100ms;
+  -webkit-animation-fill-mode: backwards;
+  -moz-animation-fill-mode: backwards;
+  animation: backwards; 
+}
+.game-container .game-message {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(238, 228, 218, 0.5);
+	z-index: 100;
+	text-align: center;
+	-webkit-animation: fade-in 800ms ease 1200ms;
+	-moz-animation: fade-in 800ms ease 1200ms;
+	animation: fade-in 800ms ease 1200ms;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-fill-mode: both;
+	animation: both;
+}
+.game-container .game-message p {
+	font-size: 60px;
+	font-weight: bold;
+	height: 60px;
+	line-height: 60px;
+	margin-top: 222px; }
+  .game-container .game-message .lower {
+	display: block;
+	margin-top: 59px; }
+  .game-container .game-message a {
+	display: inline-block;
+	background: #8f7a66;
+	border-radius: 3px;
+	padding: 0 20px;
+	text-decoration: none;
+	color: #f9f6f2;
+	height: 40px;
+	line-height: 42px;
+	margin-left: 9px; }
+  .game-container .game-message .score-sharing {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 10px; }
+  .game-container .game-message.game-won {
+	background: rgba(237, 194, 46, 0.5);
+	color: #f9f6f2; }
+ 
+</style>
+</head>
+<script src="../js/jquery.js"></script>
+<!--<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>-->
+<script>
+$(function(){
+	var array=new Array();
+	var container=$(".tile-container");
+	var NoMove=false;//是否有方块移动
+	var arr=[];//记录是否被碰撞
+	GameStart();
+	$(document).on("keydown",function(ev){
+		//alert(ev.keyCode);
+		switch(ev.keyCode){
+			case 37://left
+				MoveLeft();
+				RandomBox();
+				//ForArray();
+			break;
+			case 39://right
+				MoveRight();
+				RandomBox();
+			break;
+			case 38://up
+				MoveUp();
+				RandomBox();
+			break;
+			case 40://down
+				MoveDown();
+				RandomBox();
+			break;
+			
+		}
+		if(ForArrayNullBox()==false){
+			if(NoMove==false)
+			{	
+				if(Solution()==false){
+					$(".game-message").css("display","block");
+					//$(".game-message").show();
+				}
+			}
+		}
+		//清除不必要的class
+		clearClass("tile-merged");
+		clearClass("tile-new");
+	});
+
+
+
+//游戏开始
+function GameStart(){
+	for(var i=1;i<5;i++){
+		array[i]=new Array();
+		for(var j=1;j<5;j++){
+			array[i][j]=0;
+		}	
+	}
+	//alert(ForArrayNullBox());
+	AutoBox(2);
+	AutoBox(2);
+	ForArray();	
+}
+//再试一次
+$(".retry-button").click(function(){
+		$(this).parent().parent().hide();					  
+		GameStart();						  
+});
+//向左移动
+function MoveLeft(){
+	//$(".game-message").css("display","block");
+	for(var i=1;i<5;i++){
+		arr.length=0;
+		for(var j=2;j<5;j++){	
+			if(array[i][j]!=0){
+				
+				for(var k=j;k>0;k--){
+						if(array[i][k-1]!=0)
+						{	
+							if(array[i][k-1]==array[i][k]){
+								if(arr[k-1]!=1){
+									array[i][k-1]=array[i][k-1]+array[i][k];
+									array[i][k]=0;
+									arr[k-1]=1;
+									MoveAnimation(i,k,k-1,true);
+								}else{
+									break;	
+								}
+							}else
+							{//表示已经有元素在前面 而且和当前不是同一个数
+								break;
+							}
+						}else if(array[i][k-1]==0)
+						{
+							array[i][k-1]=array[i][k];
+							array[i][k]=0;
+							MoveAnimation(i,k,k-1);
+						}
+				}
+			}
+		}	
+	}
+}
+//向右移动
+function MoveRight(){
+	for(var i=1;i<5;i++){
+		arr.length=0;
+		for(var j=4;j>0;j--){	
+			if(array[i][j]!=0){
+				
+				for(var k=j;k<5;k++){
+						if(array[i][k+1]!=0)
+						{	
+							if(array[i][k+1]==array[i][k]){
+								if(arr[k+1]!=1&&arr[k]!=1){
+									array[i][k+1]=array[i][k+1]+array[i][k];
+									array[i][k]=0;
+									arr[k+1]=1;
+									MoveAnimation(i,k,k+1,true);
+								}else{
+									break;	
+								}
+							}else
+							{//表示已经有元素在前面 而且和当前不是同一个数
+								break;
+							}
+						}else if(array[i][k+1]==0)
+						{
+							array[i][k+1]=array[i][k];
+							array[i][k]=0;
+							MoveAnimation(i,k,k+1);
+						}
+				}
+			}
+		}	
+	}
+}
+//向下移动
+function MoveDown(){
+	for(var j=1;j<5;j++){
+			arr.length=0;
+			for(var i=4;i>0;i--){	
+				if(array[i][j]!=0){
+					
+					for(var k=i;k<4;k++){
+							if(array[k+1][j]!=0)
+							{	
+								if(array[k+1][j]==array[k][j]){
+									if(arr[k+1]!=1&&arr[k]!=1){
+										array[k+1][j]=array[k+1][j]+array[k][j];
+										array[k][j]=0;
+										arr[k+1]=1;
+										MoveAnimation1(k,j,k+1,true);
+									}else{
+										break;	
+									}
+								}else
+								{//表示已经有元素在前面 而且和当前不是同一个数
+									break;
+								}
+							}else if(array[k+1][j]==0)
+							{
+								array[k+1][j]=array[k][j];
+								array[k][j]=0;
+								MoveAnimation1(k,j,k+1);
+							}
+					}
+				}
+			}	
+		}
+}
+//向上移动
+function MoveUp(){
+	for(var j=1;j<5;j++){
+			arr.length=0;
+			for(var i=1;i<5;i++){	
+				if(array[i][j]!=0){
+					
+					for(var k=i;k>1;k--){
+							if(array[k-1][j]!=0)
+							{	
+								if(array[k-1][j]==array[k][j]){
+									if(arr[k-1]!=1){/**/
+										array[k-1][j]=array[k-1][j]+array[k][j];
+										array[k][j]=0;
+										arr[k-1]=1;
+										MoveAnimation1(k,j,k-1,true);
+									}else{
+										break;	
+									}
+								}else
+								{//表示已经有元素在前面 而且和当前不是同一个数
+									break;
+								}
+							}else if(array[k-1][j]==0)
+							{
+								array[k-1][j]=array[k][j];
+								array[k][j]=0;
+								MoveAnimation1(k,j,k-1);
+							}
+					}
+				}
+			}	
+		}
+}
+
+function MoveAnimation1(i,j,k,temp){
+		var Oldhd=container.find(".tile-position-"+j+"-"+i+"");
+			Oldhd.removeClass("tile-position-"+j+"-"+i+"");
+			Oldhd.addClass("tile-position-"+j+"-"+k+"");
+		if(temp!=null){
+
+			var Oldhds=container.find(".tile-position-"+j+"-"+k+"");
+			Oldhds.addClass("tile-"+array[k][j]+"");
+			Oldhds.removeClass("tile-"+array[i][k]/2+"");
+			Oldhds.addClass("tile-merged");
+			Oldhds.children(0).html(array[k][j]);
+			Oldhd.remove();
+		}
+		NoMove=true;//是否有方块移动
+}
+//查找对应的DIV实现动画效果
+function MoveAnimation(i,j,k,temp){
+	
+		var Oldhd=container.find(".tile-position-"+j+"-"+i+"");
+			Oldhd.removeClass("tile-position-"+j+"-"+i+"");
+			Oldhd.addClass("tile-position-"+k+"-"+i+"");
+		if(temp!=null){
+
+			var Oldhds=container.find(".tile-position-"+k+"-"+i+"");
+			Oldhds.removeClass("tile-"+array[i][k]/2+"");
+			Oldhds.addClass("tile-"+array[i][k]+"");
+			Oldhds.addClass("tile-merged");
+			Oldhds.children(0).html(array[i][k]);
+			Oldhd.remove();
+		}
+		
+		
+		/*var Oldhd=container.find(".tile-position-"+j+"-"+i+"");
+		Oldhd.removeClass("tile-position-"+j+"-"+i+"");
+		Oldhd.addClass("tile-position-"+k+"-"+i+"");
+		//是否有相加
+		if(temp!=null){
+			var s=(array[i][k]/2);
+			Oldhd.removeClass("tile-"+s!=0?s:2+"");
+			Oldhd.addClass("tile-"+array[i][k]+"");
+			Oldhd.addClass("tile-merged");
+			Oldhd.children(0).html(array[i][k]);
+			//这里只测试删除一个元素 还没测试多个元素删除
+			$(".tile-position-"+k+"-"+i+"").nextAll().find(".tile-position-"+k+"-"+i+"").remove();
+			clearClass(".tile-position-"+k>j?k+1:k-1+"-"+i+"");
+			//$(".tile-position-"+k+"-"+i+"").nextAll().find(".tile-position-"+k>j?k+1:k-1+"-"+i+"").remove();
+			
+		}*/
+		NoMove=true;//是否有方块移动
+		
+}
+function clearClass(nClass){
+	var s=container.find("div");
+	for(var i=0;i<s.length;i++){
+		s.eq(i).removeClass(nClass);
+	}
+}
+//随机生成一个方块
+function RandomBox(){
+	//表示没有位置可以放了 布局已满 或者无方块移动
+	if(ForArrayNullBox()!=true||NoMove==false)return;
+	//一直插入 直到为true
+	var i=RandomOnNum(4),j=RandomOnNum(4);
+	while(InserBox(i,j,RandomOnNum(4)>2?4:2)!=true)
+	{
+		i=RandomOnNum(4);
+		j=RandomOnNum(4);
+	}
+	InserDiv(i,j);
+}
+//生成一个DIV
+function InserDiv(i,j){
+	container.append("\
+				<div class='tile tile-"+array[i][j]+" tile-position-"+j+"-"+i+" tile-new'><div class='tile-inner'>"+array[i][j]+"</div>");
+	NoMove=false;//设置为初始值
+}
+//自动生成一个方块
+function AutoBox(InserNum){
+	while(InserBox(RandomOnNum(4),RandomOnNum(4),InserNum)!=true)
+	{
+		if(ForArrayNullBox()!=true){
+			return false;
+		}
+	}
+	return true;
+}
+//判断时候还有位置
+function ForArrayNullBox(){
+	for(var i=1;i<5;i++){
+		for(var j=1;j<5;j++){
+			if(array[i][j]==0)return true;	
+		}	
+	}	
+	
+	return false;
+}
+//指定位置生成一个方块
+function InserBox(num1,num2,InserNum){
+	if(array[num1][num2]==0){
+		array[num1][num2]=InserNum;	
+		return true;
+	}
+	return false;
+}
+
+//遍历数组所有的方块 然后加载到网页里面
+function ForArray(){
+	if(array.length<=0)return;
+	removeChild(container);
+	for(var i=1;i<5;i++){
+		for(var j=1;j<5;j++){
+			if(array[i][j]!=0){
+				container.append("\
+				<div class='tile tile-"+array[i][j]+" tile-position-"+j+"-"+i+"'><div class='tile-inner'>"+array[i][j]+"</div>");
+			}	
+		}	
+	}	
+}
+
+//删除元素下所有节点
+function removeChild(pNode){
+	var count=pNode.find("div").length;
+	for(var i=0;i<count;i++){
+		pNode.find("div").eq(i).remove();
+	}
+}
+//随机数生成
+function RandomOnNum(Range){
+	return Math.floor(Math.random()*Range)+1;
+}
+//判断是否还有路走
+function Solution(){
+	var i=1;
+	var j=1;
+	for(i=1; i<5;i++){
+		for(j=2;j<5;j++){
+			if(array[i][j]==array[i][j-1]){
+				return true;	
+			}
+		}	
+	}
+	for(j=1;j<5;j++){
+		for(i=2;i<5;i++){
+				if(array[i][j]==array[i-1][j]){
+					return true;	
+				}
+		}	
+	}
+	return false;
+	
+}
+});
+</script>
+<body>
+<div class="Main">
+<div class="heading">
+      <h1 class="title">2048</h1>
+</div>
+<p class="game-intro">将相同数字融合相加，得到<strong> 2048 获胜!</strong></p>
+<div class="game-container">
+
+<div class="game-message game-over">
+        <p>Game over!</p>
+        <div class="lower">
+          <a class="retry-button">再试一次</a>
+          <div class="score-sharing"><a class="twitter-share-button" href="http://www.4399.cn/2048/" data-via="gabrielecirulli" target="_blank" data-text="I scored 1460 points at 2048, a game where you join numbers to score high! #2048game">下载手机游戏</a></div>
+        </div>
+      </div>
+    <div class="grid-container">
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+            <div class="grid-row">
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+              <div class="grid-cell"></div>
+            </div>
+     </div>
+      <div class="tile-container">
+
+
+      </div>
+      
+</div>
+</div>
+</body>
+</html>

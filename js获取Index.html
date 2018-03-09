@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+<script>
+
+function getIndex(obj){
+	var ochildren=obj.parentNode.children;
+	for(var i=0;i<ochildren.length;i++){
+		if(obj==ochildren[i]){
+			return i;
+			}
+		}
+	}
+window.onload=function(){
+	var oul=document.getElementById("testUl");
+	var oli=oul.getElementsByTagName("li");
+	
+	for(var i=0;i<oli.length;i++){
+		oli[i].onclick=function(){
+			alert(getIndex(this));
+			};
+		}
+};
+</script>
+</head>
+
+<body>
+
+<ul id="testUl">
+<li>11111</li>
+<li>22222</li>
+<li>33333</li>
+<li>44444</li>
+<li>55555</li>
+<li>66666</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="js/jquery.js"></script>
+<script>
+$(function(){
+	//var s="{2,3,4,5}"
+	//eval(s[0]) s[0] 就是2
+	//var s="function show(){ alert(123);}"
+	//eval(s);
+	//show();就能弹出对话框 很强大
+	//原生JS的eval()
+	//$("div").not("#cs").css("background-color","red");not表示不选择的元素
+	//$("#cs").appendTo( $("#test"));//吧CS加载到test最后 prependTo是添加到前面
+	//$("#cs").before($("#test"))//DIV位置调换  after跟前面效果相反  insertAfter insertBefore效果一致
+	//$("#cs").remove();//删除
+	/*$("#cs").on("click mousemove",function(){//自定义事件				 
+		alert(1231);							 
+	});*/
+	/*$("#cs").on({'click':function(){//如果这里写one 代表事件只执行一次
+			alert(123);						  
+		},'mouseover':function(){
+			alert(456);
+			}
+		});*/
+/*	$("#cs").on({'click':function(){
+				alert(123);	
+				$("#cs").off();//执行之后销毁事件
+			  }
+		});*/
+/*	$(document).click(function(){
+		alert($(window).scrollTop());//滚动距离	outerWidth()//获取元素包括边框Boder的宽度如果为TRUE表示可以获取MARGIN值,
+		他还可以获取隐藏元素的Width 				   
+		});*/
+	//$("body").append("<table><tr><td>");//往里面添加元素
+	//ev.preventDefault()//阻止默认事件
+	//ev.stopPropagetion()//阻止冒泡操作
+	//在jquery里面 return false 代表上面两个操作
+	//offset().left获取的是DIV到屏幕的距离不管父级有没有定位
+	//position().left获取到有定位的父级的left值距离
+	//offsetParent获取有定位的父级
+	//alert($("div").size());//获取元素个数 类似于Length
+	
+/*	$("div").each(function(i,elem){//遍历的一个效果 i是个数 elem是元素
+						   
+		$(elem).html(i);					   
+	});*/
+	//鼠标移入 移出的操作
+/*	$("#cs").hover(function(){
+		$(this).fadeTo(1000,0.1);					
+		//$(this).fadeIn();//淡入淡出
+		//$(this).css("background-color","#ccc");
+		
+	},function(){
+	//$(this).fadeOut();淡出
+	
+	$(this).css("background-color","#9C3");
+	//$(this).fadeTo(1000,0.1);//修改透明度
+	});*/
+	//alert($("#cs").get(0).innerHTML);//jquery转成原生的javascript
+	//$("#cs")[0].style.background 这样写也可以
+	$("#cs").text();//获取CS下元素里面的所有的文字 元素排外
+});
+</script>
+<style>
+div{ width:100px; height:100px; background-color:#9C3}
+</style>
+</head>
+
+<body>
+<div id="cs" ></div>
+<div></div>
+<div id="test">qer</div>
+</body>
+</html>

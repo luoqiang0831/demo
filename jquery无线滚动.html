@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <script src="js/jquery.js"></script>
+<script>
+$(function(){
+	var slider=$("#silder");
+	slider.css({"width":slider.find("li").length*slider.find("li").width()+slider.find("li").length*10+'px'});
+	var timer=null;
+	move();
+
+	$(".silderMain").mouseover(function(){
+		clearInterval(timer);						  
+	});
+	$(".silderMain").mouseout(function(){
+		move();	
+		
+	});
+function move(){
+	timer=setInterval(function(){
+			var child=$("#silder>li:first-child");
+			child.appendTo(slider);				   
+	},3000);
+}
+	$(".pver").click(function(){
+		/*var sLeft=Math.abs(parseInt(slider.css("left")));
+		if(slider.width()/2<=sLeft){
+			slider.css("left",0);
+			return;
+		}
+		slider.css({left:'-'+(sLeft+slider.find("li").width()+10)+'px'});*/
+		var child=$("#silder>li:first-child");
+		child.appendTo(slider);
+		
+	});
+	$(".next").click(function(){
+		var child=$("#silder>li:last-child");
+		slider.prepend(child);
+	});
+	
+
+});
+</script>
+	<style>
+		.Main{ margin: 110px auto; height: 160px; width: 800px;  position:relative; overflow:hidden;  padding-left:60px; padding-right: 60px;}
+		.silderMain{ height:100%; width:100%; overflow:hidden;}
+		#silder{ height: 100%; list-style:none; margin: 0; padding:0; left:0px; top:0; position:relative}
+		#silder li{ text-align: center; height: 150px; width: 150px; margin:5px;background-color: green; float:left; color:#fff; font: 40px/150px "黑体";}
+		.pver{ width:60px; height: 60px; position: absolute; left: 0; top:50%; margin-top:-30px;  background: url(img/banner_btn_l_24.png) no-repeat; display: block;}
+		.next{ width:60px; height: 60px; position: absolute; right:0; top:50%; margin-top:-30px;  background: url(img/banner_btn_r_24.png) no-repeat; display: block;}
+	</style>
+</head>
+<body>
+	<div class="Main">
+     <div class="silderMain">
+		<ul id="silder">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>0</li>
+		</ul>
+       </div>
+		<a href="#" class="pver"></a>
+		<a href="#" class="next"></a>
+	</div>
+</body>
+</html>

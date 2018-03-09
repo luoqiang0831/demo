@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+
+ul,li{ margin:0; padding:0; list-style:none}
+#Poto{ width:765px; position:relative; margin:0 auto;}
+#ulPoto li{ height:255px; width:180px; margin-right:5px; display:inline-block; z-index:2;}
+#ulPoto img{ width:180px; height:255px; border:none;}
+#ulPoto li.active{ border:1px dashed #000;}
+</style>
+<script src="../js/LQuery.js"></script>
+</head>
+<script>
+window.onload=function(){
+	var oUl=document.getElementById("ulPoto");
+	var oLi=oUl.getElementsByTagName("li");
+	var oPos=[];
+	var oMinIndex=2;
+	var i=0;
+	var oNear=null;
+	
+	//转换为绝对定位
+	for(i=0;i<oLi.length;i++){
+		oPos[i]={top:oLi[i].offsetTop,left:oLi[i].offsetLeft};
+		}
+	for(i=0;i<oPos.length;i++){
+		oLi[i].style.top=oPos[i].top+'px';
+		oLi[i].style.left=oPos[i].left+'px';
+		oLi[i].style.position='absolute';
+		}
+	//拖拽
+	for(i=0;i<oLi.length;i++){
+		oLi[i].index=i;
+		setDrag(oLi[i]);
+		};
+	function setDrag(obj){
+			obj.onmousedown=function(ev){
+				var oEvent=ev||event;
+				var disX=oEvent.clientX-obj.offsetLeft;
+				var disY=oEvent.clientY-obj.offsetTop;
+				document.onmousemove=function(ev){
+					var oEvent=ev||event;
+					var l=oEvent.clientX-disX;
+					var t=oEvent.clientY-disY;
+					
+					obj.style.zIndex=oMinIndex++;
+					obj.style.top=t+'px';
+					obj.style.left=l+'px';
+					
+					for(i=0;i<oLi.length;i++){
+						oLi[i].className="";
+					}
+					oNear=VeryNear(obj);
+					if(oNear)
+					{
+						oNear.className='active'
+					}
+		
+				};
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onmouseup=null;
+					oNear=VeryNear(obj);
+					if(oNear)
+					{
+						oNear.style.zIndex=oMinIndex++;
+						oNear.className="";
+						$(oNear).animate(oPos[obj.index]);
+						$(obj).animate(oPos[oNear.index]);
+						var temp=oNear.index;
+						oNear.index=obj.index;
+						obj.index=temp;
+					}else
+					{
+						$(obj).animate(oPos[obj.index]);
+					}
+
+				};
+				clearInterval(obj.timer);
+				return false;
+			};
+	};
+
+	
+	function getDis(obj1,obj2){
+		var a=obj1.offsetLeft-obj2.offsetLeft;
+		var b=obj1.offsetTop-obj2.offsetTop;
+		return Math.sqrt(a*a,b*b);
+		}
+	function VeryNear(obj){
+		var nMin=9999999999;
+		var rMinIndex=-1;
+
+		for(var i=0;i<oLi.length;i++){
+			if(obj==oLi[i])continue;
+			if($().Collision(obj,oLi[i]))
+			{
+				var n=getDis(obj,oLi[i]);
+				if(nMin>n){
+					nMin=n;
+					rMinIndex=i;
+				}
+			}	
+		}
+		if(rMinIndex==-1){
+			return null;
+		}else
+		{
+			
+			return oLi[rMinIndex];
+		}
+	};
+	
+
+};
+</script>
+<body>
+<div id="Poto">
+<ul id="ulPoto">
+<li><img src="img/1.jpg" /></li>
+<li><img src="img/2.jpg" /></li>
+<li><img src="img/3.jpg" /></li>
+<li><img src="img/4.jpg" /></li>
+<li><img src="img/5.jpg" /></li>
+<li><img src="img/6.jpg" /></li>
+<li><img src="img/7.jpg" /></li>
+<li><img src="img/8.jpg" /></li>
+<li><img src="img/9.jpg" /></li>
+</ul>
+</div>
+</body>
+</html>

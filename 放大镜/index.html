@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+.main{  height:200px; width:200px; padding:5px;border:1px solid #ccc; }
+#small{ height:200px; width:200px;position:relative;}
+#small img{ width:200px; height:200px;}
+.make{ width:100%; height:100%; display:block; position:absolute;background: red;filter: alpha(opacity:0);opacity: 0;z-index:2;}
+.float_layer{height:50px; width:50px; filter: alpha(opacity: 30); opacity: 0.3; display:block; position:absolute; background-color:#fff; border:1px solid #000; display:none; }
+#big_img{ width:250px; height:250px; top:8px; left:225px; overflow:hidden; border:2px solid #ccc; position:absolute; display:none;}
+#big_img img{ position:absolute;}
+</style>
+<script>
+function getItem(obj,nClass){
+	var parent=obj.getElementsByTagName('*');
+	var arr=[];
+	for(var i=0;i<parent.length;i++){
+		if(parent[i].className==nClass){
+			arr.push(parent[i]);
+			
+			}
+		
+		}
+		return arr;
+	
+	}
+window.onload=function(){
+	var oSmall=document.getElementById("small");
+	var ofloat=getItem(oSmall,"float_layer")[0];
+	var oBig=document.getElementById("big_img");
+	var oBigImg=oBig.getElementsByTagName("img")[0];
+	oSmall.onmouseover=function(){
+		ofloat.style.display="block";
+		oBig.style.display="block";
+		};
+	oSmall.onmouseout=function(){
+		ofloat.style.display="none";
+		oBig.style.display="none";
+		};
+	oSmall.onmousemove=function(ev){
+		var oEvent=ev||event;
+		var l=oEvent.clientX-oSmall.offsetLeft-(ofloat.offsetWidth/2);
+		var t=oEvent.clientY-oSmall.offsetTop-(ofloat.offsetHeight/2);
+		if(l<0){
+			l=0;
+		}else if(l>oSmall.offsetWidth-ofloat.offsetWidth){
+			l=oSmall.offsetWidth-ofloat.offsetWidth;
+			}
+		if(t<0){
+			t=0;
+		}else if(t>oSmall.offsetHeight-ofloat.offsetHeight){
+			t=oSmall.offsetHeight-ofloat.offsetHeight;
+			}
+		
+		ofloat.style.top=t+"px";
+		ofloat.style.left=l+"px";
+		
+		var percentX=l/(oSmall.offsetWidth-ofloat.offsetWidth);
+		var percentY=t/(oSmall.offsetHeight-ofloat.offsetHeight);
+		
+		oBigImg.style.left=-percentX*(oBigImg.offsetWidth-oBig.offsetWidth)+'px';
+		oBigImg.style.top=-percentY*(oBigImg.offsetHeight-oBig.offsetHeight)+'px';
+
+		//oBigImg.
+		};
+	};
+
+</script>
+<body>
+<div class="main">
+<div id="small">
+<span class="make"></span>
+<span class="float_layer"></span>
+<img src="images/small.png"/>
+</div>
+<div id="big_img">
+<img src="images/big.png" />
+</div>
+</div>
+</body>
+</html>

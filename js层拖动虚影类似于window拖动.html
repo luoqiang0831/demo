@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#div1{ width:100px; height:100px; background-color:#9C6; position:absolute;}
+#div2{ width:100px; height:100px; background-color:#0C6; position:absolute; top:200px; left:300px; z-index:-99;}
+#divNew{width:99px; height:99px; border:1px dashed #000; position:absolute;}
+</style>
+<script>
+window.onload=function(){
+	var div1=document.getElementById("div1");
+	
+	div1.onmousedown=function(ev){
+		var oEvent=ev||event;
+		var disX=oEvent.clientX-div1.offsetLeft;
+		var disY=oEvent.clientY-div1.offsetTop;
+		var Ndiv=NewDiv();
+	
+		//alert(oEvent.clientX+":"+disX);
+		document.onmousemove=function(ev){
+			var oEvent=ev||event;
+			var l=oEvent.clientX-disX;
+			var t=oEvent.clientY-disY;
+		
+			Ndiv.style.top=t+"px";
+			Ndiv.style.left=l+"px";
+			};
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+			div1.style.top=Ndiv.offsetTop+"px";
+			div1.style.left=Ndiv.offsetLeft+"px";
+			document.body.removeChild(Ndiv);
+			};
+
+		return false;
+		};
+		
+	function NewDiv(){
+		var NewDiv=document.createElement("div");
+		NewDiv.id="divNew";
+		NewDiv.style.top=div1.offsetTop+"px";
+		NewDiv.style.left=div1.offsetLeft+"px";
+		document.body.appendChild(NewDiv);
+		return NewDiv;
+		}
+	};
+</script>
+</head>
+
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+</body>
+</html>

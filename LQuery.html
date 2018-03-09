@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="js/LQuery.js"></script>
+<script>
+$(function(){
+/*	  $("#btnShow").click(function(){
+			$("#cn").show();						   
+		});
+	  $("#btnHide").click(function(){
+			$("#cn").hide();						   
+		});*/
+/*	  $("#cn").hover(function(){
+							  
+			$("#cn").css("backgroundColor","red");
+		},function(){
+			$("#cn").css("backgroundColor","#9C6");
+			alert($("#cn").css("width"));
+		});*/
+/*		$('#btnShow').toggle(function(){
+									  
+
+			$("#cn").hide();
+			},function(){
+			$("#cn").show();	
+			});
+		$('#btnHide').click(function(){
+			alert($(this).attr("value","sdf"));							
+		});
+		$('#btnShow').click(function(){
+			$("div").eq(0).css("backgroundColor","red");				
+		});*/
+		
+		/*$('#btnShow').click(function(){
+				$("div").find("li").css({width:'200px',height:'200px',backgroundColor:'red'});									 
+		});
+		$('div').bind('click',function(){
+								
+			alert($(this).css('width'));	
+			return false;
+		});*/
+/*		//阻止默认事件
+		$(document).bind('contextmenu',function(){
+								
+			return false;
+		});*/
+		//接口调用
+/*		$().extend('show',function(){
+			alert('1');					   
+		});
+		$().show();*/
+	$("#btnShow").toggle(function(){			 
+			$("#cd").animate({width:'200',height:'200'});
+ 		},function(){
+			
+			$("#cd").animate({width:'100',height:'100'});	
+			});
+	
+});
+
+</script>
+</head>
+<style>
+#cn,#cd{ width:100px; height:100px; background-color:#9C6;}
+
+</style>
+<body>
+<input value="SHOW" type="button" ID="btnShow" /><input value="HIDE" type="button" ID="btnHide" />
+<div id="cd"></div>
+<!--<div id="cn">
+<ul>
+<li>
+</li>
+<li>
+</li>
+</ul>
+</div>
+
+<div id="cd" style="background-color:#0C9; width:100%; height:400px;">
+	<div  style="background-color:#9C3 ;width:70%; height:250px;">
+    	<div style="background-color:#CC6;width:40%; height:200px; "></div>
+    </div>
+</div>-->
+</body>
+</html>

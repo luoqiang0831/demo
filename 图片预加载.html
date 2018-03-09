@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script>
+window.onload=function(){
+	var img=new Image();
+	img.src="http://www.taopic.com/uploads/allimg/111225/9115-11122514225810.jpg";//预先加载图片
+	img.onload=function(){
+		alert('图片预加载完成');
+		}
+	img.onerror=function(){
+		alert("图片加载失败");
+		}
+};
+</script>
+<body>
+<img src="http://img.pconline.com.cn/images/photoblog/1/0/1/7/10173588/200911/7/1257560022502_mthumb.jpg" onmouseover="this.src='http://www.taopic.com/uploads/allimg/111225/9115-11122514225810.jpg'" onmouseout="http://img.pconline.com.cn/images/photoblog/1/0/1/7/10173588/200911/7/1257560022502_mthumb.jpg"  />
+</body>
+</html>

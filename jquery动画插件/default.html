@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.ani.min.js"></script>
+<script>
+$(function(){
+	$("#test1").on("click",function(){
+		$(this).ani({width:"200",height:"200",otype:"Buffer",fns:function(){alert("调用回调");}});
+	});
+	$("#test2").on("click",function(){
+		$(this).ani({left:"200",height:"200",otype:"Flex",fns:function(){alert("调用回调");}});
+	});
+})
+</script>
+<style>
+	#test{ width: 100px; height:100px;background-color: green;}
+	#test1{ width: 100px; height:100px;background-color: yellow;}
+	#test2{ width: 100px; height:100px;background-color: red; position: absolute;left:0;}
+</style>
+<body>
+<div id="test"></div>
+<div id="test1"></div>
+<div id="test2"></div>	
+</body>
+</html>

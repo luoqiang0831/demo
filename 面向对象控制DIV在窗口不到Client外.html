@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script>
+
+
+window.onload=function(){
+	new moveObject("muen");
+	new Limit("muen1");
+	};
+
+function moveObject(id){
+	
+		this.divMouseX=null;
+		this.divMouseY=null;
+		this.GetMuen=document.getElementById(id);
+		var _this=this;
+		this.GetMuen.onmousedown=function(){
+			_this.divMoveDown();
+			};
+		
+		return false;
+	};
+moveObject.prototype.divMoveDown=function(ev){
+			oEvent=ev||event;
+			this.divMouseX=oEvent.clientX-this.GetMuen.offsetLeft;//得到鼠标在DIV里面的坐标
+			this.divMouseY=oEvent.clientY-this.GetMuen.offsetTop;
+			_this=this;
+		
+			//alert(divMouseX);
+			document.onmousemove=function(ev){
+				_this.moveDown();
+				};
+			
+			document.onmouseup=function(){
+				_this.moveUp();
+				};
+			
+			};
+moveObject.prototype.moveDown=function(ev){
+		var oEvent=ev||event;
+		this.GetMuen.style.top=oEvent.clientY-this.divMouseY+'px';
+		this.GetMuen.style.left=oEvent.clientX-this.divMouseX+'px';
+		
+
+};
+moveObject.prototype.moveUp=function(){
+				document.onmousemove=null;
+				document.onmouseup=null;
+			};
+/******************父函数实现******下面是子函数继承父函数*******************/
+
+function Limit(id){
+	
+	moveObject.call(this,id);
+}
+//吧父函数的所有方法继承过来
+for(var i in moveObject.prototype){
+	
+	Limit.prototype[i]=moveObject.prototype[i];
+}
+//继承父类的函数 重新实现
+Limit.prototype.moveDown=function(ev){
+		var oEvent=ev||event;
+		var l=oEvent.clientX-this.divMouseX;
+		var t=oEvent.clientY-this.divMouseY;
+		if(l<0){
+			l=0;
+		}
+		else if(l>document.documentElement.clientWidth-this.GetMuen.offsetWidth)
+		{
+			l=document.documentElement.clientWidth-this.GetMuen.offsetWidth;
+		}
+
+		if(t<0){
+			t=0;
+		}
+		else if(t>document.documentElement.clientHeight-this.GetMuen.offsetHeight)
+		{
+			t=document.documentElement.clientHeight-this.GetMuen.offsetHeight;
+		}
+
+		
+		this.GetMuen.style.top=t+'px';
+		this.GetMuen.style.left=l+'px';
+		
+
+};
+</script>
+
+<style>
+#muen{ background-color:#9F9; width:100px; height:150px; position:absolute;}
+#muen1{ background-color:#9C6; width:100px; height:150px; position:absolute;}
+</style>
+<body>
+
+<div id="muen"></div>
+<div id="muen1"></div>
+</body>
+</html>

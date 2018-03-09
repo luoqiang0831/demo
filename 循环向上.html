@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+    *{margin:0;padding:0;}
+    html,body{width: 100%;height: 100%;overflow: hidden;}
+    .Container{ width: 1110px; margin:0 auto;  height: 100%; overflow: hidden;}
+    .Container span{display: inline-block; width: 360px; height: 200px;margin: 3px 0;opacity: 0;}
+    .Container img{width: 100%; height: 100%; display: none; }
+    .Absolutes span{position: absolute;}
+    .Container .active{border:1px dashed #c31338;}
+    .clearfix:before,.clearfix:after {content: "";display: table;}
+    .clearfix:after {clear: both;}
+    .clearfix{ zoom:1; }
+</style>
+<script src="zepto.js"></script>
+<body>
+	<div class="Container">
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/04.jpg" alt=""></span>
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/01.jpg" alt=""></span>
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/02.jpg" alt=""></span>
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/03.jpg" alt=""></span>
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/05.jpg" alt=""></span>
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/06.jpg" alt=""></span>
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/07.jpg" alt=""></span>
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/06.jpg" alt=""></span>
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/02.jpg" alt=""></span>
+        <span><img src="http://d.lanrentuku.com/down/js/jiaodiantu-932/images/01.jpg" alt=""></span>
+    </div>
+    <script>
+    var util={
+        setTimeout:function(fun, delay) {
+            if(typeof fun == 'function'){
+              var argu = Array.prototype.slice.call(arguments,2);
+               var f = (function(){
+              fun.apply(null, argu);
+              }
+            );
+             return window.setTimeout(f, delay);
+           }
+           return window.setTimeout(fun,delay);
+        }
+    }
+    $(function(){
+        var $Container=$(".Container"),$CSpan=$Container.children('span'),SpanCon=[],zIndex=2;
+        $CSpan.each(function(oIndex){
+            var left=$(this).offset().left,top=$(this).offset().top
+            SpanCon[oIndex]={'left':left,'top':top}
+            $(this).css({'left':left,'top':$("body").height()})
+        })
+        $Container.addClass("Absolutes")
+        for(var i=0;i<$CSpan.length;i++){
+            var _this=$CSpan.eq(i);
+            var timer=i*100;
+
+            util.setTimeout(move,timer,_this);
+            // setTimeout(function(obj){
+            //    // obj.animate({'top':SpanCon[obj.index()].top},200,'ease-out')
+            //    // obj.children('img').css('display','block')
+            //    console.log(1);
+            // }(_this),timer);
+
+        }
+        function move(obj){
+             obj.animate({'top':SpanCon[obj.index()].top,'opacity':1},100,'ease-in')
+             obj.children('img').css('display','block')
+        }
+          
+    })
+    </script>
+        }
+</body>
+</html>

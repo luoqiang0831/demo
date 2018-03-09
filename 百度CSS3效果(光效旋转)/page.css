@@ -1,0 +1,188 @@
+
+
+.stage-content {
+    position: absolute;
+    top: 50%
+}
+
+#stage-3 .stage-content {
+    width: 700px;
+    height: 600px;
+    margin-top: -364px;
+    margin-left: -350px;
+    left: 50%
+}
+
+.stage-3-icon,
+.stage-3-icon-chameleon,
+.stage-3-icon-chameleon-turnplate {
+    width: 262px;
+    height: 262px
+}
+
+.stage-3-icon-chameleon,
+.stage-3-icon-chameleon-turnplate {
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+.stage-3-icon {
+    margin: 0 auto 65px;
+    position: relative;
+    z-index: 1
+}
+
+.stage-3-icon-palette {
+    width: 1500px;
+    height: 1500px;
+    position: absolute;
+    background: url(color.jpg) no-repeat
+}
+
+.stage-3-icon-chameleon {
+    z-index: 3;
+    background: url(topImg.png) no-repeat center center
+}
+
+.stage-3-icon-chameleon-turnplate {
+    width: 260px;
+    height: 260px;
+    top: 1px;
+    left: 1px;
+    overflow: hidden;
+    z-index: 2
+}
+
+.stage-3-icon-chameleon-turnplate .stage-3-icon-palette {
+    left: -368px;
+    bottom: -316px
+}
+
+.stage-3-icon-fragment {
+    width: 670px;
+    height: 670px;
+    position: absolute;
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 50%;
+    margin-left: -335px;
+    left: 50%;
+    margin-top: -335px;
+    top: 50%
+}
+
+.stage-3-icon-fragment {
+    margin: -435px 0 0 -435px;
+    border: solid 100px #fff;
+    -khtml-border-radius: 52%
+}
+
+.stage-3-icon-fragment-cycle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
+}
+
+.stage-3-icon-fragment-turnplate {
+    width: 660px;
+    height: 660px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    margin-left: -330px;
+    left: 50%;
+    margin-top: -330px;
+    top: 50%
+}
+
+.stage-3-icon-fragment-turnplate {
+    margin: -430px 0 0 -430px;
+    border: solid 100px #fff;
+    -khtml-border-radius: 52%
+}
+
+.stage-3-icon-fragment-turnplate .stage-3-icon-palette {
+    left: -169px;
+    bottom: -117px
+}
+
+.stage-3-description {
+    position: relative;
+    z-index: 2
+}
+
+#stage-3.stage-state-wait .stage-3-icon {
+    opacity: 0;
+    -webkit-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    -moz-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    -ms-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    -o-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    -webkit-transition: opacity .6s ease-in 0s, -webkit-transform .6s ease-in 0s;
+    -moz-transition: opacity .6s ease-in 0s, -moz-transform .6s ease-in 0s;
+    -ms-transition: opacity .6s ease-in 0s, -ms-transform .6s ease-in 0s;
+    -o-transition: opacity .6s ease-in 0s, -o-transform .6s ease-in 0s;
+    transition: opacity .6s ease-in 0s, transform .6s ease-in 0s
+}
+
+#stage-3.stage-state-in .stage-3-icon {
+    opacity: 1;
+    -webkit-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(1);
+    -moz-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(1);
+    -ms-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(1);
+    -o-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(1);
+    transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(1);
+    -webkit-transition: opacity .8s ease-out 1.4s, -webkit-transform .8s ease-out 1.4s;
+    -moz-transition: opacity .8s ease-out 1.4s, -moz-transform .8s ease-out 1.4s;
+    -ms-transition: opacity .8s ease-out 1.4s, -ms-transform .8s ease-out 1.4s;
+    -o-transition: opacity .8s ease-out 1.4s, -o-transform .8s ease-out 1.4s;
+    transition: opacity .8s ease-out 1.4s, transform .8s ease-out 1.4s
+}
+
+#stage-3.stage-state-in .stage-3-icon-fragment-cycle {
+    -webkit-animation: cycle 60s linear 2.2s infinite normal none;
+    -moz-animation: cycle 60s linear 2.2s infinite normal none;
+    -ms-animation: cycle 60s linear 2.2s infinite normal none;
+    -o-animation: cycle 60s linear 2.2s infinite normal none;
+    animation: cycle 60s linear 2.2s infinite normal none
+}
+
+#stage-3.stage-state-in .stage-3-icon-palette {
+    -webkit-animation: cycle 10s linear 2.2s infinite normal none;
+    -moz-animation: cycle 10s linear 2.2s infinite normal none;
+    -ms-animation: cycle 10s linear 2.2s infinite normal none;
+    -o-animation: cycle 10s linear 2.2s infinite normal none;
+    animation: cycle 10s linear 2.2s infinite normal none
+}
+
+#stage-3.stage-state-out .stage-3-icon {
+    opacity: 0;
+    -webkit-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    -moz-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    -ms-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    -o-transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    transform: translateX(0) translateY(0) translateZ(0) rotateX(0) rotateY(0) rotateZ(0) rotate(0) scale(0.3);
+    -webkit-transition: opacity .6s ease-in 0s, -webkit-transform .6s ease-in 0s;
+    -moz-transition: opacity .6s ease-in 0s, -moz-transform .6s ease-in 0s;
+    -ms-transition: opacity .6s ease-in 0s, -ms-transform .6s ease-in 0s;
+    -o-transition: opacity .6s ease-in 0s, -o-transform .6s ease-in 0s;
+    transition: opacity .6s ease-in 0s, transform .6s ease-in 0s
+}
+
+#stage-3.stage-state-out .stage-3-icon-fragment-cycle {
+    -webkit-animation: none 0s linear 0s infinite normal none;
+    -moz-animation: none 0s linear 0s infinite normal none;
+    -ms-animation: none 0s linear 0s infinite normal none;
+    -o-animation: none 0s linear 0s infinite normal none;
+    animation: none 0s linear 0s infinite normal none
+}
+
+
+.stage-3-icon-fragment-cycle {
+    background-image: url(bg1.png)
+}

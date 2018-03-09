@@ -1,0 +1,98 @@
+﻿@charset "utf-8";
+/* 
+2013年1月31日19:07:02
+作者：智能社 www.zhinengshe.com
+YY公开课案例
+*/
+*{margin:0; padding:0;}
+li{list-style:none;}
+em,i{font-style:normal;}
+img{border:none;}
+a{text-decoration:none;}
+
+body{background:url(../images/bodybg.jpg) left top repeat;}
+.warp{
+	width:320px;
+	position:relative;
+	margin:30px auto;
+}
+
+.navBox{
+	height:60px;
+	background:#FFF; 
+	-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.1);
+	   -moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.1);
+			box-shadow:0 1px 1px rgba(0, 0, 0, 0.1);
+	font:20px/60px "\5FAE\8F6F\96C5\9ED1";
+	cursor:pointer;
+}
+.navBox span{
+	display:inline-block;
+	height:60px;
+	padding-left:30px;
+}
+.navBox span img{float:left;}
+.triangle{
+	height:40px; width:40px;
+	border-left:#CCC solid 1px;
+	position:absolute;
+	right:10px; top:10px;
+}
+.triangle i{
+	position:absolute; left:50%; top:50%;
+	border-style:solid dashed dashed dashed;
+	border-color:#999 #FFF #FFF #FFF;
+	border-width:6px;
+	margin:-3px 0 0 -3px;
+	*height:0; *overflow:hidden;
+}
+/*active*/
+.nav_active{color:#06F;}
+.nav_active .triangle i{
+	position:absolute; left:50%; top:50%;
+	border-style:dashed dashed solid dashed;
+	border-color:#FFF #FFF #09F #FFF;
+	border-width:6px;
+	_border-width:7px;
+	margin:-9px 0 0 -3px;
+	*height:0; *overflow:hidden;
+}
+/*list*/
+.navList{
+	position:absolute;
+	left:0; top:65px;
+	width:100%;
+}
+.navList li{
+	height:60px;
+	margin-bottom:5px;
+	position:relative;
+	filter:alpha(opacity:0);
+	opacity:0;
+	-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.1);
+	   -moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.1);
+			box-shadow:0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.navList li a{
+	font:20px/60px "\5FAE\8F6F\96C5\9ED1";
+	height:60px;
+	background:#FFF;
+	padding-left:30px;
+	display:block;
+	color:#333;
+	-webkit-transition:all ease .3s;
+	   -moz-transition:all ease .3s;
+	    -ms-transition:all ease .3s;
+	     -o-transition:all ease .3s;
+	        transition:all ease .3s;
+}
+.navList li a img{float:left;}
+.navList li a:hover{
+	background:#09F;
+	color:#FFF;
+	-webkit-transition:all ease .3s;
+	   -moz-transition:all ease .3s;
+	    -ms-transition:all ease .3s;
+	     -o-transition:all ease .3s;
+	        transition:all ease .3s;
+}

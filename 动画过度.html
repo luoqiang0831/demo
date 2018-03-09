@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementsByTagName("div");
+
+	
+			oDiv[0].timer;
+		oDiv[0].onclick=function(){
+			
+			StartMove(this,"width",200);
+			
+			}
+		oDiv[1].onclick=function(){
+			
+			StartMove(this,"height",100);
+			
+			}
+		oDiv[2].onclick=function(){
+			
+			StartMove(this,"font-size",100);
+			
+			}
+		oDiv[3].onmousemove=function(){
+			
+			StartMove(oDiv[3],"opacity",100);
+			
+			}
+		oDiv[3].onmouseout=function(){
+			
+			StartMove(oDiv[3],"opacity",30);
+			
+			}
+	
+	
+	};
+function GetStyle(obj,arrt){
+	if(obj.currentStyle){
+			return obj.currentStyle[arrt];
+		}else{
+			return getComputedStyle(obj,false)[arrt];
+		}
+	}
+function StartMove(obj,arrt,iTarget){
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function(){
+					var iWidth=null;
+					if(arrt=='opacity'){
+						
+						iWidth=parseInt(parseFloat(GetStyle(obj,arrt))*100);
+						//alert(obj.currentStyle[arrt]);
+						}else
+						{
+							iWidth=parseInt(GetStyle(obj,arrt));
+							}
+					
+					var iSpeed=(iTarget-iWidth)/8;
+					iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+					if(iWidth==iTarget){
+							clearInterval(obj.timer);
+						}else{
+							if(arrt=='opacity')
+								{
+								obj.style.filter="alpha(opacity:"+ (iWidth+iSpeed) +")";
+								obj.style.opacity=(iWidth+iSpeed)/100;
+								}else{
+								obj.style[arrt]=iWidth+iSpeed+'px';
+									}
+							}
+								   },30); 
+	
+	}
+
+//扩充 防止IFrame 判断顶层window是不是本窗口
+if(window!=window.top){
+	window.top.location.href="动画过度.html";
+	}
+
+</script>
+
+<style>
+div{ background-color:#9F9; width:100px; height:50px; font-size:12px}
+.sd{
+	filter: Alpha(Opacity=0.3);
+}
+</style>
+<body>
+
+<div></div><br />
+<div></div><br />
+<div>adfa</div><br />
+<div class="sd"></div>
+</body>
+</html>

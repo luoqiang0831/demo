@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document</title>
+</head>
+<style>
+*{margin: 0;padding:0;}
+ul,li{list-style-type: none;}
+#wrap{ width: 500px; margin: 100px auto;border:1px solid #18a1e8;border-radius: 2px;}
+#wrap li{padding:10px;}
+#wrap li:nth-child(even){background-color:rgba(210,230,239,0.5);}
+#wrap li:hover,#wrap li.selected{background-color:rgb(210,230,239);}
+
+</style>
+<script>
+(function(window,undefined){
+  var hasTouch=("createTouch" in document) || ('ontouchstart' in window),
+      documentWidth=document.documentElement.clientWidth;
+      documentHeight=document.documentElement.clientHeight;
+      parseArgs=function(arg,dft){
+        for(var key in dft){
+          if(typeof arg[key]=='undefined'){
+            arg[key]=dft[key];
+          }
+        }
+        return arg;
+      },
+      toCase=function(str){
+        return (str+'').replace(/^-ms-/, 'ms-').replace(/-([a-z]|[0-9])/ig, function(all, letter){
+          return (letter+'').toUpperCase();
+        });
+      },
+      children=function(elem){
+        var children=elem.children||elem.childNodes,
+          _ret=[],i=0;
+        for(;i<children.length;i++){
+          if(children[i].nodeType===1){
+            _ret.push(children[i]);
+          }
+        }
+        return _ret;
+      },
+      each=function(arr,func){
+        var i=0,j=arr.length;
+        for(;i<j;i++){
+          if(func.call(arr[i],i,arr[i])===false){
+            break;
+          }
+        }
+      },
+      MouseSelect=function(id,cfg){
+        if(!(this instanceof MouseSelect)){
+          return new MouseSelect(id,cfg);
+        }
+        if(typeof id!='string' && !id.nodeType){
+          cfg=id;
+          id=cfg.id;
+        }
+        if(!id.nodeType){
+          id=document.getElementById(id);
+        }
+        this.cfg=parseArgs(cfg||{},this._default);
+        this.element=id;
+        if(this.element){
+          this.container=this.element.parentNode||document.body;
+          this.setup();
+        }
+    }
+
+
+  MouseSelect.fn=MouseSelect.prototype={
+    version:'1.3.1',
+    //默认配置
+    _default: {
+      'id':'wrap', //选择容器的id
+      'before':new Function,
+      'after':new Function
+    },
+    //设置OR获取节点样式
+    css:function(elem,css){
+      if(typeof css=='string'){
+        var style=document.defaultView && document.defaultView.getComputedStyle && getComputedStyle(elem, null) || elem.currentStyle || elem.style || {};
+        return style[toCase(css)];
+      }else{
+        var prop,
+          propFix;
+        for(prop in css){
+          if(prop=='float'){
+            propFix=("cssFloat" in testStyle) ? 'cssFloat' : 'styleFloat';
+          }else{
+            propFix=toCase(prop);
+          }
+          elem.style[propFix]=css[prop];
+        }
+      }
+    },
+    //绑定事件
+    addListener:function(e, n, o, u){
+      if(e.addEventListener){
+        e.addEventListener(n, o, u);
+        return true;
+      } else if(e.attachEvent){
+        e.attachEvent('on' + n, o);
+        return true;
+      }
+      return false;
+    },
+    removeListener:function(e, n, o, u){
+      if(e.addEventListener){
+        e.removeEventListener(n, o, u);
+        return true;
+      } else if(e.attachEvent){
+        e.detachEvent('on' + n, o);
+        return true;
+      }
+      return false;
+    },
+    eventHook:function(origEvt){
+      
+      var evt={},
+        props="changedTouches touches scale target view which clientX clientY fromElement offsetX offsetY pageX pageY toElement".split(" ");
+      origEvt=origEvt||window.event;
+      each(props,function(){
+        evt[this]=origEvt[this];
+      });
+      evt.target=origEvt.target||origEvt.srcElement||document;
+      if(evt.target.nodeType===3){
+        evt.target=evt.target.parentNode;
+      }
+      evt.preventDefault=function(){
+        origEvt.preventDefault && origEvt.preventDefault();
+        evt.returnValue=origEvt.returnValue=false;
+      }
+      evt.stopPropagation=function(){
+        origEvt.stopPropagation && origEvt.stopPropagation();
+        evt.cancelBubble=origEvt.cancelBubble=true;
+      }
+      if(hasTouch&&evt.touches.length){
+        evt.pageX=evt.touches.item(0).pageX;
+        evt.pageY=evt.touches.item(0).pageY;
+      }else if(typeof origEvt.pageX=='undefined'){
+        var doc=document.documentElement,
+            body=document.body;
+            evt.pageX=origEvt.clientX+(doc&&doc.scrollLeft || body&&body.scrollLeft || 0)-(doc&&doc.clientLeft || body&&body.clientLeft || 0);
+            evt.pageY=origEvt.clientY+(doc&&doc.scrollTop  || body&&body.scrollTop  || 0)-(doc&&doc.clientTop  || body&&body.clientTop  || 0);
+      }
+      evt.origEvent=origEvt;
+      return evt;
+    },
+    //修正函数作用环境
+    bind:function(func, obj){
+      return function(){
+        return func.apply(obj, arguments);
+      }
+    },
+    setup:function(){
+      var Touch=hasTouch,
+          startEvent=Touch ? "touchstart" : "mousedown",
+          moveEvent=Touch ? "touchmove" : "mousemove",
+          endEvent=Touch ? "touchend" : "mouseup";
+
+      // var li=this.element.getElementsByTagName('li'),i=0;
+      // for(;i<li.length;i++){
+      //   this.addListener(li[i],"touchmove",this.bind(this._test,this),false)
+      // }
+      
+      this.addListener(this.element,startEvent,this.bind(this._start,this),false)
+      this.addListener(this.element,moveEvent,this.bind(this._move,this),false)
+      this.addListener(this.element,endEvent,this.bind(this._end,this),false)
+    },
+    creatMask:function(){
+      var odiv=document.createElement('div');
+          this.css(odiv,{position:'absolute',left:this.startPos[0]+'px',top:this.startPos[1]+'px',zIndex:999,border:'1px solid #97bcd6',background:'rgba(24,161,232,0.3)',borderRadius:3+'px'})
+          this.element.appendChild(odiv);
+      return odiv;
+
+    },
+    _start:function(ev){
+      if(this.MouseDragLayer)return
+      ev=this.eventHook(ev)
+      var t=ev.target;
+      this.cfg.before.call(this,t);
+      if(t.className.indexOf('selected')<0){
+          t.className='selected';
+      }else{
+          t.className=t.className.replace('selected','')
+      }
+      
+      this.startPos=[ev.pageX,ev.pageY]
+      this.MouseDragLayer=this.creatMask()
+
+      ev.preventDefault()
+    },
+    _move:function(ev){
+      if(!this.startPos || !this.MouseDragLayer)return;
+      ev=this.eventHook(ev)
+      this.movePos=[ev.pageX,ev.pageY]
+      ev.target.className='selected';
+      var offsetWidth=this.movePos[0]-this.startPos[0],
+          offsetHeight=this.movePos[1]-this.startPos[1];
+          if(offsetWidth<0){
+            this.css(this.MouseDragLayer,{right:documentWidth-this.startPos[0]+'px',left:'auto'})
+          }else{
+            this.css(this.MouseDragLayer,{left:this.startPos[0]+'px',right:'auto'})
+          }
+          if(offsetHeight<0){
+            this.css(this.MouseDragLayer,{bottom:documentHeight-this.startPos[1]+'px',top:'auto'})
+          }else{
+            this.css(this.MouseDragLayer,{top:this.startPos[1]+'px',bottom:'auto'})
+          }
+          this.css(this.MouseDragLayer,{width:Math.abs(offsetWidth)+'px',height:Math.abs(offsetHeight)+'px'})
+   
+      ev.preventDefault()
+    },
+    _end:function(ev){
+      var t=ev.target;
+      this.cfg.after.call(this,t);
+      this.MouseDragLayer.remove()
+      delete this.MouseDragLayer;
+    }
+
+  }
+  window.MouseSelect=MouseSelect;
+})(window)
+
+
+</script>
+<body>
+  <div id="wrap">
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+    </ul>
+  </div>
+
+<script>
+ var t= new MouseSelect('wrap',{after:function(){}})
+</script>
+</body>
+</html>

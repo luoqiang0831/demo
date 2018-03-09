@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function(){
+	 var oDiv=document.getElementById("ImgShow");
+	
+	 for(var i=1; i<77;i++){
+		 
+		 (function (oNewImg){
+			var oImg=new Image();
+			
+			oImg.onload=function ()
+			{
+				oNewImg.src=this.src;
+			};
+			oImg.src='img/miaov ('+i+').jpg';
+			
+			oNewImg.style.display='none';
+			
+			oDiv.appendChild(oNewImg);
+		})(document.createElement('img'));
+	}
+	 var x=0;
+	 var iSpeed=0;
+	 var timer=null;
+	 var oImgItem=oDiv.getElementsByTagName("img");
+	 var oImg=oImgItem[0];
+	 var lastX=0;
+	 document.onmousedown=function (ev){
+		 clearInterval(timer);
+		 var oEvent=ev||event;
+			//获取到鼠标的位置	 
+		 var disX=oEvent.clientX-x;
+		 document.onmousemove=function(ev){
+			  var oEvent=ev||event;
+			  x=oEvent.clientX-disX;
+			  xz();	
+			 iSpeed=x-lastX;
+			 lastX=x;
+			 return false;
+			 };
+		document.onmouseup=function(ev){
+			 document.onmousemove=null;
+			 document.onmouseup=null;//这里不能把点击事件给清空 不然就没效果了
+			 timer=setInterval(function(){
+						x+=iSpeed;				
+						xz();				
+					},30);
+				 };
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															function xz(){		
+				document.title=iSpeed;		
+				if(iSpeed>0)
+				{
+					iSpeed--;
+				}
+				else
+				{
+					iSpeed++;
+				}
+				
+				if(iSpeed==0)
+				{
+					clearInterval(timer);
+				}
+				
+				var l=parseInt(-x/10);
+				
+				if(l>0)
+				{
+					l=l%77;
+				}
+				else
+				{
+					l=l+-Math.floor(l/77)*77;
+				}
+				
+				document.title=iSpeed;
+				
+				if(oImg!=oImgItem[l])
+				{
+					oImg.style.display="none";
+				    oImgItem[l].style.display="block";
+					oImg=oImgItem[l];
+				}
+			};
+		 return false;
+		 };
+	};
+</script>
+<style>
+#ImgShow{ width:640px; height:378px; margin:100px auto;}
+#ImgShow img{ position:absolute; border:none;}
+</style>
+</head>
+
+<body>
+
+<div id="ImgShow">
+<img  src="img/miaov (0).jpg" />
+</div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+html,body{height: 100%;}
+#Game_Defalut,#Game_Gray{background: url("../game/images/Game_bg.png"); max-width: 640px; width: 100%; min-height: 100%;}
+#Game_Defalut{height: 100%;min-height: 420px;}
+.Game_Logo{ padding:0 10px; padding-top: 10px;}
+.Game_Logo img{padding-bottom: 10px;}
+.Game_Logo .GameRule{ width: 100px; background: #461520;height: 35px;color: #fff;text-align: center;float: right;border-radius:5px; margin-top: 10px;margin-right: 1px;cursor: pointer;line-height: 28px;}
+.Game_Container{ padding:5px 10px;}
+.Game_Context{ position: relative; width: 100%;max-width: 640px;overflow: hidden;}
+#Game_Defalut dfn{ display: inline-block;width: 0;height: 100%;vertical-align: middle;}
+.Game_Context a,.Game_Context a img{display: inline-block;width: 90%;text-align: center; vertical-align: middle;}
+.Game_Music{ width: 30px; height: 30px; position: absolute;right: 10px; top: 10px; background: url("../game/images/music.png") no-repeat;background-size:100% 100%;}
+.Game_Colse{background: url("../game/images/music.png") no-repeat;background-size:100% 100%;}
+.Game_tops{padding: 10px; position: relative; height: 40px;}
+.Game_top{padding:15px 10px;text-align: center;}
+.Game_top span{display: block;background:url("../game/images/Banner_bg.png") no-repeat;background-size: 100% 100%; height: 35px; line-height: 35px; margin-top: 10px; color: #fff;}
+.Game_Icon{ width: 256px; margin:0 auto; padding-top: 80px;}
+.Game_Icon div{ width: 100%; height:80px;text-align: center;margin-top: -30px;}
+.Game_Icon span{display:inline-block; }
+.Game_Icon div span{ background-size:100% 100%;width: 25%; margin-top: -22%;height:85px;}
+.Game_Icon div:nth-of-type(even) span{ background: url("../game/images/default_green.png");background-size:100% 100%;}
+.Game_Icon div:nth-of-type(odd) span{ background: url("../game/images/default_red.png");background-size:100% 100%;}
+/*.Game_Icon div:nth-of-type(4) span{ background: url("../game/images/default_green.png");background-size:100% 100%; margin-top: -30%;}*/
+#Game_Go{ margin-top: -138px;height: 158px;}
+#Game_Go a{background: url("../game/images/default_click.png");display: block;background-size: 100% 100%;width: 80px;height: 20px;margin: 0 auto;padding-top: 55%;color: #3f000b;font-size: 15px;
+-webkit-animation: move 1s ease 0s 1;-webkit-animation-fill-mode: forwards;-webkit-transform: translate(450%,0%);
+ }
+#Game_Go a>span{ color: #746161; font-size: 15px; padding-top: 20px;}
+.Game_d{margin: 10px auto;width: 95%;padding-top: 10px;}
+
+.SelectColor{background: url("../game/images/Sketchpad.png") no-repeat;background-size:100% 100%; width: 100%;height: 47px; position: relative;padding-left: 5px;}
+
+.SelectColor dd{height: 50px; width: 13.5%; float: left;margin-top: -7px;}
+.SelectColor{-webkit-box-sizing:border-box;min-width: 300px;max-width: 380px;margin: 0 auto;}
+.SelectColor .selected{margin-top: -10px;}
+.FillColor{position: absolute;right: 5px;top: 6px;height: 37px;width: 55px !important;background: url("../game/images/fill_Color.png") no-repeat; background-size: 100% 100%;visibility: hidden;}
+.yellow{background: url("../game/images/yellow.png");background-size: 100% 100%;}
+.orange{background: url("../game/images/orange.png");background-size: 100% 100%;}
+.green{background: url("../game/images/green.png");background-size: 100% 100%;}
+.crimson{background: url("../game/images/crimson.png");background-size: 100% 100%;}
+.blue{background: url("../game/images/blue.png");background-size: 100% 100%;}
+.silver{background: url("../game/images/silver.png");background-size: 100% 100%;}
+.Game_Desc{margin-top: 10px; padding-bottom: 10px;}
+.Game_Mask{display: none;}
+.Game_Mask,.Makss{height: 100%; width: 100%;position: absolute;top:0;left: 0;border: 0; overflow: hidden; }
+.Makss{opacity: 0.5;background: #000;z-index: 8;}
+.Game_Alert{background: #fff;position: absolute; top:50%;left:50%;-webkit-transform:translate(-50%,-50%); z-index: 9; width: 80%;padding: 10px 20px 20px;}
+.Game_Alert .Game_AQ{display: block; background: url("../game/images/Mask_Q.png") no-repeat; width:80px; background-size: 100% 100%; height: 40px; margin:0 auto;}
+.Game_Mask>div,.Templates>div{border: 1px solid #bebebe; border-radius:5px;  color: #3c000b; }
+.Templates>div{padding: 10px 20px 20px;box-shadow: 2px 2px 2px #bebebe inset;background: #fff;}
+.Game_Mask span{ font-weight: bold;display: block; text-align: center;padding: 5px; font-size: 18px;}
+.Game_Mask i{font-style: normal; line-height: 18px; display: inline-block; height: 20px;width: 20px; border-radius:50%;background: #3c000b;color: #fff;text-align: center;margin-right: 10px;}
+.Game_Mask dd{padding: 5px 0; line-height: 25px;}
+.Game_Desc a{float: left; width: 49%; background: url("../game/images/btnLeft.png");background-size:100% 100%; height: 60px;line-height: 60px; color: #fff; font-size:23px;}
+.Game_Desc a:last-child{background: url("../game/images/btnRight.png");background-size:100% 100%;margin-left: 2%;}
+.Muen_Ul{ width: 100%; }
+.Muen_Ul .selected{background:url("../game/images/Muen_select.png");background-size: 100% 100%;color: #3f000b;}
+.Muen_Ul li{ width: 20%; float: left; font-size: 12px; text-align: center; height: 35px; color: #fff; line-height: 35px; background: url("../game/images/muen_bg.png");background-size: 100% 100%;}
+.Muen_Ul li:nth-of-type(3){line-height:13px; padding-top:5px; height: 30px;}
+.MuenSub{margin-bottom: 10px;display: none;}
+.displayB{display: block;}
+.MuenSub dd{padding:10px 0; border-bottom: 1px solid #bebebe;}
+.MuenSub dd:last-child{border-bottom: 0px;}
+.MuenSub dd>div:first-child img{min-height: 95px;}
+.MuenSub button{ margin-top: 5px;}
+.HS_Count img{ width: 20%;padding-top: 10px;}
+.HS_Count span{ width: 77%; float: right; padding-top: 10px;}
+.HS_Count em{font-style: normal;padding-right: 7px;display: inline-block;font-size: 12px;}
+.entries{ width: 48%; text-align: center;height: 100%;padding-top: 10px;padding-left: 2%; font-size: 14px;}
+.entries span{display:block;}
+.Game_End .Game_Container img{ width: 80%;margin:0 auto; display: block; }
+.Game_End .Game_Desc>div{padding: 10px;}
+.Game_Ends{ color:#3c000b; padding:0 20px 15px ; line-height: 25px;}
+.Quantity .color{background: url("../game/images/select_Color.png") no-repeat;background-size:  100%;display:inline-block; height: 30px;width: 30px;margin:0 5px; }
+.Quantity .Golden{background-position: 0 0;}
+.Quantity .Red{background-position: 0 -32px;}
+.Quantity .Green{background-position: 0 -63px;}
+.Quantity .Purple{background-position: 0 -95px;}
+.Quantity .Blue{background-position: 0 -126px;}
+.Quantity .Silver{background-position: 0 -158px;}
+.Game_Invite{margin: 10px auto; width: 80%;padding-bottom: 0;}
+.Game_Invite div.Avatar,.Game_Invite div.ShareTxt{padding: 0; float: left;}
+.Avatar{ height: 50px; width: 50px;margin-right: 5px;}
+.ShareTxt input{min-height:50px;width: 100%; -webkit-box-sizing:border-box;line-height: 25px;border-radius: 3px;}
+.ShareTxt{ width: 70%}
+.shareTip{height:100%;width:100%;opacity:0.8;background:#000; position:absolute; left:0;right:0; z-index: 99;;-webkit-transform:translate(0%,-100%);}
+.shareTip img{width: 80%; margin: 0 auto; display: block; }
+/***/
+.Game{background: #000;width: 280px; height: 428px; margin: 0 auto; /*background: url("images/Game_Context.jpg") no-repeat;background-size:100% 100%;padding-top: 5px;*/
+position: relative;}
+.Game div:first-child{/*padding-top: 4px;*/ }
+.Game div:first-child span{margin-top: 0px;}
+.Game>div{padding: 0;margin-bottom: 0; height: 20px;}
+
+.Game span{ float: left;background: url("../game/images/1.png") no-repeat;background-size:100% 100%;width: 35px; height: 28px;}
+.Game div span:nth-child(even){ -webkit-transform: rotate(-180deg);}
+
+.Game div:nth-child(odd) span:nth-child(odd){-webkit-transform: rotate(-180deg);}
+.Game div:nth-child(odd) span:nth-child(even){-webkit-transform: rotate(0deg);}
+
+
+.Game span.selected{width: 35px; height: 28px;margin-right: 0 !important;margin-left: 0 !important;}
+
+.Game div span.green,.Game div:nth-child(even) span:nth-child(2n+1).green{background:url("../game/images/crimson1.png") no-repeat;background-size:100% 100%;background-color: transparent !important;}
+
+.Game>div>span.ritate180{ -webkit-transform: rotate(-180deg);}
+
+.Game>div span{margin-top: -8px;}
+/**¶¯»­**/
+@-webkit-keyframes move {
+  0%{-webkit-transform:translate(450%,0%);}
+  100%{
+    -webkit-transform:translate(0%,0%);
+  }
+}
+
+
+@media screen and (min-width: 370px) { 
+    .SelectColor{padding-top:0px;height: 60px;}
+    .SelectColor dd{ height: 55px; }
+    .FillColor{top:10px;height: 40px;width: 65px !important;}
+}
+
+@media screen and (min-width: 400px) { 
+	.Muen_Ul li{ font-size: 15px;}
+}

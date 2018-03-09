@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+<meta charset=utf-8>
+<title>自定义播放器</title>
+</head>
+<script>
+
+window.onload=function(){
+		var play=document.getElementById("play");
+		var plays=document.getElementById("plays");//播放
+		var pause=document.getElementById("pause");//暂停
+		var go10=document.getElementById("go10");//快进
+		var back10=document.getElementById("back10");//快退
+		var rate1=document.getElementById("rate1");//播放速度
+		var rate0=document.getElementById("rate0");//播放速度减少
+		var volume1=document.getElementById("volume1");//声音+
+		var volume0=document.getElementById("volume0");//声音-
+		var muted1=document.getElementById("muted1");//静音
+		var muted0=document.getElementById("muted0");//解除静音
+		var full=document.getElementById("full");//全屏
+		
+
+		/*plays.onclick=function(){
+			play.play();
+		};*/
+		myAddEvent(plays,"click",function(){play.play()});
+		myAddEvent(pause,"click",function(){play.pause(); });
+		myAddEvent(go10,"click",function(){play.currentTime+=10;});
+		myAddEvent(back10,"click",function(){play.currentTime-=10;});
+		myAddEvent(rate1,"click",function(){play.playbackRate+=2; });
+		myAddEvent(rate0,"click",function(){play.playbackRate-=2;});
+		myAddEvent(volume1,"click",function(){play.volume+=0.1;});
+		myAddEvent(volume0,"click",function(){play.volume-=0.1; });
+		myAddEvent(muted1,"click",function(){play.muted=true; });
+		myAddEvent(muted0,"click",function(){play.muted=false; });
+		myAddEvent(full,"click",function(){
+			play.webkitEnterFullscreen(); // webkit类型的浏览器
+		    play.mozRequestFullScreen();  // FireFox浏览器
+		});
+		
+//一个元素绑定多个事件
+function myAddEvent(obj,sEv,fn){
+	if(obj.attachEvent){
+		obj.attachEvent('on'+sEv,function(){
+			//阻止默认事件
+			if(false==fn.call(obj)){
+				//阻止冒泡
+				event.cancelBubble=true;
+				return false;
+				}
+			});
+	}else
+	{
+		obj.addEventListener(sEv,function(ev){							  
+			//阻止默认事件
+			if(false==fn.call(obj)){
+				ev.cancelBubble=true;
+				ev.preventDefault();
+			}
+		},false);
+	
+		
+	}
+};
+};
+</script>
+<body>
+<video id="play" width='600px' height="600px" controls>
+<source src="test1.mp4" type="video/mp4" ></source>
+对不起，您的浏览器不支持HMTL5
+</video>
+<button id="plays">播放</button>
+<button id="pause">暂停</button>
+<button id="go10">快进10秒</button>
+<button id="back10">快退10秒</button>
+<button id="rate1">播放速度+</button>
+<button id="rate0">播放速度-</button>
+<button id="volume1">声音+</button>
+<button id="volume0">声音-</button>
+<button id="muted1">静音</button>
+<button id="muted0">解除静音</button>
+<button id="full">全屏</button>
+</body>
+</html>
+
+
+
+
+
+

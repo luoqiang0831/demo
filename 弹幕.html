@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<title>Document</title>
+</head>
+<style>
+	*{margin:0;padding:0;outline: 0;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+	html,body{height: 100%;min-height: 100%;}
+	body{background:-webkit-gradient(linear, 0 0, 0 100%, from(#7c6bfe), to(#6bfef5));}
+	#Barrage{position: relative;margin:100px auto 0;}
+	.Message{text-align: center;}
+	.Message>input{ height: 30px;padding: 3px 5px;border:0;}
+	.Message>input[type='button']{height:36px;}
+</style>
+<body>
+	<canvas id="Barrage" width="640px" height="300px">
+	</canvas>
+	<div class="Message">
+		<input type="text" id="msgText" /><input type="button" id="sendMsg" value="发送消息" />
+	</div>
+	<!-- <script src="http://172.16.5.20:9090/target/target-script-min.js#anonymous"></script>      --> 
+
+<script>
+var data=['测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看','测试:我看看']
+
+;(function(window,undefined){
+	var fontColor=['ff4884','ff48cd','e748ff','cd48ff','9548ff','5148ff','4866ff','48c1ff','48ffec','48ff95','55ff48','dfff48','ffda48','ff9648','ff5548'],
+		random=function(min,max){
+		    return Math.floor(min+Math.random()*(max-min));
+		},
+		parseArgs=function(arg,dft){
+			for(var key in dft){
+				if(typeof arg[key]=='undefined'){
+					arg[key]=dft[key];
+				}
+			}
+			return arg;
+		},
+		Barrage=function(id,cfg){
+			if(typeof id!='string' && !id.nodeType){
+				cfg=id;
+				id=cfg.id;
+			}
+			if(!id.nodeType){
+				id=document.getElementById(id);
+			}
+		 this.cfg=parseArgs(cfg||{},this._default);
+		 this.element=id;
+		 this.init()
+		};
+	Barrage.fn=Barrage.prototype={
+		version:'1.0.1',
+		_default:{
+			'id':'Barrage',
+			'width':document.documentElement.clientWidth,//默认容器宽度
+			'height':300,//默认容器高度
+			'fontData':null,//数据
+			'fontSize':16,//默认字体大小
+			'fontMax':50,//默认最大显示条数
+			'before':new Function,//发布文字之前
+			'after':new Function//发布文字之后
+		},
+		init:function(){
+			var canvas=this.element;
+			canvas.width=this.cfg.width;
+            canvas.height=this.cfg.height;
+			this.ctx=canvas.getContext('2d')
+			 	
+			this.ctxFontList=[]
+			for(var i=0;i<this.cfg.fontData.length;i++){
+				this.ctxFontList.push({'fontText':this.cfg.fontData[i],'color':fontColor[random(0,fontColor.length-1)],'x':random(this.cfg.width,this.cfg.width+50),'y':random(20,this.cfg.height-20),'speed':random(3,8)})
+			}
+			this.redrawList()
+			this.moveFontsList()
+		},
+		externalBind:function(obj,ev,fun){
+			this.addListener(obj,ev,this.bind(fun,this),false)
+		},
+		bind:function(func, obj){
+			//修正函数作用环境
+			return function(){
+				return func.apply(obj, arguments);
+			}
+		},
+		addListener:function(e, n, o, u){
+			//绑定事件
+			if(e.addEventListener){
+				e.addEventListener(n, o, u);
+				return true;
+			} else if(e.attachEvent){
+				e.attachEvent('on' + n, o);
+				return true;
+			}
+			return false;
+		},
+		redrawList:function(){
+			var _this=this;
+			_this.ctx.clearRect(0,0,this.cfg.width,this.cfg.height)
+			_this.ctxFontList.forEach(function(item){
+				_this.drawFont(item.fontText,item.color,item.x,item.y)
+			})
+		},
+		moveFontsList:function(){
+			var _this=this;
+			_this.time=setInterval(function(){
+				_this.ctxFontList.forEach(function(item){
+					item.x-=item.speed
+					var fontWidth=-(item.fontText.length*_this.cfg.fontSize)
+					if(fontWidth>item.x)
+						item.x=_this.cfg.width
+				})
+				_this.redrawList()
+			},20)
+		},
+		drawFont:function(str,color,x,y){
+			this.ctx.font= this.cfg.fontSize+'px 黑体';
+			this.ctx.fillStyle = '#'+color;
+			this.ctx.fillText(str, x, y);
+		},
+		delFirstFont:function(){
+			this.ctxFontList.shift()
+		},
+		sendMessage:function(oinput){
+			var oText=document.getElementById('msgText');
+			if(oText.value=='')return
+			this.addMessage(oText.value)
+		},
+		addMessage:function(val){
+			if(val=='')return
+			this.cfg.before.call(this,val,this.ctxFontList)
+			if(this.ctxFontList.length>this.cfg.fontMax-1)
+				this.delFirstFont()
+			this.ctxFontList.push({'fontText':val,'color':fontColor[random(0,fontColor.length-1)],'x':random(this.cfg.width,this.cfg.width+50),'y':random(20,this.cfg.height-20),'speed':random(3,8)})
+			this.cfg.after.call(this,val,this.ctxFontList)
+		}
+
+	}
+	window.Barrage=Barrage;
+})(window)
+var t=new Barrage('Barrage',{fontData:data});
+	t.externalBind(document.getElementById('sendMsg'),'click',t.sendMessage)
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+<style>
+.main{ width:490px; margin:0 auto;}
+#q{width:490px; height:32px; border:1px solid #ccc; line-height:32px;}
+#Search_Result{ width:490px; border:1px solid #ccc; display:none;}
+#Search_Result ul{ list-style:none; margin:0; padding:0;}
+#Search_Result ul li a{ display:block; height:29px; width:490px; text-decoration:none; line-height:29px; color:#09F;}
+#Search_Result ul li a:hover{ background-color:#0CF; color:#666}
+</style>
+<script>
+//函数原形 就和样式选择器一样  写在STYLE里面的可以统一写多个元素 比如DIV{} 而这里的ReturnString就代表构造函数
+//而下面的prototype原形就是相当于继承了ReturnString的属性 
+function ReturnString(name,sex){
+	
+	this.name=name;
+	this.sex=sex;
+	};
+ReturnString.prototype.GetName=function(){
+		var test=10;
+		alert("我的名字叫"+this.name);
+	};
+ReturnString.prototype.GetSex=function(){
+		alert("我是"+this.sex+"的");
+	};
+ReturnString.prototype.test=10;
+window.onload=function(){
+	s=new ReturnString("张三","男");
+	s.GetName();
+	s.GetSex();
+	s.test=20;
+	alert(s.test);//弹出的时候为20，但是删除了对象的Test 弹出的还是默认值,所以对象的赋值优先级要高
+	delete s.test;//删除s.test的20
+	alert(s.test);
+ 
+	};
+</script>
+<body>
+</body>
+</html>

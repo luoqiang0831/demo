@@ -1,0 +1,75 @@
+<html>
+	<head>
+		<title>开花导航DEMO</title>
+		<meta charset="utf-8">
+	</head>
+	<script src="银联办公/js/jQuery.1.10.1.min.js"></script>
+	<style type="text/css">
+	.nav{ height: 48px; width: 203px; overflow: hidden; margin:100px auto; position:relative;}
+	.swiper-wrapper{ list-style: none; margin:0;padding: 0; left: 0; top: 0; position: absolute;}
+	.swiper-wrapper li{ float: left; padding: 10px; width: 163px;text-align:center; position: relative;-webkit-transform: translate3d(0, 0, 0); height: 28px;}
+	.swiper-wrapper li>a{text-decoration: none; font-size: 20px; color: #363b3f; font-weight: bold; display: block; line-height: 28px;}
+	.swiper-wrapper li>a:hover{color:#7cc576;}
+	.swiper-wrapper li::before {content: '';border-width: 0 0 0 1px;border-style: solid;position: absolute;left: 7px;height: 100%;top:0;-webkit-transform: rotateZ(15deg);-ms-transform: rotateZ(15deg);transform: rotateZ(15deg);box-sizing: border-box; border-color:#ccc;}
+	</style>
+	<script>
+	$(function(){
+		var oUl=$(".swiper-wrapper");
+		var oLi=oUl.find("li");
+		var timer=null;
+
+		oUl.width(oLi.length*oLi.outerWidth());
+		$(".nav").on("mousemove",function(ev){
+
+			var l=ev.pageX-$(this).offset().left;
+
+			var s =(oUl.width()-$(this).width());
+			var bfb=oUl.width()*(l/$(this).width());
+			var leftW=bfb>s?s:bfb;
+				if(Math.abs(oUl.position().left)>s){
+					oUl.css("left",-s);
+					return;
+				}
+				if(Math.abs(oUl.position().left)<s || l<200){
+					oUl.animate({left:-leftW},5);
+				}
+				
+		});
+		$(".nav").on("mouseleave",function(){
+
+			if(timer!=null){return;}
+			timer=setTimeout(function(){
+				oUl.animate({"left":0},1000);
+			},3000)
+		})
+	});
+	</script>
+	<body>
+		<div class="nav">
+		<ul class="swiper-wrapper">
+			<li  class="active">
+				<a href="#all" title="View posts in Trending Now">Trending Now</a>
+			</li>
+			<li>
+				<a title="Business" href="http://demo.yeahthemes.com/sparkle/category/business/">Business</a>
+			</li>
+			<li>
+				<a title="Entertainment" href="http://demo.yeahthemes.com/sparkle/category/entertainment/">Entertainment</a>
+			</li>
+			<li>
+				<a title="Life/Living" href="http://demo.yeahthemes.com/sparkle/category/life-living/">Life/Living</a>
+			</li>
+			<li>
+				<a title="Misc" href="http://demo.yeahthemes.com/sparkle/category/misc/">Misc</a>
+			</li>
+			<li>
+				<a title="News" href="http://demo.yeahthemes.com/sparkle/category/news/">News</a>
+			</li>
+			<li>
+				<a title="Social Media" href="http://demo.yeahthemes.com/sparkle/category/social-media/">Social Media</a>
+			</li>
+		</ul>
+		</div>
+	</body>
+
+</html>
